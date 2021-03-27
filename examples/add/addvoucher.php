@@ -18,7 +18,7 @@ The above copyright notice and this permission notice shall be included in all c
     <link rel="icon" type="image/png" href="../../assets/img/favicon.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>
-        Cập nhật thể loại tour
+        Thêm voucher
     </title>
     <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
     <!--     Fonts and icons     -->
@@ -66,7 +66,7 @@ The above copyright notice and this permission notice shall be included in all c
                             <p> QUẢN LÝ TOUR</p>
                         </a>
                     </li>
-                    <li class="nav-item active">
+                    <li class="nav-item ">
                         <a class="nav-link" href="../../examples/category.php">
                             <i class="material-icons">library_books</i>
                             <p>QUẢN LÝ LOẠI TOUR</p>
@@ -96,6 +96,24 @@ The above copyright notice and this permission notice shall be included in all c
                             <p>QUẢN LÝ ẢNH</p>
                         </a>
                     </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="../../examples/contact.php">
+                            <i class="fas fa-id-card-alt"></i>
+                            <p>QUẢN LÝ LIÊN HỆ</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="../../examples/postnews.php">
+                            <i class="far fa-newspaper"></i>
+                            <p>QUẢN LÝ BÀI VIẾT</p>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="../../examples/voucher.php">
+                            <i class="fas fa-piggy-bank"></i>
+                            <p>QUẢN LÝ VOUCHER</p>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -104,7 +122,7 @@ The above copyright notice and this permission notice shall be included in all c
             <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
                 <div class="container-fluid">
                     <div class="navbar-wrapper">
-                        <a class="navbar-brand uppercase" href="javascript:;">Cật nhật thể loại tour</a>
+                        <a class="navbar-brand uppercase" href="javascript:;">Thêm voucher</a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -134,7 +152,7 @@ The above copyright notice and this permission notice shall be included in all c
                                     </p>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                                    <a class="dropdown-item" href="../../examples/Profile.php">Profile</a>
+                                    <a class="dropdown-item" href="/examples/Profile.php">Profile</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="#">Log out</a>
                                 </div>
@@ -150,51 +168,86 @@ The above copyright notice and this permission notice shall be included in all c
                         <div class="col-md-10">
                             <div class="card">
                                 <div class="card-header card-header-primary">
-                                    <h4 class="card-title">Cật nhật thể loại tour</h4>
+                                    <h4 class="card-title">Thêm voucher</h4>
                                 </div>
                                 <div class="card-body">
                                     <form>
                                         <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="bmd-label-floating">Mã voucher (disabled)</label>
+                                                    <input type="text" class="form-control" disabled>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label class="bmd-label-floating">Company (disabled)</label>
-                                                    <input type="text" class="form-control" disabled>
+                                                    <label class="bmd-label-floating">Mã đơn hàng</label>
+                                                    <input type="text" class="form-control" id="title" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label class="bmd-label-floating">Địa chỉ</label>
-                                                    <input type="text" class="form-control" id="address" required>
+                                                    <label class="bmd-label-floating">Tác giả</label>
+                                                    <input type="text" class="form-control" id="author" required>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="bmd-label-floating">Khẩu hiệu</label>
-                                                    <input type="text" class="form-control" id="slogan" required>
+                                                <div class="">
+                                                    <label class="bmd-label-floating">Ảnh voucher</label>
+                                                    <input type="file" class="form-control" id="image2" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="bmd-label-floating">Email</label>
-                                                    <input type="email" class="form-control" id="email" required>
+                                                <div class="">
+                                                    <label class="bmd-label-floating">Giảm giá (%)</label>
+                                                    <input type="number" class="form-control" id="sale" required>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="">
-                                                    <label class="bmd-label-floating">Logo</label>
-                                                    <input type="file" class="form-control">
+                                                    <label class="bmd-label-floating">Thông tin</label>
+                                                    <textarea name="" id="contentvt" cols="30" rows="10"
+                                                        class="form-control" required></textarea>
+
                                                 </div>
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-primary pull-left">Cập nhật</button>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="bmd-label-floating">số lượng </label>
+                                                    <input type="number" class="form-control" id="number">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="bmd-label-floating">Điều kiện sử dụng (từ ? người)
+                                                    </label>
+                                                    <input type="number" class="form-control" id="condition" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="">
+                                                    <label class="bmd-label-floating">Thời gian hết hạn</label>
+                                                    <input type="date" class="form-control" id="day_end" required>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary pull-left">Thêm voucher</button>
                                     </form>
                                     <button type="submit" class="btn btn-primary pull-left" id="reseting">Nhập
                                         lại</button>
-                                    <a href="../../examples/category.php"> <button type="submit"
+                                    <a href="../../examples/voucher.php"><button type="submit"
                                             class="btn btn-primary pull-left">Danh sách</button></a>
                                 </div>
                             </div>
@@ -217,14 +270,20 @@ The above copyright notice and this permission notice shall be included in all c
     </div>
     <!--   Core JS Files   -->
     <script>
-    var address = document.querySelector('#address');
-    var slogan = document.querySelector('#slogan');
-    var email = document.querySelector('#email');
+    var title = document.querySelector('#title');
+    var author = document.querySelector('#author');
+    var content = document.querySelector('#content');
+    var contentvt = document.querySelector('#contentvt');
     var reseting = document.querySelector('#reseting');
     reseting.addEventListener('click', () => {
-        address.value = '';
-        slogan.value = "";
-        email.value = "";
+        title.value = '';
+        author.value = "";
+        document.querySelector('#number').value = " ";
+        document.querySelector('#condition').value = " ";
+        document.querySelector('#day_end').value = " ";
+        document.querySelector('#sale').value = " ";
+        content.innerHTML = "";
+        contentvt.innerHTML = "";
     });
     </script>
     <script src="/assets/js/core/jquery.min.js"></script>

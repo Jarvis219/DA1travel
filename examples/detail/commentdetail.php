@@ -87,7 +87,7 @@ The above copyright notice and this permission notice shall be included in all c
                     <li class="nav-item ">
                         <a class="nav-link" href="../../examples/cart.php">
                             <i class="fas fa-shopping-cart"></i>
-                            <p>QUẢN LÝ ĐƠN HÀNG</p>
+                            <p>QUẢN LÝ ĐƠN TOUR</p>
                         </a>
                     </li>
                     <li class="nav-item ">
@@ -199,6 +199,7 @@ The above copyright notice and this permission notice shall be included in all c
                                                                 tiết</a></button>
                                                     </td>
                                                     <td class="inline-block w-20 ml-2"><button
+                                                            onclick="return confirm('you want to delete!')" ;
                                                             class="bg-gradient-to-r from-purple-200 via-pink-500 to-red-500 text-white rounded-lg  transition duration-300 ease-in-out transform hover:scale-105"><a
                                                                 href="../../examples/delete/delete.php"
                                                                 class="inline-block px-3 py-3 "

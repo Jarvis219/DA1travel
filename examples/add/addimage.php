@@ -87,13 +87,31 @@ The above copyright notice and this permission notice shall be included in all c
                     <li class="nav-item ">
                         <a class="nav-link" href="../../examples/cart.php">
                             <i class="fas fa-shopping-cart"></i>
-                            <p>QUẢN LÝ ĐƠN HÀNG</p>
+                            <p>QUẢN LÝ ĐƠN TOUR</p>
                         </a>
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="../../examples/image.php">
                             <i class="fas fa-images"></i>
                             <p>QUẢN LÝ ẢNH</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="../../examples/contact.php">
+                            <i class="fas fa-id-card-alt"></i>
+                            <p>QUẢN LÝ LIÊN HỆ</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="../../examples/postnews.php">
+                            <i class="far fa-newspaper"></i>
+                            <p>QUẢN LÝ BÀI VIẾT</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="../../examples/voucher.php">
+                            <i class="fas fa-piggy-bank"></i>
+                            <p>QUẢN LÝ VOUCHER</p>
                         </a>
                     </li>
                 </ul>

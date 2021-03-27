@@ -87,7 +87,7 @@ The above copyright notice and this permission notice shall be included in all c
                     <li class="nav-item ">
                         <a class="nav-link" href="../../examples/cart.php">
                             <i class="fas fa-shopping-cart"></i>
-                            <p>QUẢN LÝ ĐƠN HÀNG</p>
+                            <p>QUẢN LÝ ĐƠN TOUR</p>
                         </a>
                     </li>
                     <li class="nav-item ">

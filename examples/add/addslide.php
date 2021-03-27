@@ -87,13 +87,31 @@ The above copyright notice and this permission notice shall be included in all c
                     <li class="nav-item ">
                         <a class="nav-link" href="../../examples/cart.php">
                             <i class="fas fa-shopping-cart"></i>
-                            <p>QUẢN LÝ ĐƠN HÀNG</p>
+                            <p>QUẢN LÝ ĐƠN TOUR</p>
                         </a>
                     </li>
                     <li class="nav-item ">
                         <a class="nav-link" href="../../examples/image.php">
                             <i class="fas fa-images"></i>
                             <p>QUẢN LÝ ẢNH</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="../../examples/contact.php">
+                            <i class="fas fa-id-card-alt"></i>
+                            <p>QUẢN LÝ LIÊN HỆ</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="../../examples/postnews.php">
+                            <i class="far fa-newspaper"></i>
+                            <p>QUẢN LÝ BÀI VIẾT</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="../../examples/voucher.php">
+                            <i class="fas fa-piggy-bank"></i>
+                            <p>QUẢN LÝ VOUCHER</p>
                         </a>
                     </li>
                 </ul>
@@ -153,7 +171,7 @@ The above copyright notice and this permission notice shall be included in all c
                                     <h4 class="card-title">Thêm slide</h4>
                                 </div>
                                 <div class="card-body">
-                                    <form>
+                                    <form method="POST" enctype="multipart/form-data">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
@@ -175,7 +193,7 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Link liên kết</label>
-                                                    <input type="text" class="form-control" id="link">
+                                                    <input type="text" class="form-control" id="link" name="link">
                                                 </div>
                                             </div>
                                         </div>
@@ -184,11 +202,12 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-12">
                                                 <div class="">
                                                     <label class="bmd-label-floating">Ảnh</label>
-                                                    <input type="file" class="form-control" required>
+                                                    <input type="file" class="form-control" name="image" required>
                                                 </div>
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-primary pull-left">Thêm slide</button>
+                                        <button type="submit" name="submit" class="btn btn-primary pull-left">Thêm
+                                            slide</button>
                                     </form>
 
                                     <button type="submit" class="btn btn-primary pull-left" id="reseting">Nhập
@@ -196,6 +215,24 @@ The above copyright notice and this permission notice shall be included in all c
                                     <a href="../../examples/Slide.php"> <button type="submit"
                                             class="btn btn-primary pull-left">Danh sách</button></a>
                                 </div>
+                                <?php
+                                include "../../examples/local.php";
+                                if (isset($_POST['submit'])) {
+                                    $name_slide = $_POST['name_slide'];
+                                    $link = $_POST['link'];
+                                    $image = $_FILES['image']['name'];
+                                    $tmp_image = $_FILES['image']['tmp_name'];
+                                    move_uploaded_file($tmp_image, '../../assets/img/' . $image);
+                                    $sql = "insert into slide values(null,'$name_slide','$image','$link',null)";
+                                    $total = $local->exec($sql);
+                                    if ($total == 1) {
+                                        echo '<div class="text-center font-bold text-green-600" >Thêm slide thành công</div>';
+                                    } else {
+                                        echo '<div class="text-center font-bold text-red-600" >Thêm slide thất bại</div>';
+                                    }
+                                }
+
+                                ?>
                             </div>
                         </div>
                     </div>

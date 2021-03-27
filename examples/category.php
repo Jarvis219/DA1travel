@@ -87,13 +87,31 @@ The above copyright notice and this permission notice shall be included in all c
                     <li class="nav-item ">
                         <a class="nav-link" href="./cart.php">
                             <i class="fas fa-shopping-cart"></i>
-                            <p>QUẢN LÝ ĐƠN HÀNG</p>
+                            <p>QUẢN LÝ ĐƠN TOUR</p>
                         </a>
                     </li>
                     <li class="nav-item ">
                         <a class="nav-link" href="./image.php">
                             <i class="fas fa-images"></i>
                             <p>QUẢN LÝ ẢNH</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="./contact.php">
+                            <i class="fas fa-id-card-alt"></i>
+                            <p>QUẢN LÝ LIÊN HỆ</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="./postnews.php">
+                            <i class="far fa-newspaper"></i>
+                            <p>QUẢN LÝ BÀI VIẾT</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="./voucher.php">
+                            <i class="fas fa-piggy-bank"></i>
+                            <p>QUẢN LÝ VOUCHER</p>
                         </a>
                     </li>
                 </ul>
@@ -177,6 +195,7 @@ The above copyright notice and this permission notice shall be included in all c
                                                                 href="../../DA1/examples/repair/repaircategory.php"
                                                                 class="inline-block py-2 px-3">Sửa</a></button></td>
                                                     <td class="w-20"><button
+                                                            onclick="return confirm('you want to delete!')" ;
                                                             class="bg-gradient-to-r from-purple-200 via-pink-500 to-red-500 text-white rounded-lg  transition duration-300 ease-in-out transform hover:scale-105"><a
                                                                 href="../../DA1/examples/delete/delete.php"
                                                                 class="inline-block px-3 py-2 ">Xóa</a></button>

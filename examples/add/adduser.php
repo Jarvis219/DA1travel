@@ -87,13 +87,31 @@ The above copyright notice and this permission notice shall be included in all c
                     <li class="nav-item ">
                         <a class="nav-link" href="../../examples/cart.php">
                             <i class="fas fa-shopping-cart"></i>
-                            <p>QUẢN LÝ ĐƠN HÀNG</p>
+                            <p>QUẢN LÝ ĐƠN TOUR</p>
                         </a>
                     </li>
                     <li class="nav-item ">
                         <a class="nav-link" href="../../examples/image.php">
                             <i class="fas fa-images"></i>
                             <p>QUẢN LÝ ẢNH</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="../../examples/contact.php">
+                            <i class="fas fa-id-card-alt"></i>
+                            <p>QUẢN LÝ LIÊN HỆ</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="../../examples/postnews.php">
+                            <i class="far fa-newspaper"></i>
+                            <p>QUẢN LÝ BÀI VIẾT</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="../../examples/voucher.php">
+                            <i class="fas fa-piggy-bank"></i>
+                            <p>QUẢN LÝ VOUCHER</p>
                         </a>
                     </li>
                 </ul>
@@ -153,28 +171,29 @@ The above copyright notice and this permission notice shall be included in all c
                                     <h4 class="card-title">Thêm user</h4>
                                 </div>
                                 <div class="card-body">
-                                    <form>
+                                    <form method="POST" enctype="multipart/form-data">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">User </label>
-                                                    <input type="text" class="form-control" id="user" required>
+                                                    <input type="text" class="form-control" id="user" name="username"
+                                                        required>
                                                 </div>
                                             </div>
-
-
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">password</label>
-                                                    <input type="password" class="form-control" id="password" required>
+                                                    <input type="password" class="form-control" id="password"
+                                                        name="password" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Xác nhận lại password</label>
-                                                    <input type="password" class="form-control" id="password" required>
+                                                    <input type="password" class="form-control" id="password2"
+                                                        name="password2" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -182,13 +201,15 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Họ tên</label>
-                                                    <input type="text" class="form-control" id="fullname" required>
+                                                    <input type="text" class="form-control" id="fullname"
+                                                        name="fullname" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Số điện thoại</label>
-                                                    <input type="tel" class="form-control" id="phone" required>
+                                                    <input type="tel" class="form-control" id="phone"
+                                                        name="phone_number" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -196,7 +217,8 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Email</label>
-                                                    <input type="email" class="form-control" id="email" required>
+                                                    <input type="email" class="form-control" id="email" name="email"
+                                                        required>
                                                 </div>
 
                                             </div>
@@ -205,7 +227,8 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Địa chỉ</label>
-                                                    <input type="text" class="form-control" id="address" required>
+                                                    <input type="text" class="form-control" id="address" name="address"
+                                                        required>
                                                 </div>
                                             </div>
                                         </div>
@@ -213,7 +236,7 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-12">
                                                 <div class="">
                                                     <label class="bmd-label-floating">Ảnh</label>
-                                                    <input type="file" class="form-control" required>
+                                                    <input type="file" class="form-control" name="user_image" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -222,19 +245,64 @@ The above copyright notice and this permission notice shall be included in all c
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Quyền hạn</label></br>
                                                     <label for="Admin">Admin</label>
-                                                    <input type="radio" name="permission" id="permission" value="">
+                                                    <input type="radio" name="permission" id="permission" value="admin">
                                                     <label for="customer">Khách hàng</label><input type="radio"
                                                         name="permission" id="permission2" value="customer">
                                                 </div>
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-primary pull-left">Thêm user</button>
+                                        <button type="submit" name="submit" class="btn btn-primary pull-left">Thêm
+                                            user</button>
                                     </form>
                                     <button type="submit" class="btn btn-primary pull-left" id="reseting">Nhập
                                         lại</button>
                                     <a href="../../examples/user.php"> <button type="submit"
                                             class="btn btn-primary pull-left">Danh sách</button></a>
                                 </div>
+                                <?php
+
+                                include "../../examples/local.php";
+                                if (isset($_POST['submit'])) {
+                                    $username = $_POST['username'];
+                                    $password = $_POST['password'];
+                                    $password2 = $_POST['password2'];
+                                    $fullname = $_POST['fullname'];
+                                    $phone_number = $_POST['phone_number'];
+                                    $email = $_POST['email'];
+                                    $address = $_POST['address'];
+                                    $user_image = $_FILES['user_image']['name'];
+                                    $tmp_image = $_FILES['user_image']['tmp_name'];
+                                    $permission = $_POST['permission'];
+                                    function checkUser($username)
+                                    {
+                                        include "../../examples/local.php";
+                                        $sql = "select count(*) form user where username like '$username'";
+                                        $data = $local->prepare($sql);
+                                        $data->execute();
+                                        return $data->fetchColumn();
+                                    }
+                                    $checkUsername = checkUser($username);
+                                    if ($checkUsername != 0) {
+                                        echo '<div class="text-center font-bold text-red-600" >User đã tồn tại!</div>';
+                                    } else {
+                                        if ($password != $password2) {
+                                            echo '<div class="text-center font-bold text-red-600" >Mật khẩu không trùng khớp nhau!</div>';
+                                        } else if (($_FILES['user_image']['type'] != "image/png") && ($_FILES['user_image']['type'] != "image/jpeg")) {
+                                            echo '<div class="text-center font-bold text-red-600" >Ảnh sai định dạng!</div>';
+                                        } else {
+                                            move_uploaded_file($tmp_image, '../../assets/img/' . $user_image);
+                                            $sql = "insert into user values('$username','$password','$user_image','$email','$fullname','$address','$phone_number','$permission',null)";
+                                            $total = $local->exec($sql);
+                                            if ($total == 1) {
+                                                echo '<div class="text-center font-bold text-green-600" >Thêm user thành công</div>';
+                                            } else {
+                                                echo '<div class="text-center font-bold text-red-600" >Thêm user thất bại</div>';
+                                            }
+                                        }
+                                    }
+                                }
+
+                                ?>
                             </div>
                         </div>
                     </div>
@@ -262,6 +330,8 @@ The above copyright notice and this permission notice shall be included in all c
         document.querySelector('#phone').value = "";
         document.querySelector("#email").value = "";
         document.querySelector('#address').value = "";
+        document.querySelector('#password').value = "";
+        document.querySelector('#password2').value = "";
         document.querySelector('#permission').checked = false;
         document.querySelector('#permission2').checked = false;
 

@@ -88,13 +88,31 @@ The above copyright notice and this permission notice shall be included in all c
                     <li class="nav-item ">
                         <a class="nav-link" href="../../examples/cart.php">
                             <i class="fas fa-shopping-cart"></i>
-                            <p>QUẢN LÝ ĐƠN HÀNG</p>
+                            <p>QUẢN LÝ ĐƠN TOUR</p>
                         </a>
                     </li>
                     <li class="nav-item ">
                         <a class="nav-link" href="../../examples/image.php">
                             <i class="fas fa-images"></i>
                             <p>QUẢN LÝ ẢNH</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="../../examples/contact.php">
+                            <i class="fas fa-id-card-alt"></i>
+                            <p>QUẢN LÝ LIÊN HỆ</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="../../examples/postnews.php">
+                            <i class="far fa-newspaper"></i>
+                            <p>QUẢN LÝ BÀI VIẾT</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="../../examples/voucher.php">
+                            <i class="fas fa-piggy-bank"></i>
+                            <p>QUẢN LÝ VOUCHER</p>
                         </a>
                     </li>
                 </ul>
@@ -154,7 +172,7 @@ The above copyright notice and this permission notice shall be included in all c
                                     <h4 class="card-title">Thêm thể loại tour</h4>
                                 </div>
                                 <div class="card-body">
-                                    <form>
+                                    <form method="POST">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
@@ -167,18 +185,40 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Thể loại tour</label>
-                                                    <input type="text" class="form-control" id="category" required>
+                                                    <input type="text" class="form-control" id="category"
+                                                        name="category" required>
                                                 </div>
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-primary pull-left">Thêm thể loại</button>
+                                        <button type="submit" class="btn btn-primary pull-left" name="submit">Thêm thể
+                                            loại</button>
                                     </form>
-
                                     <button type="submit" class="btn btn-primary pull-left" id="reseting">Nhập
                                         lại</button>
                                     <a href="../../examples/category.php"> <button type="submit"
                                             class="btn btn-primary pull-left">Danh sách</button></a>
                                 </div>
+                                <?php
+                                include "../../examples/local.php";
+                                if (isset($_POST['submit'])) {
+                                    $category = $_POST['category'];
+                                    function checkName($nameCategory)
+                                    {
+                                        include "../../examples/local.php";
+                                        $sql = " select  count(*) form category where name_category like '$nameCategory'";
+                                        $data = $local->prepare($sql);
+                                        $data->execute();
+                                        return $data->fetchColumn();
+                                    }
+                                    $name = checkName($category);
+                                    if ($name != 0) {
+                                        echo "<div class='text-center font-bold text-red-600'>Danh mục đã tồn tại</div>";
+                                    } else {
+                                        $sql = "insert into category values(null,'$category',null)";
+                                        echo "<div class='text-center font-bold text-green-600'>Thêm danh mục thành công</div>";
+                                    }
+                                }
+                                ?>
                             </div>
                         </div>
                     </div>

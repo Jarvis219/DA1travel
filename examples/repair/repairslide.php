@@ -87,7 +87,7 @@ The above copyright notice and this permission notice shall be included in all c
                     <li class="nav-item ">
                         <a class="nav-link" href="../../examples/cart.php">
                             <i class="fas fa-shopping-cart"></i>
-                            <p>QUẢN LÝ ĐƠN HÀNG</p>
+                            <p>QUẢN LÝ ĐƠN TOUR</p>
                         </a>
                     </li>
                     <li class="nav-item ">
@@ -188,8 +188,9 @@ The above copyright notice and this permission notice shall be included in all c
                                                 </div>
                                             </div>
                                         </div>
+                                        <button type="submit" class="btn btn-primary pull-left">Cập nhật</button>
                                     </form>
-                                    <button type="submit" class="btn btn-primary pull-left">Cập nhật</button>
+
                                     <button type="submit" class="btn btn-primary pull-left" id="reseting">Nhập
                                         lại</button>
                                     <a href="../../examples/Slide.php"> <button type="submit"

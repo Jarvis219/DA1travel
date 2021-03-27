@@ -32,6 +32,45 @@ The above copyright notice and this permission notice shall be included in all c
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 
     <script src="https://kit.fontawesome.com/5cd69ad435.js" crossorigin="anonymous"></script>
+    <style>
+    input[type="checkbox"]+label {
+        display: block;
+        margin: 0.2em;
+        cursor: pointer;
+    }
+
+    input[type="checkbox"] {
+        display: none;
+    }
+
+    input[type="checkbox"]+label:before {
+        content: "\2714";
+        width: 20px;
+        height: 15px;
+        display: inline-block;
+        font-size: 15px;
+        color: rgb(49, 196, 49);
+        border: 1px solid #000;
+        border-radius: 0.2em;
+        padding-left: 2px;
+        padding-bottom: 20px;
+        vertical-align: bottom;
+        color: transparent;
+        transition: 0.5s;
+
+    }
+
+    input[type="checkbox"]:checked+label:before {
+        background-color: aquamarine;
+        border-color: MediumSeaGreen;
+        color: #fff;
+    }
+
+    input[type="checkbox"]+label:active:before {
+
+        transform: scale(6);
+    }
+    </style>
 </head>
 
 <body class="">
@@ -86,13 +125,31 @@ The above copyright notice and this permission notice shall be included in all c
                     <li class="nav-item active">
                         <a class="nav-link" href="./cart.php">
                             <i class="fas fa-shopping-cart"></i>
-                            <p>QUẢN LÝ ĐƠN HÀNG</p>
+                            <p>QUẢN LÝ ĐƠN TOUR</p>
                         </a>
                     </li>
                     <li class="nav-item ">
                         <a class="nav-link" href="./image.php">
                             <i class="fas fa-images"></i>
                             <p>QUẢN LÝ ẢNH</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="./contact.php">
+                            <i class="fas fa-id-card-alt"></i>
+                            <p>QUẢN LÝ LIÊN HỆ</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="./postnews.php">
+                            <i class="far fa-newspaper"></i>
+                            <p>QUẢN LÝ BÀI VIẾT</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="./voucher.php">
+                            <i class="fas fa-piggy-bank"></i>
+                            <p>QUẢN LÝ VOUCHER</p>
                         </a>
                     </li>
                 </ul>
@@ -171,6 +228,7 @@ The above copyright notice and this permission notice shall be included in all c
                                                     Số trẻ em
                                                 </th>
                                                 <th>Ghi chú</th>
+                                                <th>Trạng thái</th>
                                                 <th>Tùy chọn</th>
                                             </thead>
                                             <tbody>
@@ -191,7 +249,11 @@ The above copyright notice and this permission notice shall be included in all c
                                                         2
                                                     </td>
                                                     <td>bao phòng</td>
-
+                                                    <td><input type="checkbox" name="" value="Blacks" id="Blacks">
+                                                        <label for="Blacks" class="block py-1  text-gray-800">
+                                                            Đã xem
+                                                        </label>
+                                                    </td>
                                                     <td><button
                                                             class="bg-gradient-to-r from-green-400 to-blue-500  text-white rounded-lg transition duration-300 ease-in-out transform hover:scale-105 flex items-center"><a
                                                                 href="../../DA1/examples/detail/cartdetail.php"

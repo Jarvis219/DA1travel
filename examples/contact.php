@@ -14,11 +14,11 @@ The above copyright notice and this permission notice shall be included in all c
 
 <head>
     <meta charset="utf-8" />
-    <link rel="apple-touch-icon" sizes="76x76" href="../../assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="../../assets/img/favicon.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="../assets/img/favicon.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>
-        Cập nhật thể loại tour
+        contact
     </title>
     <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
     <!--     Fonts and icons     -->
@@ -26,74 +26,130 @@ The above copyright notice and this permission notice shall be included in all c
         href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
     <!-- CSS Files -->
-    <link href="../../assets/css/material-dashboard.css?v=2.1.2" rel="stylesheet" />
+    <link href="../assets/css/material-dashboard.css?v=2.1.2" rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
-    <link href="../../assets/demo/demo.css" rel="stylesheet" />
+    <link href="../assets/demo/demo.css" rel="stylesheet" />
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 
     <script src="https://kit.fontawesome.com/5cd69ad435.js" crossorigin="anonymous"></script>
+    <style>
+    input[type="checkbox"]+label {
+        display: block;
+        margin: 0.2em;
+        cursor: pointer;
+    }
+
+    input[type="checkbox"] {
+        display: none;
+    }
+
+    input[type="checkbox"]+label:before {
+        content: "\2714";
+        width: 20px;
+        height: 15px;
+        display: inline-block;
+        font-size: 15px;
+        color: rgb(49, 196, 49);
+        border: 1px solid #000;
+        border-radius: 0.2em;
+        padding-left: 2px;
+        padding-bottom: 20px;
+        vertical-align: bottom;
+        color: transparent;
+        transition: 0.5s;
+
+    }
+
+    input[type="checkbox"]:checked+label:before {
+        background-color: aquamarine;
+        border-color: MediumSeaGreen;
+        color: #fff;
+    }
+
+    input[type="checkbox"]+label:active:before {
+
+        transform: scale(6);
+    }
+    </style>
 </head>
 
 <body class="">
     <div class="wrapper ">
-        <div class="sidebar" data-color="purple" data-background-color="white"
-            data-image="../../assets/img/sidebar-1.jpg">
+        <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
             <!--
         Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
         Tip 2: you can also add an image using data-image tag
     -->
             <div class="logo"><a href="#" class="simple-text logo-normal">
-                    <img src="../../assets/img/logo.png" alt="">
+                    <img src="../assets/img/logo.png" alt="">
                 </a></div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
                     <li class="nav-item   ">
-                        <a class="nav-link" href="../../examples/information.php">
+                        <a class="nav-link" href="./information.php">
                             <i class="material-icons">dashboard</i>
                             <p>THÔNG TIN CHUNG</p>
                         </a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="../../examples/user.php">
+                        <a class="nav-link" href="./user.php">
                             <i class="material-icons">person</i>
                             <p>USER</p>
                         </a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="../../examples/tour.php">
+                        <a class="nav-link" href="./tour.php">
                             <i class="material-icons">content_paste</i>
                             <p> QUẢN LÝ TOUR</p>
                         </a>
                     </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="../../examples/category.php">
+                    <li class="nav-item ">
+                        <a class="nav-link" href="./category.php">
                             <i class="material-icons">library_books</i>
                             <p>QUẢN LÝ LOẠI TOUR</p>
                         </a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="../../examples/comment.php">
+                        <a class="nav-link" href="./comment.php">
                             <i class="far fa-comment"></i></i>
                             <p>QUẢN LÝ BÌNH LUẬN</p>
                         </a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="../../examples/Slide.php">
+                        <a class="nav-link" href="./Slide.php">
                             <i class="fab fa-slideshare"></i>
                             <p>QUẢN LÝ SLIDE</p>
                         </a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="../../examples/cart.php">
+                        <a class="nav-link" href="./cart.php">
                             <i class="fas fa-shopping-cart"></i>
                             <p>QUẢN LÝ ĐƠN TOUR</p>
                         </a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="../../examples/image.php">
+                        <a class="nav-link" href="./image.php">
                             <i class="fas fa-images"></i>
                             <p>QUẢN LÝ ẢNH</p>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="./contact.php">
+                            <i class="fas fa-id-card-alt"></i>
+                            <p>QUẢN LÝ LIÊN HỆ</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="./postnews.php">
+                            <i class="far fa-newspaper"></i>
+                            <p>QUẢN LÝ BÀI VIẾT</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="./voucher.php">
+                            <i class="fas fa-piggy-bank"></i>
+                            <p>QUẢN LÝ VOUCHER</p>
                         </a>
                     </li>
                 </ul>
@@ -104,7 +160,7 @@ The above copyright notice and this permission notice shall be included in all c
             <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
                 <div class="container-fluid">
                     <div class="navbar-wrapper">
-                        <a class="navbar-brand uppercase" href="javascript:;">Cật nhật thể loại tour</a>
+                        <a class="navbar-brand uppercase" href="javascript:;">Contact</a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -134,7 +190,7 @@ The above copyright notice and this permission notice shall be included in all c
                                     </p>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                                    <a class="dropdown-item" href="../../examples/Profile.php">Profile</a>
+                                    <a class="dropdown-item" href="./Profile.php">Profile</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="#">Log out</a>
                                 </div>
@@ -147,55 +203,70 @@ The above copyright notice and this permission notice shall be included in all c
             <div class="content">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-10">
+                        <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header card-header-primary">
-                                    <h4 class="card-title">Cật nhật thể loại tour</h4>
+                                    <h4 class="card-title ">Contact</h4>
                                 </div>
                                 <div class="card-body">
-                                    <form>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="bmd-label-floating">Company (disabled)</label>
-                                                    <input type="text" class="form-control" disabled>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="bmd-label-floating">Địa chỉ</label>
-                                                    <input type="text" class="form-control" id="address" required>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="bmd-label-floating">Khẩu hiệu</label>
-                                                    <input type="text" class="form-control" id="slogan" required>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="bmd-label-floating">Email</label>
-                                                    <input type="email" class="form-control" id="email" required>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="">
-                                                    <label class="bmd-label-floating">Logo</label>
-                                                    <input type="file" class="form-control">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary pull-left">Cập nhật</button>
-                                    </form>
-                                    <button type="submit" class="btn btn-primary pull-left" id="reseting">Nhập
-                                        lại</button>
-                                    <a href="../../examples/category.php"> <button type="submit"
-                                            class="btn btn-primary pull-left">Danh sách</button></a>
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead class=" text-primary">
+                                                <th>
+                                                    Mã liên hệ
+                                                </th>
+                                                <th>
+                                                    Họ tên
+                                                </th>
+                                                <th>
+                                                    Email
+                                                </th>
+                                                <th>
+                                                    Số điện thoại
+                                                </th>
+                                                <th>
+                                                    Địa chỉ
+                                                </th>
+
+                                                <th>Nội dung</th>
+                                                <th>Thời gian tạo</th>
+                                                <th>Trạng thái</th>
+                                                <th colspan="2"><span class="pl-4">Tùy chỉnh</span></th>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        contact 1
+                                                    </td>
+                                                    <td>
+                                                        name 1
+                                                    </td>
+
+                                                    <td>
+                                                        ceo@gmail.com
+                                                    </td>
+
+                                                    <td>099999999</td>
+                                                    <td>
+                                                        Hà Nội
+                                                    </td>
+                                                    <td>content 1</td>
+
+                                                    <td>00:00:00</td>
+                                                    <td><input type="checkbox" name="" value="Blacks" id="Blacks">
+                                                        <label for="Blacks" class="block py-1  text-gray-800">
+                                                            Đã xem
+                                                        </label>
+                                                    </td>
+                                                    <td class="w-20"><button
+                                                            onclick="return confirm('you want to delete!')" ;
+                                                            class="bg-gradient-to-r from-purple-200 via-pink-500 to-red-500 text-white rounded-lg  transition duration-300 ease-in-out transform hover:scale-105"><a
+                                                                href="#"
+                                                                class="inline-block px-3 py-2 ">Xóa</a></button></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -216,59 +287,48 @@ The above copyright notice and this permission notice shall be included in all c
         </div>
     </div>
     <!--   Core JS Files   -->
-    <script>
-    var address = document.querySelector('#address');
-    var slogan = document.querySelector('#slogan');
-    var email = document.querySelector('#email');
-    var reseting = document.querySelector('#reseting');
-    reseting.addEventListener('click', () => {
-        address.value = '';
-        slogan.value = "";
-        email.value = "";
-    });
-    </script>
-    <script src="/assets/js/core/jquery.min.js"></script>
-    <script src="/assets/js/core/popper.min.js"></script>
-    <script src="/assets/js/core/bootstrap-material-design.min.js"></script>
-    <script src="/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+    <script src="../assets/js/core/jquery.min.js"></script>
+    <script src="../assets/js/core/popper.min.js"></script>
+    <script src="../assets/js/core/bootstrap-material-design.min.js"></script>
+    <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
     <!-- Plugin for the momentJs  -->
-    <script src="/assets/js/plugins/moment.min.js"></script>
+    <script src="../assets/js/plugins/moment.min.js"></script>
     <!--  Plugin for Sweet Alert -->
-    <script src="/assets/js/plugins/sweetalert2.js"></script>
+    <script src="../assets/js/plugins/sweetalert2.js"></script>
     <!-- Forms Validations Plugin -->
-    <script src="/assets/js/plugins/jquery.validate.min.js"></script>
+    <script src="../assets/js/plugins/jquery.validate.min.js"></script>
     <!-- Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
-    <script src="/assets/js/plugins/jquery.bootstrap-wizard.js"></script>
+    <script src="../assets/js/plugins/jquery.bootstrap-wizard.js"></script>
     <!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
-    <script src="/assets/js/plugins/bootstrap-selectpicker.js"></script>
+    <script src="../assets/js/plugins/bootstrap-selectpicker.js"></script>
     <!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
-    <script src="/assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
+    <script src="../assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
     <!--  DataTables.net Plugin, full documentation here: https://datatables.net/  -->
-    <script src="/assets/js/plugins/jquery.dataTables.min.js"></script>
+    <script src="../assets/js/plugins/jquery.dataTables.min.js"></script>
     <!--	Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
-    <script src="/assets/js/plugins/bootstrap-tagsinput.js"></script>
+    <script src="../assets/js/plugins/bootstrap-tagsinput.js"></script>
     <!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
-    <script src="/assets/js/plugins/jasny-bootstrap.min.js"></script>
+    <script src="../assets/js/plugins/jasny-bootstrap.min.js"></script>
     <!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
-    <script src="/assets/js/plugins/fullcalendar.min.js"></script>
+    <script src="../assets/js/plugins/fullcalendar.min.js"></script>
     <!-- Vector Map plugin, full documentation here: http://jvectormap.com/documentation/ -->
-    <script src="/assets/js/plugins/jquery-jvectormap.js"></script>
+    <script src="../assets/js/plugins/jquery-jvectormap.js"></script>
     <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
-    <script src="/assets/js/plugins/nouislider.min.js"></script>
+    <script src="../assets/js/plugins/nouislider.min.js"></script>
     <!-- Include a polyfill for ES6 Promises (optional) for IE11, UC Browser and Android browser support SweetAlert -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
     <!-- Library for adding dinamically elements -->
-    <script src="/assets/js/plugins/arrive.min.js"></script>
+    <script src="../assets/js/plugins/arrive.min.js"></script>
     <!--  Google Maps Plugin    -->
     <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
     <!-- Chartist JS -->
-    <script src="/assets/js/plugins/chartist.min.js"></script>
+    <script src="../assets/js/plugins/chartist.min.js"></script>
     <!--  Notifications Plugin    -->
-    <script src="/assets/js/plugins/bootstrap-notify.js"></script>
+    <script src="../assets/js/plugins/bootstrap-notify.js"></script>
     <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-    <script src="/assets/js/material-dashboard.js?v=2.1.2" type="text/javascript"></script>
+    <script src="../assets/js/material-dashboard.js?v=2.1.2" type="text/javascript"></script>
     <!-- Material Dashboard DEMO methods, don't include it in your project! -->
-    <script src="/assets/demo/demo.js"></script>
+    <script src="../assets/demo/demo.js"></script>
     <script>
     $(document).ready(function() {
         $().ready(function() {

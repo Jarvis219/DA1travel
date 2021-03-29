@@ -36,7 +36,6 @@ The above copyright notice and this permission notice shall be included in all c
 </head>
 
 <body class="">
-    <h2>okok</h2>
     <div class="wrapper ">
         <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
             <!--

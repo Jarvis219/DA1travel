@@ -171,7 +171,7 @@ The above copyright notice and this permission notice shall be included in all c
                                     <h4 class="card-title">Thêm bài viết</h4>
                                 </div>
                                 <div class="card-body">
-                                    <form>
+                                    <form method="POST" enctype="multipart/form-data">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
@@ -185,13 +185,15 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Tiêu đề</label>
-                                                    <input type="text" class="form-control" id="title" required>
+                                                    <input type="text" class="form-control" id="title" name="title"
+                                                        required>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Tác giả</label>
-                                                    <input type="text" class="form-control" id="author" required>
+                                                    <input type="text" class="form-control" id="author" name="author"
+                                                        required>
                                                 </div>
                                             </div>
                                         </div>
@@ -199,13 +201,15 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-6">
                                                 <div class="">
                                                     <label class="bmd-label-floating">Ảnh tiêu đề</label>
-                                                    <input type="file" class="form-control" id="image1" required>
+                                                    <input type="file" class="form-control" id="image1"
+                                                        name="post_image" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="">
                                                     <label class="bmd-label-floating">Ảnh nội dung</label>
-                                                    <input type="file" class="form-control" id="image2" required>
+                                                    <input type="file" class="form-control" id="image2"
+                                                        name="post_image2" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -213,7 +217,7 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-12">
                                                 <div class="">
                                                     <label class="bmd-label-floating">Nội dung ngắn</label>
-                                                    <textarea name="" id="contentvt" cols="30" rows="10"
+                                                    <textarea name="content_short" id="contentvt" cols="30" rows="10"
                                                         class="form-control" required></textarea>
 
                                                 </div>
@@ -223,13 +227,14 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-12">
                                                 <div class="">
                                                     <label class="bmd-label-floating">Nội dung </label>
-                                                    <textarea name="" id="content" cols="30" rows="10"
+                                                    <textarea name="content" id="content" cols="30" rows="10"
                                                         class="form-control" required></textarea>
 
                                                 </div>
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-primary pull-left">Thêm bài viết</button>
+                                        <button type="submit" class="btn btn-primary pull-left" name="submit">Thêm bài
+                                            viết</button>
                                     </form>
 
                                     <button type="submit" class="btn btn-primary pull-left" id="reseting">Nhập
@@ -237,6 +242,34 @@ The above copyright notice and this permission notice shall be included in all c
                                     <a href="../../examples/postnews.php"><button type="submit"
                                             class="btn btn-primary pull-left">Danh sách</button></a>
                                 </div>
+                                <?php
+                                include "../../examples/local.php";
+                                if (isset($_POST['submit'])) {
+                                    $title = $_POST['title'];
+                                    $author = $_POST['author'];
+                                    $post_image = $_FILES['post_image']['name'];
+                                    $tmp_post_image = $_FILES['post_image']['tmp_name'];
+                                    $post_image2 = $_FILES['post_image2']['name'];
+                                    $tmp_post_image2 = $_FILES['post_image2']['tmp_name'];
+                                    $content_short = $_POST['content_short'];
+                                    $content = $_POST['content'];
+                                    $type_image = $_FILES['post_image']['type'];
+                                    $type_image2 = $_FILES['post_image2']['type'];
+                                    if (($type_image == "image/png" || $type_image == "image/jpeg") && ($type_image2 == "image/png" || $type_image2 == "image/jpeg")) {
+                                        move_uploaded_file($tmp_post_image, "../../assets/img/" . $post_image);
+                                        move_uploaded_file($tmp_post_image2, "../../assets/img/" . $post_image2);
+                                        $sql = "insert into postnews values(null, '$title', '$post_image', '$post_image2', '$content_short', '$content', '$author', null)";
+                                        $total = $local->exec($sql);
+                                        if ($total == 1) {
+                                            echo "<div class='text-center font-bold text-green-600'>Thêm bài viết thành công</div>";
+                                        } else {
+                                            echo "<div class='text-center font-bold text-red-600'>Thêm bài viết thất bại</div>";
+                                        }
+                                    } else {
+                                        echo "<div class='text-center font-bold text-red-600'>Ảnh sai định dạng</div>";
+                                    }
+                                }
+                                ?>
                             </div>
                         </div>
                     </div>

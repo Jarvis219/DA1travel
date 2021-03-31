@@ -175,7 +175,7 @@ The above copyright notice and this permission notice shall be included in all c
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="bmd-label-floating">Company (disabled)</label>
+                                                    <label class="bmd-label-floating">Mã slide (disabled)</label>
                                                     <input type="text" class="form-control" disabled>
                                                 </div>
                                             </div>
@@ -222,13 +222,18 @@ The above copyright notice and this permission notice shall be included in all c
                                     $link = $_POST['link'];
                                     $image = $_FILES['image']['name'];
                                     $tmp_image = $_FILES['image']['tmp_name'];
-                                    move_uploaded_file($tmp_image, '../../assets/img/' . $image);
-                                    $sql = "insert into slide values(null,'$name_slide','$image','$link',null)";
-                                    $total = $local->exec($sql);
-                                    if ($total == 1) {
-                                        echo '<div class="text-center font-bold text-green-600" >Thêm slide thành công</div>';
+                                    $type_image = $_FILES['image']['type'];
+                                    if ($type_image == "image/png" || $type_image == "image/jpeg") {
+                                        move_uploaded_file($tmp_image, '../../assets/img/' . $image);
+                                        $sql = "insert into slide values(null,'$name_slide','$image','$link',null)";
+                                        $total = $local->exec($sql);
+                                        if ($total == 1) {
+                                            echo '<div class="text-center font-bold text-green-600" >Thêm slide thành công</div>';
+                                        } else {
+                                            echo '<div class="text-center font-bold text-red-600" >Thêm slide thất bại</div>';
+                                        }
                                     } else {
-                                        echo '<div class="text-center font-bold text-red-600" >Thêm slide thất bại</div>';
+                                        echo '<div class="text-center font-bold text-red-600" >Ảnh sai định dạng!</div>';
                                     }
                                 }
 

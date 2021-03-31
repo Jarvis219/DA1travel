@@ -180,6 +180,7 @@ The above copyright notice and this permission notice shall be included in all c
                                                 <th>
                                                     Tên loại tour
                                                 </th>
+                                                <th>Khu vực</th>
                                                 <th>
                                                     Thời gian tạo
                                                 </th>
@@ -189,6 +190,7 @@ The above copyright notice and this permission notice shall be included in all c
                                                 <tr>
                                                     <td>01</td>
                                                     <td>Cầu Giấy</td>
+                                                    <td>Nội thành</td>
                                                     <td>00:00-21/3/2021</td>
                                                     <td class="w-20"><button
                                                             class=" bg-gradient-to-r from-green-400 to-blue-500  text-white rounded-lg transition duration-300 ease-in-out transform hover:scale-105 flex items-center"><a

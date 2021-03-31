@@ -171,33 +171,50 @@ The above copyright notice and this permission notice shall be included in all c
                                     <h4 class="card-title">Thêm thông tin chung</h4>
                                 </div>
                                 <div class="card-body">
-                                    <form>
+                                    <form method="POST" enctype="multipart/form-data">
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label class="bmd-label-floating">Company (disabled)</label>
+                                                    <label class="bmd-label-floating">Mã thông tin (disabled)</label>
                                                     <input type="text" class="form-control" disabled>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label class="bmd-label-floating">Địa chỉ</label>
-                                                    <input type="text" class="form-control" id="address" required>
+                                                    <label class="bmd-label-floating">Số điện thoại</label>
+                                                    <input type="tel" class="form-control" id="number_phone"
+                                                        name="information_phone" required>
                                                 </div>
                                             </div>
-
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="bmd-label-floating">Địa chỉ</label>
+                                                    <input type="text" class="form-control" id="address"
+                                                        name="information_address" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="bmd-label-floating">Link google map</label>
+                                                    <input type="text" class="form-control" id="maps" name="link_map">
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Khẩu hiệu</label>
-                                                    <input type="text" class="form-control" id="slogan" required>
+                                                    <input type="text" class="form-control" id="slogan"
+                                                        name="information_slogan" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Email</label>
-                                                    <input type="email" class="form-control" id="email" required>
+                                                    <input type="email" class="form-control" id="email"
+                                                        name="information_email" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -205,11 +222,13 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-12">
                                                 <div class="">
                                                     <label class="bmd-label-floating">Logo</label>
-                                                    <input type="file" class="form-control" required>
+                                                    <input type="file" class="form-control" name="logo" required>
                                                 </div>
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-primary pull-left">Thêm thông tin</button>
+                                        <button type="submit" class="btn btn-primary pull-left" name="submit">Thêm
+                                            thông
+                                            tin</button>
                                     </form>
 
                                     <button type="submit" class="btn btn-primary pull-left" id="reseting">Nhập
@@ -217,6 +236,27 @@ The above copyright notice and this permission notice shall be included in all c
                                     <a href="../../examples/information.php"><button type="submit"
                                             class="btn btn-primary pull-left">Danh sách</button></a>
                                 </div>
+                                <?php
+                                include "../../examples/local.php";
+                                if (isset($_POST['submit'])) {
+                                    $information_address = $_POST['information_address'];
+                                    $information_email = $_POST['information_email'];
+                                    $information_phone = $_POST['information_phone'];
+                                    $link_map = $_POST['link_map'];
+                                    $information_slogan = $_POST['information_slogan'];
+                                    $logo = $_FILES['logo']['name'];
+                                    $tmp_logo = $_FILES['logo']['tmp_name'];
+                                    $type_logo = $_FILES['logo']['type'];
+                                    if ($type_logo == 'image/jpeg' || $type_logo == 'image/png') {
+                                        move_uploaded_file($tmp_logo, "../../assets/img/" . $logo);
+                                        $sql = "insert into information values(null, '$logo', '$information_phone', '$information_email', '$information_address', '$information_slogan', '$link_map' , null)";
+                                        $total = $local->exec($sql);
+                                        echo "<div class='text-center font-bold text-green-600'>Thêm thông tin thành công</div>";
+                                    } else {
+                                        echo "<div class='text-center font-bold text-red-600'>Nhập sai định dạng ảnh</div>";
+                                    }
+                                }
+                                ?>
                             </div>
                         </div>
                     </div>
@@ -245,6 +285,8 @@ The above copyright notice and this permission notice shall be included in all c
         address.value = '';
         slogan.value = "";
         email.value = "";
+        document.getElementById('number_phone').value = '';
+        document.getElementById('maps').value = '';
     });
     </script>
     <script src="/assets/js/core/jquery.min.js"></script>

@@ -176,7 +176,7 @@ The above copyright notice and this permission notice shall be included in all c
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="bmd-label-floating">Company (disabled)</label>
+                                                    <label class="bmd-label-floating">Mã thể loại (disabled)</label>
                                                     <input type="text" class="form-control" disabled>
                                                 </div>
                                             </div>
@@ -187,6 +187,18 @@ The above copyright notice and this permission notice shall be included in all c
                                                     <label class="bmd-label-floating">Thể loại tour</label>
                                                     <input type="text" class="form-control" id="category"
                                                         name="category" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label class="bmd-label-floating">Khu vực</label></br>
+                                                    <label for="NOI">Nội thành</label>
+                                                    <input type="radio" name="area" id="permission" value="Nội thành"
+                                                        required>
+                                                    <label for="NGOAI">Ngoại thành</label><input type="radio"
+                                                        name="area" id="permission2" value="Ngoại thành" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -201,21 +213,24 @@ The above copyright notice and this permission notice shall be included in all c
                                 <?php
                                 include "../../examples/local.php";
                                 if (isset($_POST['submit'])) {
+                                    $area = $_POST['area'];
                                     $category = $_POST['category'];
-                                    function checkName($nameCategory)
+
+                                    function checkname($namecategory)
                                     {
                                         include "../../examples/local.php";
-                                        $sql = " select  count(*) form category where name_category like '$nameCategory'";
+                                        $sql = "select count(*) from category where name_category like '$namecategory'";
                                         $data = $local->prepare($sql);
                                         $data->execute();
                                         return $data->fetchColumn();
                                     }
-                                    $name = checkName($category);
-                                    if ($name != 0) {
-                                        echo "<div class='text-center font-bold text-red-600'>Danh mục đã tồn tại</div>";
-                                    } else {
-                                        $sql = "insert into category values(null,'$category',null)";
+                                    $name = checkname($category);
+                                    if ($name == 0) {
+                                        $sql = "insert into category values(null,'$category', '$area' ,null)";
+                                        $total = $local->exec($sql);
                                         echo "<div class='text-center font-bold text-green-600'>Thêm danh mục thành công</div>";
+                                    } else {
+                                        echo "<div class='text-center font-bold text-red-600'>Danh mục đã tồn tại</div>";
                                     }
                                 }
                                 ?>

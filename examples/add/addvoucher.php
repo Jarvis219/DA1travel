@@ -171,7 +171,7 @@ The above copyright notice and this permission notice shall be included in all c
                                     <h4 class="card-title">Thêm voucher</h4>
                                 </div>
                                 <div class="card-body">
-                                    <form>
+                                    <form method="POST" enctype="multipart/form-data">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
@@ -182,16 +182,11 @@ The above copyright notice and this permission notice shall be included in all c
 
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="bmd-label-floating">Mã đơn hàng</label>
-                                                    <input type="text" class="form-control" id="title" required>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="bmd-label-floating">Tác giả</label>
-                                                    <input type="text" class="form-control" id="author" required>
+                                                    <label class="bmd-label-floating">Mã vourcher hiển thị</label>
+                                                    <input type="text" class="form-control" id="title"
+                                                        name="voucher_code" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -199,13 +194,15 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-6">
                                                 <div class="">
                                                     <label class="bmd-label-floating">Ảnh voucher</label>
-                                                    <input type="file" class="form-control" id="image2" required>
+                                                    <input type="file" class="form-control" id="image2"
+                                                        name="voucher_image" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="">
                                                     <label class="bmd-label-floating">Giảm giá (%)</label>
-                                                    <input type="number" class="form-control" id="sale" required>
+                                                    <input type="number" class="form-control" id="sale"
+                                                        name="voucher_sale" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -214,7 +211,8 @@ The above copyright notice and this permission notice shall be included in all c
                                                 <div class="">
                                                     <label class="bmd-label-floating">Thông tin</label>
                                                     <textarea name="" id="contentvt" cols="30" rows="10"
-                                                        class="form-control" required></textarea>
+                                                        class="form-control" name="voucher_information"
+                                                        required></textarea>
 
                                                 </div>
                                             </div>
@@ -223,14 +221,16 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">số lượng </label>
-                                                    <input type="number" class="form-control" id="number">
+                                                    <input type="number" class="form-control" id="number"
+                                                        name="voucher_number" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Điều kiện sử dụng (từ ? người)
                                                     </label>
-                                                    <input type="number" class="form-control" id="condition" required>
+                                                    <input type="number" class="form-control" id="condition"
+                                                        name="voucher_people" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -238,18 +238,56 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-12">
                                                 <div class="">
                                                     <label class="bmd-label-floating">Thời gian hết hạn</label>
-                                                    <input type="date" class="form-control" id="day_end" required>
+                                                    <input type="date" class="form-control" id="day_end"
+                                                        name="voucher_endtime" required>
 
                                                 </div>
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-primary pull-left">Thêm voucher</button>
+                                        <button type="submit" class="btn btn-primary pull-left" name="submit">Thêm
+                                            voucher</button>
                                     </form>
                                     <button type="submit" class="btn btn-primary pull-left" id="reseting">Nhập
                                         lại</button>
                                     <a href="../../examples/voucher.php"><button type="submit"
                                             class="btn btn-primary pull-left">Danh sách</button></a>
                                 </div>
+                                <?php
+                                include "../../examples/local.php";
+                                if (isset($_POST['submit'])) {
+                                    $voucher_sale = $_POST['voucher_sale'];
+                                    $voucher_endtime = $_POST['voucher_endtime'];
+                                    $voucher_people = $_POST['voucher_people'];
+                                    $voucher_information = $_POST['voucher_information'];
+                                    $voucher_code = $_POST['voucher_code'];
+                                    $voucher_number = $_POST['voucher_number'];
+                                    $voucher_image = $_FILES['voucher_image']['name'];
+                                    $tmp_voucher_image = $_FILES['voucher_image']['tmp_name'];
+                                    $type_voucher_image = $_FILES['voucher_image']['type'];
+                                    $today = date('Y-m-d');
+
+                                    // echo $voucher_endtime;
+                                    if ($voucher_endtime >= $today) {
+                                        if (($type_voucher_image != 'image/png') && ($type_voucher_image != 'image/jpeg')) {
+                                            echo '<div class="text-center font-bold text-red-600" >Ảnh sai định dạng!</div>';
+                                        } else {
+                                            move_uploaded_file($tmp_voucher_image, "../../assets/img/" . $voucher_image);
+                                            $sql = "insert into voucher values(null, '$voucher_code', '$voucher_image', '$voucher_information', '$voucher_number', '$voucher_people', '$voucher_endtime', '$voucher_sale', null)";
+                                            $total = $local->exec($sql);
+                                            if ($total == 1) {
+                                                echo '<div class="text-center font-bold text-green-600" >Thêm voucher thành công</div>';
+                                            } else {
+                                                echo '<div class="text-center font-bold text-red-600" >Thêm voucher thất bại</div>';
+                                            }
+                                        }
+                                    } else {
+                                        echo '<div class="text-center font-bold text-red-600" >Ngày hết hạn phải lớn hơn hoặc bằng ngày hiện tại</div>';
+                                    }
+                                }
+
+
+
+                                ?>
                             </div>
                         </div>
                     </div>

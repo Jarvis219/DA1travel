@@ -245,13 +245,15 @@ The above copyright notice and this permission notice shall be included in all c
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Quyền hạn</label></br>
                                                     <label for="Admin">Admin</label>
-                                                    <input type="radio" name="permission" id="permission" value="admin">
+                                                    <input type="radio" name="permission" id="permission" value="admin"
+                                                        required>
                                                     <label for="customer">Khách hàng</label><input type="radio"
-                                                        name="permission" id="permission2" value="customer">
+                                                        name="permission" id="permission2" value="customer" required>
                                                 </div>
                                             </div>
                                         </div>
-                                        <button type="submit" name="submit" class="btn btn-primary pull-left">Thêm
+                                        <button type="submit" name="submit" class="btn btn-primary pull-left"
+                                            name="submit"> Thêm
                                             user</button>
                                     </form>
                                     <button type="submit" class="btn btn-primary pull-left" id="reseting">Nhập
@@ -273,10 +275,11 @@ The above copyright notice and this permission notice shall be included in all c
                                     $user_image = $_FILES['user_image']['name'];
                                     $tmp_image = $_FILES['user_image']['tmp_name'];
                                     $permission = $_POST['permission'];
+                                    $type_image = $_FILES['user_image']['type'];
                                     function checkUser($username)
                                     {
                                         include "../../examples/local.php";
-                                        $sql = "select count(*) form user where username like '$username'";
+                                        $sql = "select count(*) from user where username like '$username'";
                                         $data = $local->prepare($sql);
                                         $data->execute();
                                         return $data->fetchColumn();
@@ -289,6 +292,8 @@ The above copyright notice and this permission notice shall be included in all c
                                             echo '<div class="text-center font-bold text-red-600" >Mật khẩu không trùng khớp nhau!</div>';
                                         } else if (($_FILES['user_image']['type'] != "image/png") && ($_FILES['user_image']['type'] != "image/jpeg")) {
                                             echo '<div class="text-center font-bold text-red-600" >Ảnh sai định dạng!</div>';
+                                        } else if ($type_image != 'image/png' && $type_image != 'image/jpeg') {
+                                            echo '<div class="text-center font-bold text-red-600" >Ảnh sai định dạng</div>';
                                         } else {
                                             move_uploaded_file($tmp_image, '../../assets/img/' . $user_image);
                                             $sql = "insert into user values('$username','$password','$user_image','$email','$fullname','$address','$phone_number','$permission',null)";

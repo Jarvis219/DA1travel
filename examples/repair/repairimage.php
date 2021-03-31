@@ -168,58 +168,52 @@ The above copyright notice and this permission notice shall be included in all c
                         <div class="col-md-10">
                             <div class="card">
                                 <div class="card-header card-header-primary">
-                                    <h4 class="card-title">Cật nhật ảnh</h4>
+                                    <h4 class="card-title">Cật nhật thể loại tour</h4>
                                 </div>
                                 <div class="card-body">
                                     <form>
                                         <div class="row">
-                                            <div class="col-md-12">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Mã ảnh (disabled)</label>
                                                     <input type="text" class="form-control" disabled>
                                                 </div>
                                             </div>
-
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="bmd-label-floating">Địa chỉ</label>
+                                                    <input type="text" class="form-control" id="address" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="bmd-label-floating">Khẩu hiệu</label>
+                                                    <input type="text" class="form-control" id="slogan" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="bmd-label-floating">Email</label>
+                                                    <input type="email" class="form-control" id="email" required>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="">
-                                                    <label class="bmd-label-floating">Ảnh tiêu đề</label>
-                                                    <input type="file" class="form-control" id="address" required>
+                                                    <label class="bmd-label-floating">Logo</label>
+                                                    <input type="file" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="">
-                                                    <label class="bmd-label-floating">Ảnh chi tiết</label>
-                                                    <input type="file" class="form-control" id="address" required>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="">
-                                                    <label class="bmd-label-floating">Ảnh lịch trình 1</label>
-                                                    <input type="file" class="form-control" id="address" required>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="">
-                                                    <label class="bmd-label-floating">Ảnh lịch trình 2</label>
-                                                    <input type="file" class="form-control" id="address" required>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="">
-                                                    <label class="bmd-label-floating">Ảnh lịch trình 3</label>
-                                                    <input type="file" class="form-control" id="address" required>
-                                                </div>
-                                            </div>
-                                        </div>
+
                                         <button type="submit" class="btn btn-primary pull-left">Cập nhật</button>
                                     </form>
-                                    <a href="../../examples/image.php"> <button type="submit"
+                                    <button type="submit" class="btn btn-primary pull-left" id="reseting">Nhập
+                                        lại</button>
+                                    <a href="../../examples/category.php"> <button type="submit"
                                             class="btn btn-primary pull-left">Danh sách</button></a>
                                 </div>
                             </div>

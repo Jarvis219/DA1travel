@@ -249,11 +249,15 @@ The above copyright notice and this permission notice shall be included in all c
                                                         2
                                                     </td>
                                                     <td>bao phòng</td>
-                                                    <td><input type="checkbox" name="" value="Blacks" id="Blacks">
-                                                        <label for="Blacks" class="block py-1  text-gray-800">
-                                                            Đã xem
-                                                        </label>
-                                                    </td>
+                                                    <form method="POST">
+                                                        <td><select name="checkstatus" id=""
+                                                                class="border-2 border-green-400 border-opacity-100 rounded-lg">
+                                                                <option value="Chưa xem">Chưa xem</option>
+                                                                <option value="Đã xem">Đã xem</option>
+                                                                <option value="Đã liên hệ">Đã liên hệ</option>
+                                                                <option value="Đã duyệt">Đã duyệt</option>
+                                                            </select></td>
+                                                    </form>
                                                     <td><button
                                                             class="bg-gradient-to-r from-green-400 to-blue-500  text-white rounded-lg transition duration-300 ease-in-out transform hover:scale-105 flex items-center"><a
                                                                 href="../../DA1/examples/detail/cartdetail.php"

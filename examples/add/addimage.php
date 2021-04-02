@@ -222,7 +222,7 @@ The above copyright notice and this permission notice shall be included in all c
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
+                                        <!-- <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Mã tour</label>
@@ -232,7 +232,7 @@ The above copyright notice and this permission notice shall be included in all c
                                                     </select>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <button type="submit" class="btn btn-primary pull-left" name="submit">Thêm
                                             ảnh</button>
                                     </form>
@@ -242,7 +242,6 @@ The above copyright notice and this permission notice shall be included in all c
                                 <?php
                                 include "../../examples/local.php";
                                 if (isset($_POST['submit'])) {
-                                    $id_tour = $_POST['id_tour'];
                                     $image_main = $_FILES['image_main']['name'];
                                     $tmp_image_main = $_FILES['image_main']['tmp_name'];
                                     $type_image_main = $_FILES['image_main']['type'];
@@ -271,7 +270,7 @@ The above copyright notice and this permission notice shall be included in all c
                                         move_uploaded_file($tmp_image_plan1, "../../assets/img/" . $image_plan1);
                                         move_uploaded_file($tmp_image_plan2, "../../assets/img/" . $image_plan2);
                                         move_uploaded_file($tmp_image_plan3, "../../assets/img/" . $image_plan3);
-                                        $sql = "insert into images values(null, '$id_tour', '$image_main', '$image_detail', '$image_plan1', '$image_plan2', '$image_plan3', null)";
+                                        $sql = "insert into images values(null, '$image_main', '$image_detail', '$image_plan1', '$image_plan2', '$image_plan3', null)";
                                         $total = $local->exec($sql);
                                         if ($total == 1) {
                                             echo '<div class="text-center font-bold text-green-600" >Thêm ảnh thành công</div>';

@@ -171,12 +171,24 @@ The above copyright notice and this permission notice shall be included in all c
                                     <h4 class="card-title">Cật nhật thể loại tour</h4>
                                 </div>
                                 <div class="card-body">
+                                    <?php
+                                    include "../../examples/local.php";
+                                    if (isset($_GET['id_category'])) {
+                                        $id = $_GET['id_category'];
+                                        $sqll = "select * from category where id_category = $id";
+                                        $totall = $local->query($sqll)->fetch();
+                                    }
+
+
+                                    ?>
                                     <form method="POST">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Mã thể loại (disabled)</label>
-                                                    <input type="text" class="form-control" disabled>
+                                                    <input type="text" class="form-control"
+                                                        value="<?php echo $totall['id_category']  ?>" name="id_category"
+                                                        disabled>
                                                 </div>
                                             </div>
                                         </div>
@@ -185,7 +197,8 @@ The above copyright notice and this permission notice shall be included in all c
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Thể loại tour</label>
                                                     <input type="text" class="form-control" id="category"
-                                                        name="category" required>
+                                                        name="category" value="<?php echo $totall['name_category']  ?>"
+                                                        required>
                                                 </div>
                                             </div>
                                         </div>
@@ -193,11 +206,16 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Khu vực</label></br>
-                                                    <label for="NOI">Nội thành</label>
-                                                    <input type="radio" name="permission" id="permission" value="Noi"
-                                                        required>
-                                                    <label for="NGOAI">Ngoại thành</label><input type="radio"
-                                                        name="permission" id="permission2" value="Ngoai" required>
+                                                    <?php
+                                                    include "../../examples/local.php";
+                                                    $sqll = "select * from category where id_parent = 0 ";
+                                                    $totals = $local->query($sqll);
+                                                    foreach ($totals as $key => $values) {
+                                                    ?>
+                                                    <label for="#"><?php echo $values['name_category'] ?></label>
+                                                    <input type="radio" name="area" id="<?php echo $key ?>"
+                                                        value="<?php echo $values['id_category'] ?>" required>
+                                                    <?php } ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -209,6 +227,20 @@ The above copyright notice and this permission notice shall be included in all c
                                     <a href="../../examples/category.php"> <button type="submit"
                                             class="btn btn-primary pull-left">Danh sách</button></a>
                                 </div>
+                                <?php
+                                include "../../examples/local.php";
+                                if (isset($_POST['submit'])) {
+                                    $category = $_POST['category'];
+                                    $area = $_POST['area'];
+                                    $sql = "update category set name_category = '$category', id_parent = '$area' where id_category = $id ";
+                                    $total = $local->prepare($sql);
+                                    if ($total->execute()) {
+                                        echo '<div class="text-center font-bold text-green-600" >Cập nhật thành công</div>';
+                                    } else {
+                                        echo '<div class="text-center font-bold text-red-600" >Cập nhật thất bại</div>';
+                                    }
+                                }
+                                ?>
                             </div>
                         </div>
                     </div>
@@ -229,14 +261,13 @@ The above copyright notice and this permission notice shall be included in all c
     </div>
     <!--   Core JS Files   -->
     <script>
-    var address = document.querySelector('#address');
-    var slogan = document.querySelector('#slogan');
-    var email = document.querySelector('#email');
+    var category = document.querySelector('#category');
     var reseting = document.querySelector('#reseting');
+    // console.log(document.getElementsByName('area'));
     reseting.addEventListener('click', () => {
-        address.value = '';
-        slogan.value = "";
-        email.value = "";
+        category.value = "";
+        document.getElementById('0').checked = false;
+        document.getElementById('1').checked = false;
     });
     </script>
     <script src="/assets/js/core/jquery.min.js"></script>

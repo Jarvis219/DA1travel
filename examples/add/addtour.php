@@ -171,7 +171,7 @@ The above copyright notice and this permission notice shall be included in all c
                                     <h4 class="card-title">Thêm tour</h4>
                                 </div>
                                 <div class="card-body">
-                                    <form>
+                                    <form method="POST" enctype="multipart/form-data">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
@@ -181,20 +181,11 @@ The above copyright notice and this permission notice shall be included in all c
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Tên tour</label>
-                                                    <input type="text" class="form-control" id="name1" required>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="bmd-label-floating">Thể loại tour</label>
-                                                    <select name="" id="category" class="form-control" required>
-                                                        <option value=""></option>
-                                                        <option value="">tl1</option>
-                                                        <option value="">tl2 </option>
-                                                    </select>
+                                                    <input type="text" class="form-control" id="name1" name="name_tour"
+                                                        required>
                                                 </div>
                                             </div>
                                         </div>
@@ -202,21 +193,15 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Giá tiền</label>
-                                                    <input type="number" class="form-control" id="price" required>
+                                                    <input type="number" name="price" class="form-control" id="price"
+                                                        required>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Giá khuyến mãi</label>
-                                                    <input type="number" class="form-control" id="promotional">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="bmd-label-floating">Ngày khởi hành</label>
-                                                    <input type="date" class="form-control" id="depature" required>
+                                                    <input type="number" class="form-control" name="promotional"
+                                                        id="promotional">
                                                 </div>
                                             </div>
                                         </div>
@@ -224,13 +209,15 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-6">
                                                 <div class="">
                                                     <label class="bmd-label-floating">Giờ khởi hành</label>
-                                                    <input type="time" class="form-control" id="time_start" required>
+                                                    <input type="time" class="form-control" id="time_start"
+                                                        name="time_start" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="">
                                                     <label class="bmd-label-floating">Giờ kết thúc</label>
-                                                    <input type="time" class="form-control" id="time_end" required>
+                                                    <input type="time" class="form-control" id="time_end"
+                                                        name="time_end" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -238,13 +225,15 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Địa điểm khởi hành</label>
-                                                    <input type="text" class="form-control" id="place_start" required>
+                                                    <input type="text" class="form-control" id="place_start"
+                                                        name="place_start" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Địa điểm kết thúc</label>
-                                                    <input type="text" class="form-control" id="place_end" required>
+                                                    <input type="text" class="form-control" id="place_end"
+                                                        name="place_end" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -252,7 +241,7 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Mô tả ngắn</label>
-                                                    <textarea name="" cols="30" id="introduction" rows="10"
+                                                    <textarea name="introduction" cols="30" id="introduction" rows="10"
                                                         class="form-control border" required></textarea>
                                                 </div>
                                             </div>
@@ -261,7 +250,7 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Mô tả chi tiết</label>
-                                                    <textarea name="" cols="30" rows="10" id="content"
+                                                    <textarea name="content" cols="30" rows="10" id="content"
                                                         class="form-control border" required></textarea>
                                                 </div>
                                             </div>
@@ -270,8 +259,8 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Lịch trình 1</label>
-                                                    <textarea name="" cols="30" rows="10" id="plan1"
-                                                        class="form-control border"></textarea>
+                                                    <textarea name="plan1" cols="30" rows="10" id="plan1"
+                                                        class="form-control border" required></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -279,7 +268,7 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Lịch trình 2</label>
-                                                    <textarea name="" cols="30" rows="10" id="plan2"
+                                                    <textarea name="plan2" cols="30" rows="10" id="plan2"
                                                         class="form-control border"></textarea>
                                                 </div>
                                             </div>
@@ -288,7 +277,7 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Lịch trình 3</label>
-                                                    <textarea name="" cols="30" rows="10" id="plan3"
+                                                    <textarea name="plan3" cols="30" rows="10" id="plan3"
                                                         class="form-control border"></textarea>
                                                 </div>
                                             </div>
@@ -298,19 +287,87 @@ The above copyright notice and this permission notice shall be included in all c
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Tour đặc biệt</label></br>
                                                     <label for="Yes">Yes</label>
-                                                    <input type="radio" name="permission" id="radio1" value="">
-                                                    <label for="No">No</label><input type="radio" name="permission"
-                                                        id="radio2" value="customer">
+                                                    <input type="radio" name="holiday" id="radio1" value="yes" required>
+                                                    <label for="No">No</label><input type="radio" name="holiday"
+                                                        <textarea name="plan3" cols="30" rows="10" id="plan3"
+                                                        id="radio2" value="no" required>
                                                 </div>
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-primary pull-left">Thêm tour</button>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="bmd-label-floating">Thể loại tour</label>
+                                                    <select name="category" id="category" class="form-control" required>
+                                                        <option value=""></option>
+                                                        <?php
+                                                        include "../../examples/local.php";
+                                                        $sqll = "select * from category where id_category>26";
+                                                        $totall = $local->query($sqll);
+                                                        foreach ($totall as $values) {
+                                                        ?>
+                                                        <option value="<?php echo $values['id_category'] ?>">
+                                                            <?php echo $values['name_category'] ?></option>
+                                                        <?php  } ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="bmd-label-floating">Mã ảnh</label>
+                                                    <select name="image_tour" id="category" class="form-control"
+                                                        required>
+                                                        <?php
+                                                        include "../../examples/local.php";
+                                                        $sqll = "select * from images";
+                                                        $totall = $local->query($sqll);
+                                                        foreach ($totall as $values) {
+                                                        ?>
+                                                        <option value="<?php echo $values['id_image'] ?>">
+                                                            <?php echo $values['id_image'] ?></option>
+                                                        <?php  } ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary pull-left" name="submit">Thêm
+                                            tour</button>
                                     </form>
                                     <button type="submit" class="btn btn-primary pull-left" id="reseting">Nhập
                                         lại</button>
                                     <a href="../../examples/tour.php"> <button type="submit"
                                             class="btn btn-primary pull-left">Danh sách</button></a>
                                 </div>
+                                <?php
+                                include "../../examples/local.php";
+                                if (isset($_POST['submit'])) {
+                                    $id_category = $_POST['category'];
+                                    $id_image = $_POST['image_tour'];
+                                    $name_tour = $_POST['name_tour'];
+                                    $holiday = $_POST['holiday'];
+                                    $time_start = $_POST['time_start'];
+                                    $time_end = $_POST['time_end'];
+                                    $place_start = $_POST['place_start'];
+                                    $place_end = $_POST['place_end'];
+                                    $price = $_POST['price'];
+                                    $promotional = $_POST['promotional'];
+                                    $introduction = $_POST['introduction'];
+                                    $content = $_POST['content'];
+                                    $plan1 = $_POST['plan1'];
+                                    $plan2 = $_POST['plan2'];
+                                    $plan3 = $_POST['plan3'];
+                                    if ($promotional == '') {
+                                        $promotional = 0;
+                                    }
+                                    $sql = "insert into tour values(null,'$id_category','$id_image','$name_tour','$holiday','$time_start','$time_end','$place_start','$place_end','$price','$promotional','$introduction','$content','$plan1','$plan2','$plan3',null,null)";
+                                    $total = $local->exec($sql);
+                                    if ($total == 1) {
+                                        echo '<div class="text-center font-bold text-green-600" >Thêm tour thành công</div>';
+                                    } else {
+                                        echo '<div class="text-center font-bold text-red-600" >Thêm tour thất bại</div>';
+                                    }
+                                }
+                                ?>
                             </div>
                         </div>
                     </div>
@@ -332,9 +389,7 @@ The above copyright notice and this permission notice shall be included in all c
     <!--   Core JS Files   -->
     <script>
     var reseting = document.querySelector('#reseting');
-    var name1 = document.querySelector('#name1');
     var category = document.querySelector('#category');
-    var depature = document.querySelector('#depature');
     var timeStart = document.querySelector('#time_start');
     var timeEnd = document.querySelector('#time_end');
     var placeStart = document.querySelector('#place_start');
@@ -347,22 +402,20 @@ The above copyright notice and this permission notice shall be included in all c
     var plantwo = document.querySelector('#plan2');
     var planthree = document.querySelector('#plan3');
     var permission = document.getElementsByName('permission');
-    console.log(permission)
     reseting.addEventListener('click', () => {
         name1.value = '';
         category.value = '';
-        depature.value = '';
         timeStart.value = '';
         timeEnd.value = '';
         placeStart.value = '';
         placeEnd.value = '';
         price.value = '';
         promotional.value = '';
-        introduction.value = '';
-        content.value = '';
-        planone.value = '';
-        plantwo.value = '';
-        planthree.value = '';
+        introduction.innerHTML = '';
+        content.innerHTML = '';
+        planone.innerHTML = '';
+        plantwo.innerHTML = '';
+        planthree.innerHTML = '';
         document.getElementById('radio1').checked = false;
         document.getElementById('radio2').checked = false;
     });

@@ -174,9 +174,6 @@ The above copyright notice and this permission notice shall be included in all c
                                     <div class="table-responsive">
                                         <table class="table">
                                             <thead class=" text-primary">
-                                                <th>
-                                                    Mã tour
-                                                </th>
                                                 <th>Mô tả ngắn</th>
                                                 <th>Mô tả chi tiết</th>
                                                 <th>Lịch trình 1</th>
@@ -185,36 +182,43 @@ The above copyright notice and this permission notice shall be included in all c
                                                 <th colspan="2"><span class="ml-4">Tùy chỉnh</span></th>
                                             </thead>
                                             <tbody>
+                                                <?php
+                                                include "../../examples/local.php";
+                                                if (isset($_GET['id_tour'])) {
+                                                    $id = $_GET['id_tour'];
+                                                    $sqll = "select * from tour where id_tour = $id";
+                                                    $totall = $local->query($sqll);
+                                                    foreach ($totall as $values) {
+                                                ?>
                                                 <tr>
                                                     <td>
-                                                        1
-                                                    </td>
-                                                    <td>
-                                                        tour dac biet Cau Giay
+                                                        <?php echo $values['introduction'] ?>
                                                     </td>
 
                                                     <td>
-                                                        tour dac biet Cau Giay
+                                                        <?php echo $values['content'] ?>
                                                     </td>
                                                     <td>
-                                                        tour dac biet Cau Giay
+                                                        <?php echo $values['plan1'] ?>
                                                     </td>
                                                     <td>
-                                                        tour dac biet Cau Giay
+                                                        <?php echo $values['plan2'] ?>
                                                     </td>
                                                     <td>
-                                                        tour dac biet Cau Giay
+                                                        <?php echo $values['plan3'] ?>
                                                     </td>
                                                     <td><button
                                                             class=" bg-gradient-to-r from-green-400 to-blue-500  text-white rounded-lg transition duration-300 ease-in-out transform hover:scale-105 flex items-center"><a
-                                                                href="../../examples/repair/repairtour.php"
+                                                                href="../../examples/repair/repairtour.php?id_tour=<?php echo $values['id_tour'] ?>"
                                                                 class="inline-block py-2 px-3">Sửa</a></button>
                                                     </td>
                                                     <td><button onclick="return confirm('you want to delete!')" ;
                                                             class="bg-gradient-to-r from-purple-200 via-pink-500 to-red-500 text-white rounded-lg  transition duration-300 ease-in-out transform hover:scale-105"><a
-                                                                href="../../examples/delete/delete.php"
+                                                                href="../../examples/delete/delete.php?id_tour=<?php echo $values['id_tour'] ?>"
                                                                 class="inline-block px-3 py-2 ">Xóa</a></button></td>
                                                 </tr>
+                                                <?php }
+                                                } ?>
                                             </tbody>
                                         </table>
                                     </div>

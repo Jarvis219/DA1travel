@@ -190,15 +190,21 @@ The above copyright notice and this permission notice shall be included in all c
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Khu vực</label></br>
-                                                    <label for="NOI">Nội thành</label>
-                                                    <input type="radio" name="area" id="permission" value="Nội thành"
-                                                        required>
-                                                    <label for="NGOAI">Ngoại thành</label><input type="radio"
-                                                        name="area" id="permission2" value="Ngoại thành" required>
+                                                    <?php
+                                                    include "../../examples/local.php";
+                                                    $sqll = "select * from category where id_parent = 0 ";
+                                                    $totall = $local->query($sqll);
+                                                    foreach ($totall as $key => $values) {
+                                                    ?>
+                                                    <label for="#"><?php echo $values['name_category'] ?></label>
+                                                    <input type="radio" name="area" id="<?php echo $key ?>"
+                                                        value="<?php echo $values['id_category'] ?>" required>
+                                                    <?php } ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -215,7 +221,6 @@ The above copyright notice and this permission notice shall be included in all c
                                 if (isset($_POST['submit'])) {
                                     $area = $_POST['area'];
                                     $category = $_POST['category'];
-
                                     function checkname($namecategory)
                                     {
                                         include "../../examples/local.php";
@@ -256,8 +261,11 @@ The above copyright notice and this permission notice shall be included in all c
     <script>
     var category = document.querySelector('#category');
     var reseting = document.querySelector('#reseting');
+    // console.log(document.getElementsByName('area'));
     reseting.addEventListener('click', () => {
         category.value = "";
+        document.getElementById('0').checked = false;
+        document.getElementById('1').checked = false;
     });
     </script>
     <script src="/assets/js/core/jquery.min.js"></script>

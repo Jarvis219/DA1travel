@@ -176,6 +176,7 @@ The above copyright notice and this permission notice shall be included in all c
                                                 <th>
                                                     Mã tour
                                                 </th>
+                                                <th>Mã ảnh</th>
                                                 <th>
                                                     Thể loại tour
                                                 </th>
@@ -184,9 +185,6 @@ The above copyright notice and this permission notice shall be included in all c
                                                 </th>
                                                 <th>Giá tour</th>
                                                 <th>Giá khuyến mãi</th>
-                                                <th>
-                                                    Ngày khởi hành
-                                                </th>
                                                 <th>
                                                     Thời gian khởi hành
                                                 </th>
@@ -198,39 +196,49 @@ The above copyright notice and this permission notice shall be included in all c
                                                 <td colspan="2" class="w-32">Tùy chỉnh</td>
                                             </thead>
                                             <tbody>
+                                                <?php
+                                                include "../../DA1/examples/local.php";
+                                                $sqll = "select tour.id_category, id_tour, name_tour, price, promotional, time_start, time_end, place_start, place_end, category.name_category,id_image, holiday from tour join category on tour.id_category = category.id_category order by id_tour desc";
+                                                $totall = $local->query($sqll);
+                                                foreach ($totall as $values) {
+                                                ?>
                                                 <tr>
                                                     <td>
-                                                        1
+                                                        <?php echo $values['id_tour'] ?>
                                                     </td>
                                                     <td>
-                                                        Quanh Cầu giấy
+                                                        <?php echo $values['id_image'] ?>
                                                     </td>
                                                     <td>
-                                                        Check số lượng cây
+                                                        <?php echo $values['name_category'] . "<br>" ?>
+                                                    </td>
+                                                    <td>
+                                                        <?php echo $values['name_tour'] ?>
                                                     </td>
                                                     <td class="text-primary">
-                                                        999.999vnd
+                                                        <?php echo $values['price'] . "VND" ?>
                                                     </td>
                                                     <td class="text-primary">
-                                                        0vnd
+                                                        <?php echo $values['promotional'] ?>
                                                     </td>
-                                                    <td>21/3/2021</td>
+
                                                     <td>
-                                                        00:00/21/3/2021
+                                                        <?php echo $values['time_start'] ?>
                                                     </td>
-                                                    <td>00:00/22/3/2021</td>
+                                                    <td><?php echo $values['time_end'] ?></td>
                                                     <td>
-                                                        Quận Thanh Xuân
+                                                        <?php echo $values['place_start'] ?>
                                                     </td>
-                                                    <td>Quận Cầu Giấy</td>
-                                                    <td>yes</td>
+                                                    <td><?php echo $values['place_start'] ?></td>
+                                                    <td><?php echo $values['holiday'] ?></td>
 
                                                     <td class="w-24"><button
                                                             class="bg-gradient-to-r from-green-400 to-blue-500  text-white rounded-lg transition duration-300 ease-in-out transform hover:scale-105 flex items-center"><a
-                                                                href="../../DA1/examples/detail/tourdetail.php"
+                                                                href="../../DA1/examples/detail/tourdetail.php?id_tour=<?php echo $values['id_tour'] ?>"
                                                                 class="inline-block py-2  px-3">Chi
                                                                 tiết</a></button></td>
                                                 </tr>
+                                                <?php } ?>
                                             </tbody>
                                         </table>
                                     </div>

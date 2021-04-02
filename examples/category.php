@@ -187,22 +187,35 @@ The above copyright notice and this permission notice shall be included in all c
                                                 <th colspan="2"><span class="pl-4">Tùy chỉnh</span></th>
                                             </thead>
                                             <tbody>
+                                                <?php
+                                                include "../../DA1/examples/local.php";
+                                                $sqll = "select * from category order by id_category desc";
+                                                $totall = $local->query($sqll);
+                                                foreach ($totall as $values) {
+                                                ?>
                                                 <tr>
-                                                    <td>01</td>
-                                                    <td>Cầu Giấy</td>
-                                                    <td>Nội thành</td>
-                                                    <td>00:00-21/3/2021</td>
+                                                    <td><?php echo $values['id_category'] ?></td>
+                                                    <td><?php echo $values['name_category'] ?></td>
+                                                    <td><?php if ($values['id_parent'] == '25') {
+                                                                echo "Nội Thành";
+                                                            } else if ($values['id_parent'] == '26') {
+                                                                echo "Ngoại Thành";
+                                                            } else {
+                                                                echo "parent";
+                                                            } ?></td>
+                                                    <td><?php echo $values['create_at'] ?></td>
                                                     <td class="w-20"><button
                                                             class=" bg-gradient-to-r from-green-400 to-blue-500  text-white rounded-lg transition duration-300 ease-in-out transform hover:scale-105 flex items-center"><a
-                                                                href="../../DA1/examples/repair/repaircategory.php"
+                                                                href="../../DA1/examples/repair/repaircategory.php?id_category=<?php echo $values['id_category'] ?>"
                                                                 class="inline-block py-2 px-3">Sửa</a></button></td>
                                                     <td class="w-20"><button
                                                             onclick="return confirm('you want to delete!')" ;
                                                             class="bg-gradient-to-r from-purple-200 via-pink-500 to-red-500 text-white rounded-lg  transition duration-300 ease-in-out transform hover:scale-105"><a
-                                                                href="../../DA1/examples/delete/delete.php"
+                                                                href="../../DA1/examples/delete/delete.php?id_category=<?php echo $values['id_category'] ?>"
                                                                 class="inline-block px-3 py-2 ">Xóa</a></button>
                                                     </td>
                                                 </tr>
+                                                <?php } ?>
                                             </tbody>
                                         </table>
                                     </div>

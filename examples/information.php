@@ -189,27 +189,35 @@ The above copyright notice and this permission notice shall be included in all c
                                                     Địa chỉ
                                                 </th>
                                                 <th>Khẩu hiệu</th>
+                                                <th>link bản đồ</th>
                                                 <th>Thời gian tạo</th>
                                                 <th colspan="2"><span class="pl-4">Tùy chỉnh</span></th>
                                             </thead>
                                             <tbody>
+                                                <?php
+
+                                                include "../../DA1/examples/local.php";
+                                                $sqll = "select * from information";
+                                                $totall = $local->query($sqll);
+                                                foreach ($totall as $values) {
+                                                ?>
                                                 <tr>
                                                     <td>
-                                                        001
+                                                        <?php echo $values['id_information'] ?>
                                                     </td>
                                                     <td class="w-20 object-cover">
-                                                        <img src="https://i.pinimg.com/originals/02/14/ba/0214ba75a51edbc3fbc92a3550601eca.png"
-                                                            alt="">
+                                                        <img src="../assets/img/<?php echo $values['logo'] ?>" alt="">
                                                     </td>
                                                     <td class="text-primary">
-                                                        0999999999
+                                                        <?php echo $values['information_phone'] ?>
                                                     </td>
                                                     <td class="text-primary">
-                                                        travel@gmail.com
+                                                        <?php echo $values['information_email'] ?>
                                                     </td>
-                                                    <td>Trần Duy Hưng - Cầu Giấy - Hà Nội</td>
-                                                    <td>dfdfdf</td>
-                                                    <td>00:00:00</td>
+                                                    <td><?php echo $values['information_address'] ?></td>
+                                                    <td><?php echo $values['information_slogan'] ?></td>
+                                                    <td><?php echo $values['link_map'] ?></td>
+                                                    <td><?php echo $values['create_at'] ?></td>
                                                     <td class="w-20"><button
                                                             class=" bg-gradient-to-r from-green-400 to-blue-500  text-white rounded-lg transition duration-300 ease-in-out transform hover:scale-105 flex items-center"><a
                                                                 href="../../DA1/examples/repair/repairinformation.php"
@@ -222,6 +230,7 @@ The above copyright notice and this permission notice shall be included in all c
                                                                 class="inline-block px-3 py-2 ">Xóa</a></button>
                                                     </td>
                                                 </tr>
+                                                <?php } ?>
                                             </tbody>
                                         </table>
                                     </div>

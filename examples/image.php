@@ -176,9 +176,6 @@ The above copyright notice and this permission notice shall be included in all c
                                                 <th class="w-20">
                                                     Mã ảnh
                                                 </th>
-                                                <th class="w-20">
-                                                    Mã tour
-                                                </th>
                                                 <th>
                                                     Ảnh tiêu đề
                                                 </th>
@@ -197,31 +194,35 @@ The above copyright notice and this permission notice shall be included in all c
                                                 <th colspan="2"><span class="pl-4">Tùy chỉnh</span></th>
                                             </thead>
                                             <tbody>
+                                                <?php
+                                                include "../../DA1/examples/local.php";
+                                                $sql = "select * from images order by id_image desc";
+                                                $total = $local->query($sql);
+                                                foreach ($total as $values) {
+
+                                                ?>
                                                 <tr>
                                                     <td>
-                                                        001
-                                                    </td>
-                                                    <td>
-                                                        01
+                                                        <?php echo $values['id_image'] ?>
                                                     </td>
                                                     <td class="w-20 object-cover">
-                                                        <img src="https://i.pinimg.com/originals/02/14/ba/0214ba75a51edbc3fbc92a3550601eca.png"
+                                                        <img src="../assets/img/<?php echo $values['image_main'] ?>"
                                                             alt="">
                                                     </td>
                                                     <td class="w-20 object-cover">
-                                                        <img src="https://i.pinimg.com/originals/02/14/ba/0214ba75a51edbc3fbc92a3550601eca.png"
+                                                        <img src="../assets/img/<?php echo $values['image_detail'] ?>"
                                                             alt="">
                                                     </td>
                                                     <td class="w-20 object-cover">
-                                                        <img src="https://i.pinimg.com/originals/02/14/ba/0214ba75a51edbc3fbc92a3550601eca.png"
+                                                        <img src="../assets/img/<?php echo $values['image_plan1'] ?>"
                                                             alt="">
                                                     </td>
                                                     <td class="w-20 object-cover">
-                                                        <img src="https://i.pinimg.com/originals/02/14/ba/0214ba75a51edbc3fbc92a3550601eca.png"
+                                                        <img src="../assets/img/<?php echo $values['image_plan2'] ?>"
                                                             alt="">
                                                     </td>
                                                     <td class="w-20 object-cover">
-                                                        <img src="https://i.pinimg.com/originals/02/14/ba/0214ba75a51edbc3fbc92a3550601eca.png"
+                                                        <img src="../assets/img/<?php echo $values['image_plan3'] ?>"
                                                             alt="">
                                                     </td>
                                                     <td class="w-20"><button
@@ -236,6 +237,7 @@ The above copyright notice and this permission notice shall be included in all c
                                                                 class="inline-block px-3 py-2 ">Xóa</a></button>
                                                     </td>
                                                 </tr>
+                                                <?php } ?>
                                             </tbody>
                                         </table>
                                     </div>

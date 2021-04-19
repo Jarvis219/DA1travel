@@ -185,7 +185,8 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Tên slide</label>
-                                                    <input type="text" class="form-control" id="name_slide" required>
+                                                    <input type="text" class="form-control" id="name_slide"
+                                                        name="name_slide" required>
                                                 </div>
                                             </div>
                                         </div>

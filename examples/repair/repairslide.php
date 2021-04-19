@@ -171,12 +171,22 @@ The above copyright notice and this permission notice shall be included in all c
                                     <h4 class="card-title">Cập nhật slide</h4>
                                 </div>
                                 <div class="card-body">
-                                    <form>
+                                    <?php
+                                    include "../../examples/local.php";
+                                    if (isset($_GET['id_slide'])) {
+                                        $id = $_GET['id_slide'];
+                                        $sqll = "select * from slide where id_slide = $id";
+                                        $totall = $local->query($sqll)->fetch();
+                                    }
+
+                                    ?>
+                                    <form method="POST" enctype="multipart/form-data">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Mã slide (disabled)</label>
-                                                    <input type="text" class="form-control" disabled>
+                                                    <input type="text" class="form-control"
+                                                        value="<?php echo $totall['id_slide'] ?>" disabled>
                                                 </div>
                                             </div>
 
@@ -185,7 +195,8 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Link liên kết</label>
-                                                    <input type="text" class="form-control" id="link">
+                                                    <input type="text" class="form-control" name="link"
+                                                        value="<?php echo $totall['id_slide'] ?>" id="link">
                                                 </div>
                                             </div>
                                         </div>
@@ -193,20 +204,25 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Tên slide</label>
-                                                    <input type="text" class="form-control" id="name_slide" required>
+                                                    <input type="text" class="form-control" id="name_slide"
+                                                        name="name_slide" value="<?php echo $totall['name_slide'] ?>"
+                                                        required>
                                                 </div>
                                             </div>
 
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <div class="">
+                                                <div>
                                                     <label class="bmd-label-floating">Ảnh</label>
-                                                    <input type="file" class="form-control">
+                                                    <img class="w-20 object-cover"
+                                                        src="../../assets/img/<?php echo $totall['slide'] ?>" alt="">
+                                                    <input type="file" class="form-control" name="slide">
                                                 </div>
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-primary pull-left">Cập nhật</button>
+                                        <button type="submit" class="btn btn-primary pull-left" name="submit">Cập
+                                            nhật</button>
                                     </form>
 
                                     <button type="submit" class="btn btn-primary pull-left" id="reseting">Nhập
@@ -214,6 +230,37 @@ The above copyright notice and this permission notice shall be included in all c
                                     <a href="../../examples/Slide.php"> <button type="submit"
                                             class="btn btn-primary pull-left">Danh sách</button></a>
                                 </div>
+                                <?php
+                                if (isset($_POST['submit'])) {
+                                    $name_slide = $_POST['name_slide'];
+                                    $link = $_POST['link'];
+                                    $image = $_FILES['slide']['name'];
+                                    $tmp_image = $_FILES['slide']['tmp_name'];
+                                    $type_image = $_FILES['slide']['type'];
+                                    if (empty($image)) {
+                                        $image = $totall['slide'];
+                                        $sql = "update slide set name_slide = '$name_slide', link = '$link', slide = '$image' where id_slide = $id ";
+                                        $totall = $local->prepare($sql);
+                                        if ($totall->execute()) {
+                                            echo '<div class="text-center font-bold text-green-600" >Cập nhật slide thành công</div>';
+                                        } else {
+                                            echo '<div class="text-center font-bold text-green-600" >Cập nhật slide thất bại</div>';
+                                        }
+                                    } else {
+                                        if ($type_image == "image/png" || $type_image == "image/jpeg") {
+                                            move_uploaded_file($tmp_image, '../../assets/img/' . $image);
+                                            $sql = "update slide set name_slide = '$name_slide', link = '$link', slide = '$image' where id_slide = $id ";
+                                            $totall = $local->prepare($sql);
+                                            if ($totall->execute()) {
+                                                echo '<div class="text-center font-bold text-green-600" >Cập nhật slide thành công</div>';
+                                            } else {
+                                                echo '<div class="text-center font-bold text-green-600" >Cập nhật slide thất bại</div>';
+                                            }
+                                        }
+                                    }
+                                }
+
+                                ?>
                             </div>
                         </div>
                     </div>

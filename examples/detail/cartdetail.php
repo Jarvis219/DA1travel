@@ -1,3 +1,8 @@
+<?php
+ob_start();
+session_start();
+include "../../../DA1/examples/local.php";
+?>
 <!--
 =========================================================
 Material Dashboard - v2.1.2
@@ -189,6 +194,7 @@ The above copyright notice and this permission notice shall be included in all c
                                                 <th>
                                                     Tổng tiền
                                                 </th>
+                                                <th>ngày đi</th>
                                                 <th>Thời gian bắt đầu</th>
                                                 <th>Thời gian kết thúc</th>
                                                 <th>Điểm bắt đầu</th>
@@ -196,27 +202,41 @@ The above copyright notice and this permission notice shall be included in all c
                                                 <th colspan="2">Tùy chỉnh</th>
                                             </thead>
                                             <tbody>
+                                                <?php
+                                                if (isset($_GET['id_cart'])) {
+                                                    $id = $_GET['id_cart'];
+                                                    $sqll = "select * from cart join tour on cart.id_tour=tour.id_tour join voucher on voucher.id_voucher=cart.id_voucher where id_cart like '$id'";
+                                                    $totall = $local->query($sqll)->fetch();
+                                                }
+                                                ?>
                                                 <tr>
                                                     <td>
-                                                        1
+                                                        <?php echo $totall['id_tour'] ?>
                                                     </td>
                                                     <td>
-                                                        Cầu Giấy
+                                                        <?php echo $totall['name_tour'] ?>
                                                     </td>
 
                                                     <td class="text-primary">
-                                                        999.999vnd
+                                                        <?php echo number_format($totall['price'], 0, '.', ','); ?>vnd
                                                     </td>
                                                     <td class="text-primary">
-                                                        0vnd
+                                                        <?php echo number_format($totall['promotional'], 0, '.', ','); ?>vnd
                                                     </td>
                                                     <td class="text-primary">
-                                                        999.999vnd
+                                                        <?php
+                                                        $price = $totall['price'];
+                                                        $sale = $totall['promotional'];
+                                                        $saleP = $totall['voucher_sale'];
+                                                        $sum = $price - ((($price - $sale) * $saleP) / 100);
+                                                        echo number_format($sum, 0, '.', ',') . 'vnd';
+                                                        ?>
                                                     </td>
-                                                    <td>7:00-21/3/2021</td>
-                                                    <td>18:00-21/3/2021</td>
-                                                    <td>Hà Đông</td>
-                                                    <td>Cầu Giấy</td>
+                                                    <td><?php echo $totall['departure_day'] ?></td>
+                                                    <td> <?php echo $totall['time_start'] ?></td>
+                                                    <td> <?php echo $totall['time_end'] ?></td>
+                                                    <td><?php echo $totall['place_start'] ?></td>
+                                                    <td><?php echo $totall['place_start'] ?></td>
                                                     <td><button
                                                             class=" bg-gradient-to-r from-green-400 to-blue-500  text-white rounded-lg transition duration-300 ease-in-out transform hover:scale-105 flex items-center"><a
                                                                 href="../../examples/repair/repaircart.php"
@@ -228,6 +248,7 @@ The above copyright notice and this permission notice shall be included in all c
                                                                 class="inline-block px-3 py-2 ">Xóa</a></button>
                                                     </td>
                                                 </tr>
+
                                             </tbody>
                                         </table>
                                     </div>

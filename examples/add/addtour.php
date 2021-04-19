@@ -237,6 +237,48 @@ The above copyright notice and this permission notice shall be included in all c
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="">
+                                                    <label class="bmd-label-floating">Ảnh tiêu đề</label>
+                                                    <input type="file" class="form-control" id="address"
+                                                        name="image_main" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="">
+                                                    <label class="bmd-label-floating">Ảnh chi tiết</label>
+                                                    <input type="file" class="form-control" id="address"
+                                                        name="image_detail" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="">
+                                                    <label class="bmd-label-floating">Ảnh lịch trình 1</label>
+                                                    <input type="file" class="form-control" id="address"
+                                                        name="image_plan1">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="">
+                                                    <label class="bmd-label-floating">Ảnh lịch trình 2</label>
+                                                    <input type="file" class="form-control" id="address"
+                                                        name="image_plan2">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="">
+                                                    <label class="bmd-label-floating">Ảnh lịch trình 3</label>
+                                                    <input type="file" class="form-control" id="address"
+                                                        name="image_plan3">
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
@@ -312,24 +354,8 @@ The above copyright notice and this permission notice shall be included in all c
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="bmd-label-floating">Mã ảnh</label>
-                                                    <select name="image_tour" id="category" class="form-control"
-                                                        required>
-                                                        <?php
-                                                        include "../../examples/local.php";
-                                                        $sqll = "select * from images";
-                                                        $totall = $local->query($sqll);
-                                                        foreach ($totall as $values) {
-                                                        ?>
-                                                        <option value="<?php echo $values['id_image'] ?>">
-                                                            <?php echo $values['id_image'] ?></option>
-                                                        <?php  } ?>
-                                                    </select>
-                                                </div>
-                                            </div>
                                         </div>
+
                                         <button type="submit" class="btn btn-primary pull-left" name="submit">Thêm
                                             tour</button>
                                     </form>
@@ -356,15 +382,54 @@ The above copyright notice and this permission notice shall be included in all c
                                     $plan1 = $_POST['plan1'];
                                     $plan2 = $_POST['plan2'];
                                     $plan3 = $_POST['plan3'];
-                                    if ($promotional == '') {
-                                        $promotional = 0;
-                                    }
-                                    $sql = "insert into tour values(null,'$id_category','$id_image','$name_tour','$holiday','$time_start','$time_end','$place_start','$place_end','$price','$promotional','$introduction','$content','$plan1','$plan2','$plan3',null,null)";
-                                    $total = $local->exec($sql);
-                                    if ($total == 1) {
-                                        echo '<div class="text-center font-bold text-green-600" >Thêm tour thành công</div>';
+                                    $image_main = $_FILES['image_main']['name'];
+                                    $tmp_image_main = $_FILES['image_main']['tmp_name'];
+                                    $type_image_main = $_FILES['image_main']['type'];
+                                    $image_detail = $_FILES['image_detail']['name'];
+                                    $tmp_image_detail = $_FILES['image_detail']['tmp_name'];
+                                    $type_image_detail = $_FILES['image_detail']['type'];
+                                    $image_plan1 = $_FILES['image_plan1']['name'];
+                                    $tmp_image_plan1 = $_FILES['image_plan1']['tmp_name'];
+                                    $type_image_plan1 = $_FILES['image_plan1']['type'];
+                                    $image_plan2 = $_FILES['image_plan2']['name'];
+                                    $tmp_image_plan2 = $_FILES['image_plan2']['tmp_name'];
+                                    $type_image_plan2 = $_FILES['image_plan2']['type'];
+                                    $image_plan3 = $_FILES['image_plan3']['name'];
+                                    $tmp_image_plan3 = $_FILES['image_plan3']['tmp_name'];
+                                    $type_image_plan3 = $_FILES['image_plan3']['type'];
+                                    if (($type_image_main != 'image/png' && $type_image_main != 'image/jpeg') ||
+                                        ($type_image_detail != 'image/png' && $type_image_detail != 'image/jpeg') ||
+                                        ($type_image_plan1 != 'image/png' && $type_image_plan1 != 'image/jpeg') ||
+                                        ($type_image_plan2 != 'image/png' && $type_image_main != 'image/jpeg') ||
+                                        ($type_image_plan3 != 'image/png' && $type_image_main != 'image/jpeg')
+                                    ) {
+                                        echo '<div class="text-center font-bold text-red-600" >Ảnh sai định dạng!</div>';
                                     } else {
-                                        echo '<div class="text-center font-bold text-red-600" >Thêm tour thất bại</div>';
+                                        move_uploaded_file($tmp_image_main, "../../assets/img/" . $image_main);
+                                        move_uploaded_file($tmp_image_detail, "../../assets/img/" . $image_detail);
+                                        move_uploaded_file($tmp_image_plan1, "../../assets/img/" . $image_plan1);
+                                        move_uploaded_file($tmp_image_plan2, "../../assets/img/" . $image_plan2);
+                                        move_uploaded_file($tmp_image_plan3, "../../assets/img/" . $image_plan3);
+                                        $sql = "insert into images values(null, '$image_main', '$image_detail', '$image_plan1', '$image_plan2', '$image_plan3', null)";
+                                        $total = $local->exec($sql);
+                                        if ($total == 1) {
+                                            echo '<div class="text-center font-bold text-green-600" >Thêm ảnh thành công</div>';
+                                        } else {
+                                            echo '<div class="text-center font-bold text-red-600" >Thêm ảnh thất bại</div>';
+                                        }
+                                        if ($promotional == '') {
+                                            $promotional = 0;
+                                        }
+                                        $img = "select * from images order by id_image desc limit 1";
+                                        $result = $local->query($img)->fetch();
+                                        $id_image = $result['id_image'];
+                                        $sql = "insert into tour values(null,'$id_category','$id_image',null ,'$name_tour','$holiday','$time_start','$time_end','$place_start','$place_end','$price','$promotional','$introduction','$content','$plan1','$plan2','$plan3','0',null)";
+                                        $total = $local->exec($sql);
+                                        if ($total == 1) {
+                                            echo '<div class="text-center font-bold text-green-600" >Thêm tour thành công</div>';
+                                        } else {
+                                            echo '<div class="text-center font-bold text-red-600" >Thêm tour thất bại</div>';
+                                        }
                                     }
                                 }
                                 ?>

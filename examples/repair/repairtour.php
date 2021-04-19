@@ -175,13 +175,13 @@ The above copyright notice and this permission notice shall be included in all c
                                     include "../../examples/local.php";
                                     if (isset($_GET['id_tour'])) {
                                         $id = $_GET['id_tour'];
-                                        $sqll = "select * from tour where id_tour = $id";
-                                        // $sqll = "select tour.id_category, id_tour, name_tour, price, promotional, time_start, time_end, place_start, place_end, category.name_category, category.area, holiday, introduction, content, plan1, plan2, plan3, id_image from tour join category on tour.id_category = category.id_category where id_tour = $id";
+                                        // $sqll = "select * from tour where id_tour = $id";
+                                        $sqll = "select id_tour, id_category, images.id_image, name_tour, holiday, time_start, time_end, place_start, place_end, price, promotional, introduction, content, plan1, plan2, plan3, images.image_main, images.image_detail, images.image_plan1, images.image_plan2, images.image_plan3 from tour join images on tour.id_image=images.id_image where id_tour = $id";
                                         $totall = $local->query($sqll)->fetch();
                                         print_r($total);
                                     }
                                     ?>
-                                    <form method="POST">
+                                    <form method="POST" enctype="multipart/form-data">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
@@ -249,6 +249,62 @@ The above copyright notice and this permission notice shall be included in all c
                                                     <input type="text" class="form-control" id="place_end"
                                                         value="<?php echo $totall['place_end'] ?>" name="place_end"
                                                         required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="">
+                                                    <label class="bmd-label-floating">Ảnh tiêu đề</label>
+                                                    <img class="w-20 object-cover"
+                                                        src="../../assets/img/<?php echo $totall['image_main'] ?>"
+                                                        alt="">
+                                                    <input type="file" class="form-control" id="address"
+                                                        name="image_main">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="">
+                                                    <label class="bmd-label-floating">Ảnh chi tiết</label>
+                                                    <img class="w-20 object-cover"
+                                                        src="../../assets/img/<?php echo $totall['image_detail'] ?>"
+                                                        alt="">
+                                                    <input type="file" class="form-control" id="address"
+                                                        name="image_detail">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="">
+                                                    <label class="bmd-label-floating">Ảnh lịch trình 1</label>
+                                                    <img class="w-20 object-cover"
+                                                        src="../../assets/img/<?php echo $totall['image_plan1'] ?>"
+                                                        alt="">
+                                                    <input type="file" class="form-control" id="address"
+                                                        name="image_plan1">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="">
+                                                    <label class="bmd-label-floating">Ảnh lịch trình 2</label>
+                                                    <img class="w-20 object-cover"
+                                                        src="../../assets/img/<?php echo $totall['image_plan2'] ?>"
+                                                        alt="">
+                                                    <input type="file" class="form-control" id="address"
+                                                        name="image_plan2">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="">
+                                                    <label class="bmd-label-floating">Ảnh lịch trình 3</label>
+                                                    <img class="w-20 object-cover"
+                                                        src="../../assets/img/<?php echo $totall['image_plan3'] ?>"
+                                                        alt="">
+                                                    <input type="file" class="form-control" id="address"
+                                                        name="image_plan3">
                                                 </div>
                                             </div>
                                         </div>
@@ -334,8 +390,8 @@ The above copyright notice and this permission notice shall be included in all c
                                                         <?php
                                                         include "../../examples/local.php";
                                                         $sqll = "select * from images";
-                                                        $totall = $local->query($sqll);
-                                                        foreach ($totall as $values) {
+                                                        $totalls = $local->query($sqll);
+                                                        foreach ($totalls as $values) {
                                                         ?>
                                                         <option value="<?php echo $values['id_image'] ?>">
                                                             <?php echo $values['id_image'] ?></option>
@@ -353,6 +409,7 @@ The above copyright notice and this permission notice shall be included in all c
                                             class="btn btn-primary pull-left">Danh sách</button></a>
                                 </div>
                                 <?php
+
                                 if (isset($_POST['submit'])) {
                                     // $id_category = $_POST['category'];
                                     $id_image = $_POST['image_tour'];
@@ -369,18 +426,170 @@ The above copyright notice and this permission notice shall be included in all c
                                     $plan1 = $_POST['plan1'];
                                     $plan2 = $_POST['plan2'];
                                     $plan3 = $_POST['plan3'];
-                                    if ($promotional == " ") {
-                                        $promotional = 0;
-                                    }
-                                    $sql = "update tour set id_image = '$id_image', name_tour = '$name_tour', holiday = '$holiday', 
-                                    time_start = '$time_start', time_end = '$time_end', place_start = '$place_start', place_end = '$place_end',
-                                    price = '$price', promotional = '$promotional', introduction = '$introduction', content = '$content', plan1 = '$plan1',
-                                    plan2 = '$plan2', plan3 = '$plan3' where id_tour = $id  ";
-                                    $total = $local->prepare($sql);
-                                    if ($total->execute()) {
-                                        echo '<div class="text-center font-bold text-green-600" >Cập nhật thành công</div>';
+                                    // sua anh
+
+                                    $image_main = $_FILES['image_main']['name'];
+                                    $tmp_image_main = $_FILES['image_main']['tmp_name'];
+                                    $type_image_main = $_FILES['image_main']['type'];
+                                    $image_detail = $_FILES['image_detail']['name'];
+                                    $tmp_image_detail = $_FILES['image_detail']['tmp_name'];
+                                    $type_image_detail = $_FILES['image_detail']['type'];
+                                    $image_plan1 = $_FILES['image_plan1']['name'];
+                                    $tmp_image_plan1 = $_FILES['image_plan1']['tmp_name'];
+                                    $type_image_plan1 = $_FILES['image_plan1']['type'];
+                                    $image_plan2 = $_FILES['image_plan2']['name'];
+                                    $tmp_image_plan2 = $_FILES['image_plan2']['tmp_name'];
+                                    $type_image_plan2 = $_FILES['image_plan2']['type'];
+                                    $image_plan3 = $_FILES['image_plan3']['name'];
+                                    $tmp_image_plan3 = $_FILES['image_plan3']['tmp_name'];
+                                    $type_image_plan3 = $_FILES['image_plan3']['type'];
+
+                                    if ((empty($image_main)) && (empty($image_detail)) && (empty($image_plan1)) && (empty($image_plan2)) && (empty($image_plan3))) {
+                                        $image_main = $totall['image_main'];
+                                        $image_detail = $totall['image_detail'];
+                                        $image_plan1 = $totall['image_plan1'];
+                                        $image_plan2 = $totall['image_plan2'];
+                                        $image_plan3 = $totall['image_plan3'];
+                                        $sql = "update images set image_main = '$image_main', image_detail = '$image_detail', image_plan1 = '$image_plan1', image_plan2 = '$image_plan2', image_plan3 = '$image_plan3' where id_image = $id_image";
+                                        $total = $local->prepare($sql);
+                                        if ($total->execute()) {
+                                            echo '<div class="text-center font-bold text-green-600" >Cập nhật ảnh thànhs công</div>';
+                                        } else {
+                                            echo '<div class="text-center font-bold text-red-600" >Cập nhật ảnh thất bại</div>';
+                                        }
+                                        if ($promotional == " ") {
+                                            $promotional = 0;
+                                        }
+                                        $sql = "update tour set id_image = '$id_image', name_tour = '$name_tour', holiday = '$holiday', 
+                                        time_start = '$time_start', time_end = '$time_end', place_start = '$place_start', place_end = '$place_end',
+                                        price = '$price', promotional = '$promotional', introduction = '$introduction', content = '$content', plan1 = '$plan1',
+                                        plan2 = '$plan2', plan3 = '$plan3' where id_tour = $id ";
+                                        $total = $local->prepare($sql);
+                                        if ($total->execute()) {
+                                            echo '<div class="text-center font-bold text-green-600" >Cập nhật tour thành công</div>';
+                                        } else {
+                                            echo '<div class="text-center font-bold text-red-600" >Cập nhật tour thất bại</div>';
+                                        }
+                                    } else if ((empty($image_main)) || (empty($image_detail)) || (empty($image_plan1)) || (empty($image_plan2)) || (empty($image_plan3))) {
+                                        if ((empty($image_main))) {
+                                            $image_main = $totall['image_main'];
+                                            move_uploaded_file($tmp_image_detail, "../../assets/img/" . $image_detail);
+                                            move_uploaded_file($tmp_image_plan1, "../../assets/img/" . $image_plan1);
+                                            move_uploaded_file($tmp_image_plan2, "../../assets/img/" . $image_plan2);
+                                            move_uploaded_file($tmp_image_plan3, "../../assets/img/" . $image_plan3);
+                                            $sql = "update images set image_main = '$image_main', image_detail = '$image_detail', image_plan1 = '$image_plan1', image_plan2 = '$image_plan2', image_plan3 = '$image_plan3' where id_image = $id_image";
+                                            $total = $local->prepare($sql);
+                                            if ($total->execute()) {
+                                                echo '<div class="text-center font-bold text-green-600" >Cập nhật ảnh thành công</div>';
+                                            } else {
+                                                echo '<div class="text-center font-bold text-red-600" >Cập nhật ảnh thất bại</div>';
+                                            }
+                                        }
+                                        if ((empty($image_detail))) {
+                                            $image_detail = $totall['image_detail'];
+                                            move_uploaded_file($tmp_image_main, "../../assets/img/" . $image_main);
+                                            move_uploaded_file($tmp_image_plan1, "../../assets/img/" . $image_plan1);
+                                            move_uploaded_file($tmp_image_plan2, "../../assets/img/" . $image_plan2);
+                                            move_uploaded_file($tmp_image_plan3, "../../assets/img/" . $image_plan3);
+                                            $sql = "update images set image_main = '$image_main', image_detail = '$image_detail', image_plan1 = '$image_plan1', image_plan2 = '$image_plan2', image_plan3 = '$image_plan3' where id_image = $id_image";
+                                            $total = $local->prepare($sql);
+                                            if ($total->execute()) {
+                                                echo '<div class="text-center font-bold text-green-600" >Cập nhật ảnh thành công</div>';
+                                            } else {
+                                                echo '<div class="text-center font-bold text-red-600" >Cập nhật ảnh thất bại</div>';
+                                            }
+                                        }
+                                        if ((empty($image_plan1))) {
+                                            $image_plan1 = $totall['image_plan1'];
+                                            move_uploaded_file($tmp_image_main, "../../assets/img/" . $image_main);
+                                            move_uploaded_file($tmp_image_detail, "../../assets/img/" . $image_detail);
+                                            move_uploaded_file($tmp_image_plan2, "../../assets/img/" . $image_plan2);
+                                            move_uploaded_file($tmp_image_plan3, "../../assets/img/" . $image_plan3);
+                                            $sql = "update images set image_main = '$image_main', image_detail = '$image_detail', image_plan1 = '$image_plan1', image_plan2 = '$image_plan2', image_plan3 = '$image_plan3' where id_image = $id_image";
+                                            $total = $local->prepare($sql);
+                                            if ($total->execute()) {
+                                                echo '<div class="text-center font-bold text-green-600" >Cập nhật ảnh thành công</div>';
+                                            } else {
+                                                echo '<div class="text-center font-bold text-red-600" >Cập nhật ảnh thất bại</div>';
+                                            }
+                                        }
+                                        if ((empty($image_plan2))) {
+                                            $image_plan2 = $totall['image_plan2'];
+                                            move_uploaded_file($tmp_image_main, "../../assets/img/" . $image_main);
+                                            move_uploaded_file($tmp_image_detail, "../../assets/img/" . $image_detail);
+                                            move_uploaded_file($tmp_image_plan1, "../../assets/img/" . $image_plan1);
+                                            move_uploaded_file($tmp_image_plan3, "../../assets/img/" . $image_plan3);
+                                            $sql = "update images set image_main = '$image_main', image_detail = '$image_detail', image_plan1 = '$image_plan1', image_plan2 = '$image_plan2', image_plan3 = '$image_plan3' where id_image = $id_image";
+                                            $total = $local->prepare($sql);
+                                            if ($total->execute()) {
+                                                echo '<div class="text-center font-bold text-green-600" >Cập nhật ảnh thành công</div>';
+                                            } else {
+                                                echo '<div class="text-center font-bold text-red-600" >Cập nhật ảnh thất bại</div>';
+                                            }
+                                        }
+                                        if ((empty($image_plan3))) {
+                                            $image_plan3 = $totall['image_plan3'];
+                                            move_uploaded_file($tmp_image_main, "../../assets/img/" . $image_main);
+                                            move_uploaded_file($tmp_image_detail, "../../assets/img/" . $image_detail);
+                                            move_uploaded_file($tmp_image_plan1, "../../assets/img/" . $image_plan1);
+                                            move_uploaded_file($tmp_image_plan2, "../../assets/img/" . $image_plan2);
+                                            $sql = "update images set image_main = '$image_main', image_detail = '$image_detail', image_plan1 = '$image_plan1', image_plan2 = '$image_plan2', image_plan3 = '$image_plan3' where id_image = $id_image";
+                                            $total = $local->prepare($sql);
+                                            if ($total->execute()) {
+                                                echo '<div class="text-center font-bold text-green-600" >Cập nhật ảnh thành công</div>';
+                                            } else {
+                                                echo '<div class="text-center font-bold text-red-600" >Cập nhật ảnh thất bại</div>';
+                                            }
+                                        }
+                                        if ($promotional == " ") {
+                                            $promotional = 0;
+                                        }
+                                        $sql = "update tour set id_image = '$id_image', name_tour = '$name_tour', holiday = '$holiday', 
+                                        time_start = '$time_start', time_end = '$time_end', place_start = '$place_start', place_end = '$place_end',
+                                        price = '$price', promotional = '$promotional', introduction = '$introduction', content = '$content', plan1 = '$plan1',
+                                        plan2 = '$plan2', plan3 = '$plan3' where id_tour = $id  ";
+                                        $total = $local->prepare($sql);
+                                        if ($total->execute()) {
+                                            echo '<div class="text-center font-bold text-green-600" >Cập nhật thành công</div>';
+                                        } else {
+                                            echo '<div class="text-center font-bold text-red-600" >Cập nhật tour thất bại</div>';
+                                        }
+                                        $sql = "update tour set id_image = '$id_image', name_tour = '$name_tour', holiday = '$holiday', 
+                                        time_start = '$time_start', time_end = '$time_end', place_start = '$place_start', place_end = '$place_end',
+                                        price = '$price', promotional = '$promotional', introduction = '$introduction', content = '$content', plan1 = '$plan1',
+                                        plan2 = '$plan2', plan3 = '$plan3' where id_tour = $id  ";
+                                        $total = $local->prepare($sql);
+                                        if ($total->execute()) {
+                                            echo '<div class="text-center font-bold text-green-600" >Cập nhật thành công</div>';
+                                        } else {
+                                            echo '<div class="text-center font-bold text-red-600" >Cập nhật tour thất bại</div>';
+                                        }
                                     } else {
-                                        echo '<div class="text-center font-bold text-red-600" >Cập nhật tour thất bại</div>';
+                                        move_uploaded_file($tmp_image_main, "../../assets/img/" . $image_main);
+                                        move_uploaded_file($tmp_image_detail, "../../assets/img/" . $image_detail);
+                                        move_uploaded_file($tmp_image_plan1, "../../assets/img/" . $image_plan1);
+                                        move_uploaded_file($tmp_image_plan2, "../../assets/img/" . $image_plan2);
+                                        move_uploaded_file($tmp_image_plan3, "../../assets/img/" . $image_plan3);
+                                        $sql = "update images set image_main = '$image_main', image_detail = '$image_detail', image_plan1 = '$image_plan1', image_plan2 = '$image_plan2', image_plan3 = '$image_plan3' where id_image = $id_image";
+                                        $total = $local->prepare($sql);
+                                        if ($total->execute()) {
+                                            echo '<div class="text-center font-bold text-green-600" >Cập nhật ảnh thành công</div>';
+                                        } else {
+                                            echo '<div class="text-center font-bold text-red-600" >Cập nhật ảnh thất bại</div>';
+                                        }
+                                        if ($promotional == " ") {
+                                            $promotional = 0;
+                                        }
+                                        $sql = "update tour set id_image = '$id_image', name_tour = '$name_tour', holiday = '$holiday', 
+                                        time_start = '$time_start', time_end = '$time_end', place_start = '$place_start', place_end = '$place_end',
+                                        price = '$price', promotional = '$promotional', introduction = '$introduction', content = '$content', plan1 = '$plan1',
+                                        plan2 = '$plan2', plan3 = '$plan3' where id_tour = $id  ";
+                                        $total = $local->prepare($sql);
+                                        if ($total->execute()) {
+                                            echo '<div class="text-center font-bold text-green-600" >Cập nhật thành công</div>';
+                                        } else {
+                                            echo '<div class="text-center font-bold text-red-600" >Cập nhật tour thất bại</div>';
+                                        }
                                     }
                                 }
 

@@ -42,7 +42,7 @@ The above copyright notice and this permission notice shall be included in all c
 
         Tip 2: you can also add an image using data-image tag
     -->
-            <div class="logo"><a href="#" class="simple-text logo-normal">
+            <div class="logo"><a href="../../DA1//DA" class="simple-text logo-normal">
                     <img src="../assets/img/logo.png" alt="">
                 </a></div>
             <div class="sidebar-wrapper">
@@ -171,13 +171,14 @@ The above copyright notice and this permission notice shall be included in all c
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table class="table">
+                                        <table class="table text-center">
                                             <thead class=" text-primary">
                                                 <th>
                                                     Mã voucher
                                                 </th>
+                                                <th>Tên vourcher</th>
                                                 <th>
-                                                    Mã đơn hàng
+                                                    Mã hiển thị
                                                 </th>
                                                 <th>
                                                     Ảnh voucher
@@ -188,7 +189,6 @@ The above copyright notice and this permission notice shall be included in all c
                                                 <th>
                                                     Số lượng
                                                 </th>
-
                                                 <th>Điều kiện sử dụng</th>
                                                 <th>Giảm giá (%)</th>
                                                 <th>Thời gian hết hạn</th>
@@ -196,39 +196,48 @@ The above copyright notice and this permission notice shall be included in all c
                                                 <th colspan="2"><span class="pl-4">Tùy chỉnh</span></th>
                                             </thead>
                                             <tbody>
+                                                <?php
+                                                include "../../DA1/examples/local.php";
+                                                $sqll = "select * from voucher order by id_voucher desc";
+                                                $totall = $local->query($sqll);
+                                                foreach ($totall as $values) {
+                                                ?>
                                                 <tr>
                                                     <td>
-                                                        voucher1
+                                                        <?php echo $values['id_voucher'] ?>
                                                     </td>
                                                     <td>
-                                                        cart1
+                                                        <?php echo $values['vourcher_name'] ?>
+                                                    </td>
+                                                    <td>
+                                                        <?php echo $values['voucher_code'] ?>
                                                     </td>
                                                     <td class="w-20 object-cover">
-                                                        <img src="https://genk.mediacdn.vn/2018/6/7/goku-ultra-instinct-15283404570951143732168.jpg"
+                                                        <img src="../../DA1/assets/img/<?php echo $values['voucher_image'] ?>"
                                                             alt="">
                                                     </td>
-
                                                     <td>
-                                                        infor1
+                                                        <?php echo $values['voucher_information'] ?>
                                                     </td>
-                                                    <td>21</td>
+                                                    <td> <?php echo $values['voucher_number'] ?></td>
                                                     <td>
-                                                        5 people
+                                                        <?php echo $values['voucher_people'] ?>
                                                     </td>
-                                                    <td>30 %</td>
-                                                    <td>00:00:00</td>
-                                                    <td>00:00:00</td>
+                                                    <td> <?php echo $values['voucher_sale'] ?></td>
+                                                    <td> <?php echo $values['voucher_endtime'] ?></td>
+                                                    <td> <?php echo $values['create_at'] ?></td>
                                                     <td class="w-20"><button
                                                             class=" bg-gradient-to-r from-green-400 to-blue-500  text-white rounded-lg transition duration-300 ease-in-out transform hover:scale-105 flex items-center"><a
-                                                                href="../../DA1/examples/repair/repairvoucher.php"
+                                                                href="../../DA1/examples/repair/repairvoucher.php?id_voucher=<?php echo $values['id_voucher'] ?>"
                                                                 class="inline-block py-2 px-3">Sửa</a></button>
                                                     </td>
                                                     <td class="w-20"><button
                                                             onclick="return confirm('you want to delete!')" ;
                                                             class="bg-gradient-to-r from-purple-200 via-pink-500 to-red-500 text-white rounded-lg  transition duration-300 ease-in-out transform hover:scale-105"><a
-                                                                href="#"
+                                                                href="../../DA1/examples/delete/delete.php?id_voucher=<?php echo $values['id_voucher'] ?>"
                                                                 class="inline-block px-3 py-2 ">Xóa</a></button></td>
                                                 </tr>
+                                                <?php } ?>
                                             </tbody>
                                         </table>
                                     </div>

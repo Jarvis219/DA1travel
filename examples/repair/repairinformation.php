@@ -171,33 +171,65 @@ The above copyright notice and this permission notice shall be included in all c
                                     <h4 class="card-title">Cập nhật thông tin chung</h4>
                                 </div>
                                 <div class="card-body">
-                                    <form>
+                                    <?php
+                                    include "../../examples/local.php";
+                                    if (isset($_GET['id_information'])) {
+                                        $id = $_GET['id_information'];
+                                        $Sqll = "select * from information where id_information = $id";
+                                        $totall = $local->query($Sqll)->fetch();
+                                    }
+                                    ?>
+                                    <form method="POST" enctype="multipart/form-data">
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Mã thông tin (disabled)</label>
-                                                    <input type="text" class="form-control" disabled>
+                                                    <input type="text" class="form-control"
+                                                        value="<?php echo $totall['id_information'] ?>" disabled>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label class="bmd-label-floating">Địa chỉ</label>
-                                                    <input type="text" class="form-control" id="address" required>
+                                                    <label class="bmd-label-floating">Số điện thoại</label>
+                                                    <input type="tel" class="form-control" id="number_phone"
+                                                        value="<?php echo $totall['information_phone'] ?>"
+                                                        name="information_phone" required>
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="bmd-label-floating">Địa chỉ</label>
+                                                    <input type="text" class="form-control" id="address"
+                                                        value="<?php echo $totall['information_address'] ?>"
+                                                        name="information_address" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="bmd-label-floating">Link google map</label>
+                                                    <input type="text" class="form-control" id="maps" name="link_map"
+                                                        value="<?php echo $totall['link_map'] ?>">
 
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Khẩu hiệu</label>
-                                                    <input type="text" class="form-control" id="slogan" required>
+                                                    <input type="text" class="form-control" id="slogan"
+                                                        value="<?php echo $totall['information_slogan'] ?>"
+                                                        name="information_slogan" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Email</label>
-                                                    <input type="email" class="form-control" id="email" required>
+                                                    <input type="email" class="form-control" id="email"
+                                                        value="<?php echo $totall['information_email'] ?>"
+                                                        name="information_email" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -205,11 +237,14 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-12">
                                                 <div class="">
                                                     <label class="bmd-label-floating">Logo</label>
-                                                    <input type="file" class="form-control">
+                                                    <img class="w-20 object-cover"
+                                                        src="../../assets/img/<?php echo $totall['logo'] ?>" alt="">
+                                                    <input type="file" class="form-control" name="logo">
                                                 </div>
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-primary pull-left">Cập nhật thông
+                                        <button type="submit" class="btn btn-primary pull-left" name="submit">Cập nhật
+                                            thông
                                             tin</button>
                                     </form>
 
@@ -217,10 +252,39 @@ The above copyright notice and this permission notice shall be included in all c
                                         lại</button>
                                     <a href="../../examples/information.php"> <button type="submit"
                                             class="btn btn-primary pull-left">Danh sách</button></a>
-
-
-
                                 </div>
+                                <?php
+
+                                if (isset($_POST['submit'])) {
+                                    $information_address = $_POST['information_address'];
+                                    $information_email = $_POST['information_email'];
+                                    $information_phone = $_POST['information_phone'];
+                                    $link_map = $_POST['link_map'];
+                                    $information_slogan = $_POST['information_slogan'];
+                                    $logo = $_FILES['logo']['name'];
+                                    $tmp_logo = $_FILES['logo']['tmp_name'];
+                                    $type_logo = $_FILES['logo']['type'];
+                                    if ($logo == '') {
+                                        $logo = $totall['logo'];
+                                        $sql = "update information set information_address = '$information_address', 
+                                        information_email = '$information_email', information_phone = '$information_phone', information_slogan = '$information_slogan',
+                                        link_map = '$link_map', logo = '$logo' where id_information = $id";
+                                        $total = $local->prepare($sql);
+                                        $total->execute();
+                                        echo "<div class='text-center font-bold text-green-600'>Cập nhật thông tin thành công</div>";
+                                    } else if ($type_logo == 'image/jpeg' || $type_logo == 'image/png') {
+                                        move_uploaded_file($tmp_logo, "../../assets/img/" . $logo);
+                                        $sql = "update information set information_address = '$information_address', 
+                                        information_email = '$information_email', information_phone = '$information_phone', information_slogan = '$information_slogan',
+                                        link_map = '$link_map', logo = '$logo' where id_information = $id";
+                                        $total = $local->prepare($sql);
+                                        $total->execute();
+                                        echo "<div class='text-center font-bold text-green-600'>Cập nhật thông tin thành công</div>";
+                                    }
+                                }
+
+
+                                ?>
                             </div>
                         </div>
                     </div>

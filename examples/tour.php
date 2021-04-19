@@ -42,7 +42,7 @@ The above copyright notice and this permission notice shall be included in all c
 
         Tip 2: you can also add an image using data-image tag
     -->
-            <div class="logo"><a href="#" class="simple-text logo-normal">
+            <div class="logo"><a href="../../DA1//DA" class="simple-text logo-normal">
                     <img src="../assets/img/logo.png" alt="">
                 </a></div>
             <div class="sidebar-wrapper">
@@ -171,7 +171,7 @@ The above copyright notice and this permission notice shall be included in all c
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table class="table">
+                                        <table class="table text-center">
                                             <thead class=" text-primary">
                                                 <th>
                                                     Mã tour
@@ -198,7 +198,7 @@ The above copyright notice and this permission notice shall be included in all c
                                             <tbody>
                                                 <?php
                                                 include "../../DA1/examples/local.php";
-                                                $sqll = "select tour.id_category, id_tour, name_tour, price, promotional, time_start, time_end, place_start, place_end, category.name_category,id_image, holiday from tour join category on tour.id_category = category.id_category order by id_tour desc";
+                                                $sqll = "select tour.id_category, id_parent, id_tour, name_tour, price, promotional, time_start, time_end, place_start, place_end, category.name_category,id_image, holiday from tour join category on tour.id_category = category.id_category order by id_tour desc";
                                                 $totall = $local->query($sqll);
                                                 foreach ($totall as $values) {
                                                 ?>
@@ -210,7 +210,15 @@ The above copyright notice and this permission notice shall be included in all c
                                                         <?php echo $values['id_image'] ?>
                                                     </td>
                                                     <td>
-                                                        <?php echo $values['name_category'] . "<br>" ?>
+                                                        <?php
+                                                            $parent = $values['id_parent'];
+                                                            $a;
+                                                            if ($parent == 25) {
+                                                                $a = "Nội thành";
+                                                            } else {
+                                                                $a = "Ngoại thành";
+                                                            }
+                                                            echo $values['name_category'] . "<br>" . '(' . $a . ')' ?>
                                                     </td>
                                                     <td>
                                                         <?php echo $values['name_tour'] ?>

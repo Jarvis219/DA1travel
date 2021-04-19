@@ -42,7 +42,7 @@ The above copyright notice and this permission notice shall be included in all c
 
         Tip 2: you can also add an image using data-image tag
     -->
-            <div class="logo"><a href="#" class="simple-text logo-normal">
+            <div class="logo"><a href="../../DA1//DA" class="simple-text logo-normal">
                     <img src="../assets/img/logo.png" alt="">
                 </a></div>
             <div class="sidebar-wrapper">
@@ -171,7 +171,8 @@ The above copyright notice and this permission notice shall be included in all c
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table class="table">
+
+                                        <table class="table text-center">
                                             <thead class=" text-primary">
                                                 <th>
                                                     Mã slide
@@ -191,36 +192,46 @@ The above copyright notice and this permission notice shall be included in all c
                                                 <th colspan="2"><span class="pl-4">Tùy chỉnh</span></th>
                                             </thead>
                                             <tbody>
+                                                <?php
+                                                include '../../DA1/examples/local.php';
+                                                $sqll = "select * from slide";
+                                                $totall = $local->query($sqll);
+                                                foreach ($totall as $key => $value) {
+                                                ?>
                                                 <tr>
                                                     <td>
-                                                        1
+                                                        <?php echo  $value['id_slide'] ?>
                                                     </td>
                                                     <td>
-                                                        banner
+                                                        <?php echo $value['name_slide'] ?>
                                                     </td>
                                                     <td class="w-20 object-cover">
-                                                        <img src="https://genk.mediacdn.vn/2018/6/7/goku-ultra-instinct-15283404570951143732168.jpg"
+                                                        <img src="../../DA1/assets/img/<?php echo $value['slide'] ?>"
                                                             alt="">
                                                     </td>
                                                     <td>
                                                         <a
-                                                            href="https://www.google.com/url?sa=i&url=https%3A%2F%2Fgamek.vn%2F15-dieu-ban-chua-biet-ve-ban-nang-vo-cuc-cua-goku-p2-20180607100225628.chn&psig=AOvVaw1bUl2D26cjZOoVu6MPSJuK&ust=1616511978448000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCLC84MOWxO8CFQAAAAAdAAAAABAJ">https://genk.mediacdn.vn/2018/6/7/goku-ultra-instinct-15283404570951143732168.jpg</a>
+                                                            href="<?php echo $value['link'] ?>"><?php echo $value['link'] ?></a>
                                                     </td>
                                                     <td>
-                                                        00:00
+                                                        <?php echo $value['create_at']  ?>
                                                     </td>
                                                     <td class="w-20"><button
                                                             class=" bg-gradient-to-r from-green-400 to-blue-500  text-white rounded-lg transition duration-300 ease-in-out transform hover:scale-105 flex items-center"><a
-                                                                href="../../DA1/examples/repair/repairslide.php"
+                                                                href="../../DA1/examples/repair/repairslide.php?id_slide=<?php echo $value['id_slide'] ?>"
                                                                 class="inline-block py-2 px-3">Sửa</a></button>
                                                     </td>
                                                     <td class="w-20"><button
                                                             onclick="return confirm('you want to delete!')" ;
                                                             class="bg-gradient-to-r from-purple-200 via-pink-500 to-red-500 text-white rounded-lg  transition duration-300 ease-in-out transform hover:scale-105"><a
-                                                                href="../../DA1/examples/delete/delete.php"
+                                                                href="../../DA1/examples/delete/delete.php?id_slide=<?php echo $value['id_slide'] ?>"
                                                                 class="inline-block px-3 py-2 ">Xóa</a></button>
                                                     </td>
                                                 </tr>
+                                                <?php
+                                                }
+                                                ?>
+
                                             </tbody>
                                         </table>
                                     </div>

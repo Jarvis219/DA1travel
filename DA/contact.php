@@ -1,3 +1,10 @@
+<?php
+ob_start();
+session_start();
+include "../../DA1/examples/local.php";
+$sqll = "select * from information";
+$totallss = $local->query($sqll)->fetch();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,17 +20,17 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;400&display=swap" rel="stylesheet">
     <style>
-        /* .bg-noithanh1 {
+    /* .bg-noithanh1 {
             background-image: url('./content/image/background/bg-noithanh1.jpg');
         } */
 
-        .background4 {
-            background-image: url('./content/image/background/background4.jpg');
-        }
+    .background4 {
+        background-image: url('./content/image/background/background4.jpg');
+    }
 
-        .nunito {
-            font-family: 'Nunito', sans-serif;
-        }
+    .nunito {
+        font-family: 'Nunito', sans-serif;
+    }
     </style>
 </head>
 
@@ -48,61 +55,88 @@
             <h3><a class="uppercase text-sm" href="tourNoithanh.php">liên hệ</a></h3>
         </section>
         <section class="container mx-auto gap-10">
-            <h2 class="text-2xl text-yellow-400 font-bold text-center mb-10">CÔNG TY TNHH MỘT THÀNH VIÊN DỊCH VỤ LỮ HÀNH HANOITOURIST</h2>
+            <h2 class="text-2xl text-yellow-400 font-bold text-center mb-10">CÔNG TY TNHH MỘT THÀNH VIÊN DỊCH VỤ LỮ HÀNH
+                HANOITOURIST</h2>
             <div class="grid grid-cols-2">
                 <div>
                     <div class="flex mt-2">
                         <i class="fas fa-map-marker-alt py-2 pr-5"></i>
-                        <p class="">Tòa nhà FPT Polytechnic, Phố Trịnh Văn Bô, Nam Từ Liêm,
-                            Hà Nội
+                        <p class=""><?php echo $totallss['information_address'] ?>
                         </p>
                     </div>
                     <div class="flex mt-2">
                         <i class="fas fa-phone-volume py-6 pr-5"></i>
-                        <a class="block hover:underline py-5" href="#">(024)
-                            7300 1955</a>
+                        <a class="block hover:underline py-5" href="#"><?php echo $totallss['information_phone'] ?></a>
                     </div>
-                    <div class="flex mt-2">
+                    <!-- <div class="flex mt-2">
                         <i class="fas fa-fax py-2 pr-5"></i>
                         <a class="block hover:underline py-1" href="#">+84 28 3829 1026</a>
-                    </div>
+                    </div> -->
                     <div class="flex mt-6">
                         <i class="fas fa-mail-bulk py-2 pr-5"></i>
-                        <a class="block hover:underline py-1" href="#">hanoitourist@gmail.com</a>
+                        <a class="block hover:underline py-1" href="#"><?php echo $totallss['information_email'] ?></a>
                     </div>
-                    <iframe class="mt-10" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3723.8638558814596!2d105.74459841540242!3d21.038132792833117!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x313454b991d80fd5%3A0x53cefc99d6b0bf6f!2zVHLGsOG7nW5nIENhbyDEkeG6s25nIEZQVCBQb2x5dGVjaG5pYw!5e0!3m2!1svi!2s!4v1616714583598!5m2!1svi!2s" width="550" height="385" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    <div class="mt-10">
+                        <?php echo $totallss['link_map'] ?>
+                    </div>
+
                 </div>
 
                 <form method="POST">
                     <!-- end confirm password -->
                     <div class="">
                         <span>Họ và tên</span>
-                        <input class="my-1 bg-gray-100 bg-opacity-50 px-2 py-1 border focus:outline-none block w-full" type="text" id="lastname" name="lastName" required>
+                        <input class="my-1 bg-gray-100 bg-opacity-50 px-2 py-1 border focus:outline-none block w-full"
+                            type="text" id="lastname" name="lastName" required>
                     </div>
                     <!-- end lastname -->
                     <div class="my-5">
                         <span>Email</span>
-                        <input class="my-1 bg-gray-100 bg-opacity-50 px-2 py-1 border focus:outline-none block w-full" type="email" id="email" name="email" required>
+                        <input class="my-1 bg-gray-100 bg-opacity-50 px-2 py-1 border focus:outline-none block w-full"
+                            type="email" id="email" name="email" required>
                     </div>
                     <!-- end mail -->
                     <div class="my-5">
                         <span>Số điện thoại</span>
-                        <input class="my-1 bg-gray-100 bg-opacity-50 px-2 py-1 border focus:outline-none block w-full" type="tel" id="phone" name="phone" pattern="0[0-9\s.-]{9,13}" required>
+                        <input class="my-1 bg-gray-100 bg-opacity-50 px-2 py-1 border focus:outline-none block w-full"
+                            type="tel" id="phone" name="phone" pattern="0[0-9\s.-]{9,13}" required>
                     </div>
                     <div class="my-5">
                         <span>Địa chỉ</span>
-                        <input class="my-1 bg-gray-100 bg-opacity-50 px-2 py-1 border focus:outline-none block w-full" type="text" id="address" name="phone" required>
+                        <input class="my-1 bg-gray-100 bg-opacity-50 px-2 py-1 border focus:outline-none block w-full"
+                            type="text" id="address" name="address" required>
                     </div>
                     <span>Ý kiến khách hàng</span>
-                    <textarea class="border bg-gray-100 bg-opacity-50 px-5 py-2 focus:outline-none  w-full" name="comment" id="" cols="145" rows="11" required></textarea>
+                    <textarea class="border bg-gray-100 bg-opacity-50 px-5 py-2 focus:outline-none  w-full"
+                        name="comment" id="" cols="145" rows="11" required></textarea>
                     <div class="flex justify-center items-center">
                         <!-- <button class="mt-5 border hover:border-yellow-300 hover:bg-white rounded-lg px-10 py-2 text-lg focus:outline-none bg-blue-300 hover:text-black" name="btn_regis">Gửi</button> -->
-                        <input class="mt-5 border hover:border-yellow-300 hover:bg-white rounded-lg px-10 py-2 text-lg focus:outline-none bg-blue-300 hover:text-black" type="submit" value="Gửi">
+                        <input
+                            class="mt-5 border hover:border-yellow-300 hover:bg-white rounded-lg px-10 py-2 text-lg focus:outline-none bg-blue-300 hover:text-black"
+                            type="submit" name="submit" value="Gửi">
                     </div>
                     <!-- end submit -->
                 </form>
+
             </div>
         </section>
+        <?php
+        if (isset($_POST['submit'])) {
+            $lastName = $_POST['lastName'];
+            $email = $_POST['email'];
+            $phone = $_POST['phone'];
+            $address = $_POST['address'];
+            $comment = $_POST['comment'];
+            $sql = "insert  into contact values(null, '$lastName', '$email','$phone', '$address', '$comment', '0',null)";
+            $total = $local->exec($sql);
+            if ($total == 1) {
+                echo "<div class=' text-center font-bold text-green-600'>Gửi thông tin thành công</div>";
+            } else {
+                echo "<div class=' text-center font-bold text-red-600'>Gửi thông tin thất bại!</div>";
+            }
+        }
+
+        ?>
     </main>
     <footer class="background4 bg-opacity-10 mt-5">
         <?php require "footer.php"; ?>

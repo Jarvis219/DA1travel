@@ -1,3 +1,7 @@
+<?php
+session_start();
+ob_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,14 +14,20 @@
     <link rel="stylesheet" type="text/css" href="./content/slick-1.8.1/slick/slick.css" />
     <link rel="stylesheet" type="text/css" href="./content/slick-1.8.1/slick/slick-theme.css" />
     <link rel="stylesheet" href="./content/build/styles.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        .background4 {
-            background-image: url('./content/image/background/background4.jpg');
-        }
+    .background4 {
+        background-image: url('./content/image/background/background4.jpg');
+    }
+
+    .nunito {
+        font-family: 'Nunito', sans-serif;
+    }
     </style>
 </head>
 
-<body>
+<body class="nunito">
     <header>
         <div class="bg-blue-400 bg-opacity-50">
             <?php require "headerTop.php"; ?>
@@ -28,25 +38,60 @@
     </header>
     <main>
         <section class="mx-96 border my-10 px-32 py-10 shadow-md">
-            <form action="postLogin.php" method="POST" class="px-40">
-                <h1 class="text-center text-3xl">ĐĂNG KÝ THÀNH VIÊN</h1>
+            <form method="POST" class="px-40">
+                <h1 class="text-center text-3xl">ĐĂNG NHẬP</h1>
                 <div class="mt-4">
                     <span>Tên đăng nhập</span>
-                    <input class="my-1 px-2 py-1 border focus:outline-none block w-full" type="text" placeholder="" id="users_name" name="users_name">
+                    <input class="my-1 px-2 py-1 border focus:outline-none block w-full" type="text" placeholder=""
+                        id="users_name" name="users_name" required>
                 </div>
                 <!-- end user name -->
                 <div class="mt-4">
                     <span>Mật khẩu</span>
-                    <input class="my-1 px-2 py-1 border focus:outline-none block w-full" type="password" placeholder="" id="pass" name="pass">
+                    <input class="my-1 px-2 py-1 border focus:outline-none block w-full" type="password" placeholder=""
+                        id="pass" name="pass" required>
                 </div>
                 <div class="flex items-center pt-2">
                     <input type="checkbox">
                     <span class="px-2">Ghi nhớ mật khẩu</span>
                 </div>
                 <!-- end password -->
-                <button class="block w-full bg-blue-300 border rounded-lg mt-4 py-2 text-lg focus:outline-none hover:bg-white hover:border-blue-300" name="btn_login">Đăng
+                <button
+                    class="block w-full bg-blue-300 border rounded-lg mt-4 py-2 text-lg focus:outline-none hover:bg-white hover:border-blue-300"
+                    name="btn_login">Đăng
                     nhập</button>
             </form>
+            <?php
+            include "../../DA1/examples/local.php";
+            if (isset($_POST['btn_login'])) {
+                $username = $_POST['users_name'];
+                $password = $_POST['pass'];
+                function checkname($user, $password)
+                {
+                    include "../../DA1/examples/local.php";
+                    $sql = "select count(*) from user where username like '$user' and password like '$password'";
+                    $data = $local->prepare($sql);
+                    $data->execute();
+                    return $data->fetchColumn();
+                }
+                $userr =  checkname($username, $password);
+                if ($userr == 0) {
+                    echo "<div class='text-red-600 text-center text-sm'>Tài khoản hoặc mật khẩu không chính xác</div>";
+                } else {
+                    $username = $_POST['users_name'];
+                    $_SESSION['user'] = $username;
+                    $sql = "select * from user where username = '$username'";
+                    $total = $local->query($sql)->fetch();
+
+                    if ($total['permission'] == "admin") {
+                        header("location:../../../../DA1/examples/information.php");
+                    } else {
+                        header("location:../../../../DA1/DA/index.php");
+                    }
+                }
+            }
+
+            ?>
             <div class="mt-4 flex justify-end px-40">
                 <!-- <a class="hover:underline hover:text-blue-500 block" href="">Quên mật khẩu</a> -->
                 <div class="">

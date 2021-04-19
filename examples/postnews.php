@@ -42,7 +42,7 @@ The above copyright notice and this permission notice shall be included in all c
 
         Tip 2: you can also add an image using data-image tag
     -->
-            <div class="logo"><a href="#" class="simple-text logo-normal">
+            <div class="logo"><a href="../../DA1//DA" class="simple-text logo-normal">
                     <img src="../assets/img/logo.png" alt="">
                 </a></div>
             <div class="sidebar-wrapper">
@@ -171,8 +171,8 @@ The above copyright notice and this permission notice shall be included in all c
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table class="table">
-                                            <thead class=" text-primary">
+                                        <table class="table text-center">
+                                            <thead class=" text-primary ">
                                                 <th>
                                                     Mã bài viết
                                                 </th>
@@ -195,40 +195,48 @@ The above copyright notice and this permission notice shall be included in all c
                                                 <th colspan="2"><span class="pl-4">Tùy chỉnh</span></th>
                                             </thead>
                                             <tbody>
+                                                <?php
+                                                include "../../DA1/examples/local.php";
+                                                $sqll = "select * from postnews";
+                                                $totall = $local->query($sqll);
+                                                foreach ($totall as $values) {
+
+                                                ?>
                                                 <tr>
                                                     <td>
-                                                        news01
+                                                        <?php echo $values['id_post'] ?>
                                                     </td>
                                                     <td>
-                                                        post
+                                                        <?php echo $values['title'] ?>
                                                     </td>
                                                     <td class="w-20 object-cover">
-                                                        <img src="https://genk.mediacdn.vn/2018/6/7/goku-ultra-instinct-15283404570951143732168.jpg"
+                                                        <img src="../../DA1/assets/img/<?php echo $values['post_image'] ?>"
                                                             alt="">
                                                     </td>
                                                     <td class="w-20 object-cover">
-                                                        <img src="https://genk.mediacdn.vn/2018/6/7/goku-ultra-instinct-15283404570951143732168.jpg"
+                                                        <img src="../../DA1/assets/img/<?php echo $values['post_image2'] ?>"
                                                             alt="">
                                                     </td>
                                                     <td>
-                                                        content1
+                                                        <?php echo $values['content_short'] ?>
                                                     </td>
-                                                    <td>content2</td>
+                                                    <td> <?php echo $values['content'] ?></td>
                                                     <td>
-                                                        tg1
+                                                        <?php echo $values['author'] ?>
                                                     </td>
-                                                    <td>00:00:00</td>
+                                                    <td> <?php echo $values['create_at'] ?></td>
                                                     <td class="w-20"><button
                                                             class=" bg-gradient-to-r from-green-400 to-blue-500  text-white rounded-lg transition duration-300 ease-in-out transform hover:scale-105 flex items-center"><a
-                                                                href="../../DA1/examples/repair/repairpostnews.php"
+                                                                href="../../DA1/examples/repair/repairpostnews.php?id_postnews=<?php echo $values['id_post'] ?>"
                                                                 class="inline-block py-2 px-3">Sửa</a></button>
                                                     </td>
                                                     <td class="w-20"><button
                                                             onclick="return confirm('you want to delete!')" ;
                                                             class="bg-gradient-to-r from-purple-200 via-pink-500 to-red-500 text-white rounded-lg  transition duration-300 ease-in-out transform hover:scale-105"><a
-                                                                href="#"
+                                                                href="../../DA1/examples/delete/delete.php?id_postnews=<?php echo $values['id_post'] ?>"
                                                                 class="inline-block px-3 py-2 ">Xóa</a></button></td>
                                                 </tr>
+                                                <?php } ?>
                                             </tbody>
                                         </table>
                                     </div>

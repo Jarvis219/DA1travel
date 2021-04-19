@@ -171,51 +171,205 @@ The above copyright notice and this permission notice shall be included in all c
                                     <h4 class="card-title">Cật nhật thể loại tour</h4>
                                 </div>
                                 <div class="card-body">
-                                    <form>
+                                    <?php
+                                    include "../../examples/local.php";
+                                    if (isset($_GET['id_image'])) {
+                                        $id = $_GET['id_image'];
+                                        $sqll = "select * from images where id_image = $id";
+                                        $totall = $local->query($sqll)->fetch();
+                                    }
+                                    ?>
+                                    <form method="POST" enctype="multipart/form-data">
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Mã ảnh (disabled)</label>
-                                                    <input type="text" class="form-control" disabled>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="bmd-label-floating">Địa chỉ</label>
-                                                    <input type="text" class="form-control" id="address" required>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="bmd-label-floating">Khẩu hiệu</label>
-                                                    <input type="text" class="form-control" id="slogan" required>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="bmd-label-floating">Email</label>
-                                                    <input type="email" class="form-control" id="email" required>
+                                                    <input type="text" class="form-control"
+                                                        value="<?php echo $totall['id_image'] ?>" disabled>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="">
-                                                    <label class="bmd-label-floating">Logo</label>
-                                                    <input type="file" class="form-control">
+                                                    <label class="bmd-label-floating">Ảnh tiêu đề</label>
+                                                    <img class="w-20 object-cover"
+                                                        src="../../assets/img/<?php echo $totall['image_main'] ?>"
+                                                        alt="">
+                                                    <input type="file" class="form-control" id="address"
+                                                        name="image_main">
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <button type="submit" class="btn btn-primary pull-left">Cập nhật</button>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="">
+                                                    <label class="bmd-label-floating">Ảnh chi tiết</label>
+                                                    <img class="w-20 object-cover"
+                                                        src="../../assets/img/<?php echo $totall['image_detail'] ?>"
+                                                        alt="">
+                                                    <input type="file" class="form-control" id="address"
+                                                        name="image_detail">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="">
+                                                    <label class="bmd-label-floating">Ảnh lịch trình 1</label>
+                                                    <img class="w-20 object-cover"
+                                                        src="../../assets/img/<?php echo $totall['image_plan1'] ?>"
+                                                        alt="">
+                                                    <input type="file" class="form-control" id="address"
+                                                        name="image_plan1">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="">
+                                                    <label class="bmd-label-floating">Ảnh lịch trình 2</label>
+                                                    <img class="w-20 object-cover"
+                                                        src="../../assets/img/<?php echo $totall['image_plan2'] ?>"
+                                                        alt="">
+                                                    <input type="file" class="form-control" id="address"
+                                                        name="image_plan2">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="">
+                                                    <label class="bmd-label-floating">Ảnh lịch trình 3</label>
+                                                    <img class="w-20 object-cover"
+                                                        src="../../assets/img/<?php echo $totall['image_plan3'] ?>"
+                                                        alt="">
+                                                    <input type="file" class="form-control" id="address"
+                                                        name="image_plan3">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary pull-left" name="submit">Cập
+                                            nhật</button>
                                     </form>
                                     <button type="submit" class="btn btn-primary pull-left" id="reseting">Nhập
                                         lại</button>
-                                    <a href="../../examples/category.php"> <button type="submit"
+                                    <a href="../../examples/image.php"> <button type="submit"
                                             class="btn btn-primary pull-left">Danh sách</button></a>
                                 </div>
+                                <?php
+                                if (isset($_POST['submit'])) {
+                                    $image_main = $_FILES['image_main']['name'];
+                                    $tmp_image_main = $_FILES['image_main']['tmp_name'];
+                                    $type_image_main = $_FILES['image_main']['type'];
+                                    $image_detail = $_FILES['image_detail']['name'];
+                                    $tmp_image_detail = $_FILES['image_detail']['tmp_name'];
+                                    $type_image_detail = $_FILES['image_detail']['type'];
+                                    $image_plan1 = $_FILES['image_plan1']['name'];
+                                    $tmp_image_plan1 = $_FILES['image_plan1']['tmp_name'];
+                                    $type_image_plan1 = $_FILES['image_plan1']['type'];
+                                    $images_plan2 = $_FILES['image_plan2']['name'];
+                                    $tmp_image_plan2 = $_FILES['image_plan2']['tmp_name'];
+                                    $type_image_plan2 = $_FILES['image_plan2']['type'];
+                                    $image_plan3 = $_FILES['image_plan3']['name'];
+                                    $tmp_image_plan3 = $_FILES['image_plan3']['tmp_name'];
+                                    $type_image_plan3 = $_FILES['image_plan3']['type'];
+                                    if ((empty($image_main)) && (empty($image_detail)) && (empty($image_plan1)) && (empty($image_plan2)) && (empty($image_plan3))) {
+                                        $image_main = $totall['image_main'];
+                                        $image_detail = $totall['image_detail'];
+                                        $image_plan1 = $totall['image_plan1'];
+                                        $image_plan2 = $totall['image_plan2'];
+                                        $image_plan3 = $totall['image_plan3'];
+                                        $sql = "update images set image_main = '$image_main', image_detail = '$image_detail', image_plan1 = '$image_plan1', image_plan2 = '$image_plan2', image_plan3 = '$image_plan3' where id_image = $id";
+                                        $total = $local->prepare($sql);
+                                        if ($total->execute()) {
+                                            echo '<div class="text-center font-bold text-green-600" >Cập nhật ảnh thành công1</div>';
+                                        } else {
+                                            echo '<div class="text-center font-bold text-red-600" >Cập nhật ảnh thất bại</div>';
+                                        }
+                                    } else if ((empty($image_main)) || (empty($image_detail)) || (empty($image_plan1)) || (empty($image_plan2)) || (empty($image_plan3))) {
+                                        if ((empty($image_main))) {
+                                            echo   $image_main = $totall['image_main'];
+                                            move_uploaded_file($tmp_image_detail, "../../assets/img/" . $image_detail);
+                                            move_uploaded_file($tmp_image_plan1, "../../assets/img/" . $image_plan1);
+                                            move_uploaded_file($tmp_image_plan2, "../../assets/img/" . $image_plan2);
+                                            move_uploaded_file($tmp_image_plan3, "../../assets/img/" . $image_plan3);
+                                            $sql = "update images set image_main = '$image_main', image_detail = '$image_detail', image_plan1 = '$image_plan1', image_plan2 = '$image_plan2', image_plan3 = '$image_plan3' where id_image = $id";
+                                            $total = $local->prepare($sql);
+                                            if ($total->execute()) {
+                                                echo '<div class="text-center font-bold text-green-600" >Cập nhật ảnh thành công2</div>';
+                                            } else {
+                                                echo '<div class="text-center font-bold text-red-600" >Cập nhật ảnh thất bại</div>';
+                                            }
+                                        }
+                                        if ((empty($image_detail))) {
+                                            $image_detail = $totall['image_detail'];
+                                            move_uploaded_file($tmp_image_main, "../../assets/img/" . $image_main);
+                                            move_uploaded_file($tmp_image_plan1, "../../assets/img/" . $image_plan1);
+                                            move_uploaded_file($tmp_image_plan2, "../../assets/img/" . $image_plan2);
+                                            move_uploaded_file($tmp_image_plan3, "../../assets/img/" . $image_plan3);
+                                            $sql = "update images set image_main = '$image_main', image_detail = '$image_detail', image_plan1 = '$image_plan1', image_plan2 = '$image_plan2', image_plan3 = '$image_plan3' where id_image = $id";
+                                            $total = $local->prepare($sql);
+                                            if ($total->execute()) {
+                                                echo '<div class="text-center font-bold text-green-600" >Cập nhật ảnh thành công3</div>';
+                                            } else {
+                                                echo '<div class="text-center font-bold text-red-600" >Cập nhật ảnh thất bại</div>';
+                                            }
+                                        }
+                                        if ((empty($image_plan1))) {
+                                            $image_plan1 = $totall['image_plan1'];
+                                            move_uploaded_file($tmp_image_main, "../../assets/img/" . $image_main);
+                                            move_uploaded_file($tmp_image_detail, "../../assets/img/" . $image_detail);
+                                            move_uploaded_file($tmp_image_plan2, "../../assets/img/" . $image_plan2);
+                                            move_uploaded_file($tmp_image_plan3, "../../assets/img/" . $image_plan3);
+                                            $sql = "update images set image_main = '$image_main', image_detail = '$image_detail', image_plan1 = '$image_plan1', image_plan2 = '$image_plan2', image_plan3 = '$image_plan3' where id_image = $id";
+                                            $total = $local->prepare($sql);
+                                            if ($total->execute()) {
+                                                echo '<div class="text-center font-bold text-green-600" >Cập nhật ảnh thành công4</div>';
+                                            } else {
+                                                echo '<div class="text-center font-bold text-red-600" >Cập nhật ảnh thất bại</div>';
+                                            }
+                                        }
+                                        if ((empty($image_plan2))) {
+                                            $image_plan2 = $totall['image_plan2'];
+                                            move_uploaded_file($tmp_image_main, "../../assets/img/" . $image_main);
+                                            move_uploaded_file($tmp_image_detail, "../../assets/img/" . $image_detail);
+                                            move_uploaded_file($tmp_image_plan1, "../../assets/img/" . $image_plan1);
+                                            move_uploaded_file($tmp_image_plan3, "../../assets/img/" . $image_plan3);
+                                            $sql = "update images set image_main = '$image_main', image_detail = '$image_detail', image_plan1 = '$image_plan1', image_plan2 = '$image_plan2', image_plan3 = '$image_plan3' where id_image = $id";
+                                            $total = $local->prepare($sql);
+                                            if ($total->execute()) {
+                                                echo '<div class="text-center font-bold text-green-600" >Cập nhật ảnh thành công5</div>';
+                                            } else {
+                                                echo '<div class="text-center font-bold text-red-600" >Cập nhật ảnh thất bại</div>';
+                                            }
+                                        }
+                                        if ((empty($image_plan3))) {
+                                            $image_plan3 = $totall['image_plan3'];
+                                            move_uploaded_file($tmp_image_main, "../../assets/img/" . $image_main);
+                                            move_uploaded_file($tmp_image_detail, "../../assets/img/" . $image_detail);
+                                            move_uploaded_file($tmp_image_plan1, "../../assets/img/" . $image_plan1);
+                                            move_uploaded_file($tmp_image_plan2, "../../assets/img/" . $image_plan2);
+                                            $sql = "update images set image_main = '$image_main', image_detail = '$image_detail', image_plan1 = '$image_plan1', image_plan2 = '$image_plan2', image_plan3 = '$image_plan3' where id_image = $id";
+                                            $total = $local->prepare($sql);
+                                            if ($total->execute()) {
+                                                echo '<div class="text-center font-bold text-green-600" >Cập nhật ảnh thành công6</div>';
+                                            } else {
+                                                echo '<div class="text-center font-bold text-red-600" >Cập nhật ảnh thất bại</div>';
+                                            }
+                                        }
+                                    } else {
+                                        move_uploaded_file($tmp_image_main, "../../assets/img/" . $image_main);
+                                        move_uploaded_file($tmp_image_detail, "../../assets/img/" . $image_detail);
+                                        move_uploaded_file($tmp_image_plan1, "../../assets/img/" . $image_plan1);
+                                        move_uploaded_file($tmp_image_plan2, "../../assets/img/" . $image_plan2);
+                                        move_uploaded_file($tmp_image_plan3, "../../assets/img/" . $image_plan3);
+                                        $sql = "update images set image_main = '$image_main', image_detail = '$image_detail', image_plan1 = '$image_plan1', image_plan2 = '$image_plan2', image_plan3 = '$image_plan3' where id_image = $id";
+                                        $total = $local->prepare($sql);
+                                        if ($total->execute()) {
+                                            echo '<div class="text-center font-bold text-green-600" >Cập nhật ảnh thành công7</div>';
+                                        } else {
+                                            echo '<div class="text-center font-bold text-red-600" >Cập nhật ảnh thất bại</div>';
+                                        }
+                                    }
+                                }
+                                ?>
                             </div>
                         </div>
                     </div>

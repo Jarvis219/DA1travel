@@ -42,7 +42,7 @@ The above copyright notice and this permission notice shall be included in all c
 
         Tip 2: you can also add an image using data-image tag
     -->
-            <div class="logo"><a href="#" class="simple-text logo-normal">
+            <div class="logo"><a href="../../DA1//DA" class="simple-text logo-normal">
                     <img src="../assets/img/logo.png" alt="">
                 </a></div>
             <div class="sidebar-wrapper">
@@ -172,7 +172,7 @@ The above copyright notice and this permission notice shall be included in all c
                                 <div class="card-body">
                                     <div class="table-responsive">
                                         <table class="table">
-                                            <thead class=" text-primary">
+                                            <thead class=" text-primary text-center">
                                                 <th class="w-20">
                                                     Mã ảnh
                                                 </th>
@@ -227,13 +227,13 @@ The above copyright notice and this permission notice shall be included in all c
                                                     </td>
                                                     <td class="w-20"><button
                                                             class=" bg-gradient-to-r from-green-400 to-blue-500  text-white rounded-lg transition duration-300 ease-in-out transform hover:scale-105 flex items-center"><a
-                                                                href="../../DA1/examples/repair/repairimage.php"
+                                                                href="../../DA1/examples/repair/repairimage.php?id_image=<?php echo $values['id_image'] ?>"
                                                                 class="inline-block py-2 px-3">Sửa</a></button>
                                                     </td>
                                                     <td class="w-20"><button
                                                             onclick="return confirm('you want to delete!')" ;
                                                             class="bg-gradient-to-r from-purple-200 via-pink-500 to-red-500 text-white rounded-lg  transition duration-300 ease-in-out transform hover:scale-105"><a
-                                                                href="../../DA1/examples/delete/delete.php"
+                                                                href="../../DA1/examples/delete/delete.php?id_image=<?php echo $values['id_image'] ?>"
                                                                 class="inline-block px-3 py-2 ">Xóa</a></button>
                                                     </td>
                                                 </tr>
@@ -241,11 +241,6 @@ The above copyright notice and this permission notice shall be included in all c
                                             </tbody>
                                         </table>
                                     </div>
-                                </div>
-                                <div>
-                                    <a href="../../DA1/examples/add/addimage.php"><button type="submit"
-                                            class="btn btn-primary pull-left ml-4">Thêm
-                                            ảnh</button></a>
                                 </div>
                             </div>
                         </div>

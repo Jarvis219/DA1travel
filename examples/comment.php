@@ -42,7 +42,7 @@ The above copyright notice and this permission notice shall be included in all c
 
         Tip 2: you can also add an image using data-image tag
     -->
-            <div class="logo"><a href="#" class="simple-text logo-normal">
+            <div class="logo"><a href="../../DA1//DA" class="simple-text logo-normal">
                     <img src="../assets/img/logo.png" alt="">
                 </a></div>
             <div class="sidebar-wrapper">
@@ -171,8 +171,8 @@ The above copyright notice and this permission notice shall be included in all c
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table class="table">
-                                            <thead class=" text-primary">
+                                        <table class="table text-center">
+                                            <thead class=" text-primary text-center">
                                                 <th>
                                                     stt
                                                 </th>
@@ -189,30 +189,53 @@ The above copyright notice and this permission notice shall be included in all c
                                                 <th>
                                                     Số bình luận
                                                 </th>
+                                                <th>Đánh giá trung bình</th>
                                                 <th>Tùy chọn</th>
                                             </thead>
+                                            <!-- <td class="text-yellow-600"> -->
+
+                                            <!-- </td> -->
                                             <tbody>
-                                                <tr>
+                                                <?php
+                                                include "../../DA1/examples/local.php";
+                                                $sqll = "select  tour.id_image, image_main, COUNT(DISTINCT username) as sumName, tour.id_tour, evaluate, content_comment,comment.id_comment, id_parent, tour.name_tour, count(comment.id_comment), sum(evaluate) as sumStar from tour 
+                                                join comment on comment.id_tour=tour.id_tour 
+                                                join images on tour.id_image=images.id_image group by tour.id_tour";
+                                                $toatll = $local->query($sqll);
+                                                foreach ($toatll as $key => $values) {
+                                                ?>
+                                                <tr class="text-center">
                                                     <td>
-                                                        1
+                                                        <?php echo ($key + 1) ?>
                                                     </td>
                                                     <td>
-                                                        001
+                                                        <?php echo $values['id_tour'] ?>
                                                     </td>
                                                     <td>
-                                                        Tour Cầu Giấy
+                                                        <?php echo $values['name_tour'] ?>
                                                     </td>
                                                     <td class="w-20 object-cover">
-                                                        <img src="https://gamek.mediacdn.vn/133514250583805952/2020/8/6/rtd1-1596712458074488543564.jpg"
+                                                        <img src="../../DA1/assets/img/<?php echo $values['image_main'] ?>"
                                                             alt="">
                                                     </td>
-                                                    <td>10</td>
+                                                    <td>
+                                                        <?php echo $values['count(comment.id_comment)'] ?></td>
+                                                    <td class="text-yellow-600"> <?php
+                                                                                        $user = $values['sumName'];
+                                                                                        $star = $values['sumStar'];
+                                                                                        $result = $star / $user;
+                                                                                        $result;
+                                                                                        for ($i = 0; $i < $result; $i++) {
+                                                                                            echo '<i class="far fa-star"></i>';
+                                                                                        }
+                                                                                        ?></td>
                                                     <td><button
                                                             class="bg-gradient-to-r from-green-400 to-blue-500  text-white rounded-lg transition duration-300 ease-in-out transform hover:scale-105 flex items-center"><a
-                                                                href="../../DA1/examples/detail/commentdetail.php"
+                                                                href="../../DA1/examples/detail/commentdetail.php?id_tour=<?php echo $values['id_tour'] ?>"
                                                                 class="inline-block py-2 px-3">Chi
                                                                 tiết</a></button></td>
                                                 </tr>
+                                                <?php } ?>
                                             </tbody>
                                         </table>
                                     </div>

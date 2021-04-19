@@ -1,3 +1,8 @@
+<?php
+ob_start();
+session_start();
+include "../../DA1/examples/local.php";
+?>
 <!--
 =========================================================
 Material Dashboard - v2.1.2
@@ -32,7 +37,7 @@ The above copyright notice and this permission notice shall be included in all c
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 
     <script src="https://kit.fontawesome.com/5cd69ad435.js" crossorigin="anonymous"></script>
-    <style>
+    <!-- <style>
     input[type="checkbox"]+label {
         display: block;
         margin: 0.2em;
@@ -70,7 +75,7 @@ The above copyright notice and this permission notice shall be included in all c
 
         transform: scale(6);
     }
-    </style>
+    </style> -->
 </head>
 
 <body class="">
@@ -81,7 +86,7 @@ The above copyright notice and this permission notice shall be included in all c
 
         Tip 2: you can also add an image using data-image tag
     -->
-            <div class="logo"><a href="#" class="simple-text logo-normal">
+            <div class="logo"><a href="../../DA1//DA" class="simple-text logo-normal">
                     <img src="../assets/img/logo.png" alt="">
                 </a></div>
             <div class="sidebar-wrapper">
@@ -210,7 +215,7 @@ The above copyright notice and this permission notice shall be included in all c
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table class="table">
+                                        <table class="table text-center">
                                             <thead class=" text-primary">
                                                 <th>
                                                     Mã đơn tour
@@ -219,7 +224,7 @@ The above copyright notice and this permission notice shall be included in all c
                                                     Mã tour
                                                 </th>
                                                 <th>
-                                                    Username
+                                                    Họ và Tên
                                                 </th>
                                                 <th>
                                                     Số người lớn
@@ -232,23 +237,28 @@ The above copyright notice and this permission notice shall be included in all c
                                                 <th>Tùy chọn</th>
                                             </thead>
                                             <tbody>
+                                                <?php
+                                                $sqll = "select * from cart join user on cart.username=user.username";
+                                                $totall = $local->query($sqll);
+                                                foreach ($totall as $value) {
+                                                ?>
                                                 <tr>
                                                     <td>
-                                                        1
+                                                        <?php echo $value['id_cart'] ?>
                                                     </td>
                                                     <td>
-                                                        001
+                                                        <?php echo $value['id_tour'] ?>
                                                     </td>
                                                     <td>
-                                                        user 01
+                                                        <?php echo $value['fullname'] ?>
                                                     </td>
                                                     <td class="text-primary">
-                                                        2
+                                                        <?php echo $value['adult_amount'] ?>
                                                     </td>
                                                     <td class="text-primary">
-                                                        2
+                                                        <?php echo $value['child_amount'] ?>
                                                     </td>
-                                                    <td>bao phòng</td>
+                                                    <td> <?php echo $value['note'] ?></td>
                                                     <form method="POST">
                                                         <td><select name="checkstatus" id=""
                                                                 class="border-2 border-green-400 border-opacity-100 rounded-lg">
@@ -260,11 +270,12 @@ The above copyright notice and this permission notice shall be included in all c
                                                     </form>
                                                     <td><button
                                                             class="bg-gradient-to-r from-green-400 to-blue-500  text-white rounded-lg transition duration-300 ease-in-out transform hover:scale-105 flex items-center"><a
-                                                                href="../../DA1/examples/detail/cartdetail.php"
+                                                                href="../../DA1/examples/detail/cartdetail.php?id_cart=<?php echo $value['id_cart'] ?>"
                                                                 class="inline-block py-2 px-3">Chi
                                                                 tiết</a></button></td>
                                                 </tr>
                                             </tbody>
+                                            <?php } ?>
                                         </table>
                                     </div>
                                 </div>

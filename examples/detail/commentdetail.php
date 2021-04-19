@@ -175,55 +175,55 @@ The above copyright notice and this permission notice shall be included in all c
                                         <table class="table">
                                             <thead class=" text-primary">
                                                 <th>
-                                                    stt
-                                                </th>
-                                                <th>
-                                                    Mã bình luận
-                                                </th>
-                                                <th>
                                                     Username
                                                 </th>
-                                                <th>Đánh giá trung bình</th>
+
                                                 <th>
                                                     Nội dung bình luận
                                                 </th>
-                                                <th colspan="2"><span class="ml-12">Tùy chỉnh</span></th>
+                                                <th colspan="2">Tùy chỉnh</th>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>
-                                                        1
-                                                    </td>
-                                                    <td>
-                                                        001
-                                                    </td>
-                                                    <td>
-                                                        User 01
-                                                    </td>
-                                                    <td class="text-yellow-600">
-                                                        <i class="far fa-star"></i>
-                                                        <i class="far fa-star"></i>
-                                                        <i class="far fa-star"></i>
-                                                        <i class="far fa-star"></i>
-                                                        <i class="far fa-star"></i>
-                                                    </td>
-                                                    <td>
-                                                        Chất lượng ok
-                                                    </td>
-                                                    <td style="width:100px"><button
-                                                            class=" bg-gradient-to-r from-green-400 to-blue-500  text-white rounded-lg transition duration-300 ease-in-out transform hover:scale-105 flex items-center"><a
-                                                                href="../../examples/detail/replydetail.php"
-                                                                class="inline-block py-2 px-3">Reply chi
-                                                                tiết</a></button>
-                                                    </td>
-                                                    <td class="inline-block w-20 ml-2"><button
-                                                            onclick="return confirm('you want to delete!')" ;
-                                                            class="bg-gradient-to-r from-purple-200 via-pink-500 to-red-500 text-white rounded-lg  transition duration-300 ease-in-out transform hover:scale-105"><a
-                                                                href="../../examples/delete/delete.php"
-                                                                class="inline-block px-3 py-3 "
-                                                                style="margin: 2px 0px;">Xóa</a></button>
-                                                    </td>
-                                                </tr>
+                                                <?php
+                                                include "../../examples/local.php";
+                                                if (isset($_GET['id_tour'])) {
+                                                    $id = $_GET['id_tour'];
+                                                    $sqll = "select * from comment where id_tour = $id";
+                                                    $toatlls = $local->query($sqll)->fetch();
+                                                    $idParent =  $toatlls['id_comment'];
+                                                    $idCmt = $toatlls['id_comment'];
+                                                    $reply = "select * from comment where id_tour= $id  or (id_parent = $idParent or id_comment= $idCmt)";
+                                                    $totalrep = $local->query($reply)->fetchAll();
+                                                    $category = array();
+                                                    $categories[] = $row;
+                                                    function showCategories($categories, $parent_id = 0, $char = '')
+                                                    {
+                                                        foreach ($categories as $key => $item) {
+                                                            // Nếu là chuyên mục con thì hiển thị
+                                                            if ($item['id_parent'] == $parent_id) {
+                                                                echo '<tr>';
+                                                                echo '<td>' . $item['username'] . '</td>';
+                                                                echo '<td>';
+                                                                echo $char . $item['content_comment'] . "<br>";
+                                                                echo '</td>';
+                                                                echo '<td  class="inline-block w-20 ml-2">';
+                                                                echo '<button  class="bg-gradient-to-r from-purple-200 via-pink-500 to-red-500 text-white rounded-lg  transition duration-300 ease-in-out transform hover:scale-105">
+                                                                <a  href="../../examples/delete/delete.php"
+                                                                class="inline-block px-3 py-2 "
+                                                                style="margin: 2px 0px;">Xóa</a>
+                                                                </button>';
+                                                                echo '</td>';
+                                                                echo '</tr>';
+                                                                // Xóa chuyên mục đã lặp
+                                                                unset($categories[$key]);
+                                                                // Tiếp tục đệ quy để tìm chuyên mục con của chuyên mục đang lặp
+                                                                showCategories($categories, $item['id_comment'],   $char . 'tra loi ' .  $item['username'] . ' : ');
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                ?>
+                                                <?php showCategories($totalrep); ?>
                                             </tbody>
                                         </table>
                                     </div>

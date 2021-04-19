@@ -32,45 +32,8 @@ The above copyright notice and this permission notice shall be included in all c
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 
     <script src="https://kit.fontawesome.com/5cd69ad435.js" crossorigin="anonymous"></script>
-    <style>
-    input[type="checkbox"]+label {
-        display: block;
-        margin: 0.2em;
-        cursor: pointer;
-    }
 
-    input[type="checkbox"] {
-        display: none;
-    }
 
-    input[type="checkbox"]+label:before {
-        content: "\2714";
-        width: 20px;
-        height: 15px;
-        display: inline-block;
-        font-size: 15px;
-        color: rgb(49, 196, 49);
-        border: 1px solid #000;
-        border-radius: 0.2em;
-        padding-left: 2px;
-        padding-bottom: 20px;
-        vertical-align: bottom;
-        color: transparent;
-        transition: 0.5s;
-
-    }
-
-    input[type="checkbox"]:checked+label:before {
-        background-color: aquamarine;
-        border-color: MediumSeaGreen;
-        color: #fff;
-    }
-
-    input[type="checkbox"]+label:active:before {
-
-        transform: scale(6);
-    }
-    </style>
 </head>
 
 <body class="">
@@ -81,7 +44,7 @@ The above copyright notice and this permission notice shall be included in all c
 
         Tip 2: you can also add an image using data-image tag
     -->
-            <div class="logo"><a href="#" class="simple-text logo-normal">
+            <div class="logo"><a href="../../DA1//DA" class="simple-text logo-normal">
                     <img src="../assets/img/logo.png" alt="">
                 </a></div>
             <div class="sidebar-wrapper">
@@ -205,13 +168,13 @@ The above copyright notice and this permission notice shall be included in all c
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
-                                <div class="card-header card-header-primary">
+                                <div class="card-header card-header-primary flex justify-between">
                                     <h4 class="card-title ">Contact</h4>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table class="table">
-                                            <thead class=" text-primary">
+                                        <table class="table text-center">
+                                            <thead class=" text-primary  ">
                                                 <th>
                                                     Mã liên hệ
                                                 </th>
@@ -234,36 +197,47 @@ The above copyright notice and this permission notice shall be included in all c
                                                 <th colspan="2"><span class="pl-4">Tùy chỉnh</span></th>
                                             </thead>
                                             <tbody>
+                                                <?php
+                                                include "../../DA1/examples/local.php";
+                                                $sqll = " select * from contact";
+                                                $totall = $local->query($sqll);
+                                                foreach ($totall as $values) {
+                                                ?>
                                                 <tr>
                                                     <td>
-                                                        contact 1
+                                                        <?php echo $values['id_contact'] ?>
                                                     </td>
                                                     <td>
-                                                        name 1
+                                                        <?php echo $values['contact_name'] ?>
                                                     </td>
 
                                                     <td>
-                                                        ceo@gmail.com
+                                                        <?php echo $values['contact_email'] ?>
                                                     </td>
 
-                                                    <td>099999999</td>
+                                                    <td> <?php echo $values['contact_phone'] ?></td>
                                                     <td>
-                                                        Hà Nội
+                                                        <?php echo $values['contact_address'] ?>
                                                     </td>
-                                                    <td>content 1</td>
+                                                    <td> <?php echo $values['contact_content'] ?></td>
 
-                                                    <td>00:00:00</td>
-                                                    <td><input type="checkbox" name="" value="Blacks" id="Blacks">
-                                                        <label for="Blacks" class="block py-1  text-gray-800">
-                                                            Đã xem
-                                                        </label>
+                                                    <td> <?php echo $values['create_at'] ?></td>
+                                                    <td>
+                                                        <form method="POST" id="parent"> <select name="status"
+                                                                id="id_status"
+                                                                class="border-2 border-green-400 border-opacity-100 rounded-lg text-green-700">
+                                                                <option value="0">Chưa xem</option>
+                                                                <option value="1">Đã xem</option>
+                                                            </select>
+                                                        </form>
                                                     </td>
                                                     <td class="w-20"><button
                                                             onclick="return confirm('you want to delete!')" ;
                                                             class="bg-gradient-to-r from-purple-200 via-pink-500 to-red-500 text-white rounded-lg  transition duration-300 ease-in-out transform hover:scale-105"><a
-                                                                href="#"
+                                                                href="../../DA1/examples/delete/delete.php?id_contact=<?php echo $values['id_contact'] ?>"
                                                                 class="inline-block px-3 py-2 ">Xóa</a></button></td>
                                                 </tr>
+                                                <?php }  ?>
                                             </tbody>
                                         </table>
                                     </div>
@@ -287,6 +261,29 @@ The above copyright notice and this permission notice shall be included in all c
         </div>
     </div>
     <!--   Core JS Files   -->
+    <script>
+    $(document).ready(function() {
+        $('#parent select').on('change', function() {
+            console.log('dsadasds');
+            var statuss = $('#status').val();
+            $.ajax({
+                type: 'POST',
+                url: 'ajaxdata.php',
+                data: {
+                    statuss: statuss
+                },
+                success: function(data) {
+                    // $('#status').html(data);
+                    if (data) {
+                        alert('success'); //testing purposes
+                    } else {
+                        alert('fail'); //testing purposes
+                    }
+                }
+            });
+        });
+    });
+    </script>
     <script src="../assets/js/core/jquery.min.js"></script>
     <script src="../assets/js/core/popper.min.js"></script>
     <script src="../assets/js/core/bootstrap-material-design.min.js"></script>

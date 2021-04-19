@@ -171,12 +171,21 @@ The above copyright notice and this permission notice shall be included in all c
                                     <h4 class="card-title">Cập nhật bài viết</h4>
                                 </div>
                                 <div class="card-body">
-                                    <form>
+                                    <?php
+                                    include "../../examples/local.php";
+                                    if (isset($_GET['id_postnews'])) {
+                                        $id = $_GET['id_postnews'];
+                                        $sqll = "select * from postnews where id_post = $id";
+                                        $totall = $local->query($sqll)->fetch();
+                                    }
+                                    ?>
+                                    <form method="POST" enctype="multipart/form-data">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Mã bài viết (disabled)</label>
-                                                    <input type="text" class="form-control" disabled>
+                                                    <input type="text" class="form-control"
+                                                        value="<?php echo $totall['id_post'] ?>" disabled>
                                                 </div>
                                             </div>
 
@@ -185,13 +194,15 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Tiêu đề</label>
-                                                    <input type="text" class="form-control" id="title" required>
+                                                    <input type="text" class="form-control" id="title" name="title"
+                                                        value="<?php echo $totall['title'] ?>" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Tác giả</label>
-                                                    <input type="text" class="form-control" id="author" required>
+                                                    <input type="text" class="form-control" id="author" name="author"
+                                                        value="<?php echo $totall['author'] ?>" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -199,13 +210,21 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-6">
                                                 <div class="">
                                                     <label class="bmd-label-floating">Ảnh tiêu đề</label>
-                                                    <input type="file" class="form-control" id="image1">
+                                                    <img class="w-20 object-cover"
+                                                        src="../../assets/img/<?php echo $totall['post_image'] ?>"
+                                                        alt="">
+                                                    <input type="file" class="form-control" id="image1"
+                                                        name="post_image">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="">
                                                     <label class="bmd-label-floating">Ảnh nội dung</label>
-                                                    <input type="file" class="form-control" id="image2">
+                                                    <img class="w-20 object-cover"
+                                                        src="../../assets/img/<?php echo $totall['post_image2'] ?>"
+                                                        alt="">
+                                                    <input type="file" class="form-control" id="image2"
+                                                        name="post_image2">
                                                 </div>
                                             </div>
                                         </div>
@@ -213,8 +232,9 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-12">
                                                 <div class="">
                                                     <label class="bmd-label-floating">Nội dung ngắn</label>
-                                                    <textarea name="" id="contentvt" cols="30" rows="10"
-                                                        class="form-control" required></textarea>
+                                                    <textarea name="content_short" id="contentvt" cols="30" rows="10"
+                                                        class="form-control"
+                                                        required> <?php echo $totall['content_short'] ?></textarea>
 
                                                 </div>
                                             </div>
@@ -223,13 +243,15 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-12">
                                                 <div class="">
                                                     <label class="bmd-label-floating">Nội dung </label>
-                                                    <textarea name="" id="content" cols="30" rows="10"
-                                                        class="form-control" required></textarea>
+                                                    <textarea name="content" id="content" cols="30" rows="10"
+                                                        class="form-control"
+                                                        required> <?php echo $totall['content'] ?></textarea>
 
                                                 </div>
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-primary pull-left">Cập nhật</button>
+                                        <button type="submit" class="btn btn-primary pull-left" name="submit">Cập
+                                            nhật</button>
                                     </form>
 
                                     <button type="submit" class="btn btn-primary pull-left" id="reseting">Nhập
@@ -237,6 +259,53 @@ The above copyright notice and this permission notice shall be included in all c
                                     <a href="../../examples/postnews.php"> <button type="submit"
                                             class="btn btn-primary pull-left">Danh sách</button></a>
                                 </div>
+                                <?php
+                                if (isset($_POST['submit'])) {
+                                    $title = $_POST['title'];
+                                    $author = $_POST['author'];
+                                    $post_image = $_FILES['post_image']['name'];
+                                    $tmp_post_image = $_FILES['post_image']['tmp_name'];
+                                    $post_image2 = $_FILES['post_image2']['name'];
+                                    $tmp_post_image2 = $_FILES['post_image2']['tmp_name'];
+                                    $content_short = $_POST['content_short'];
+                                    $content = $_POST['content'];
+                                    $type_image = $_FILES['post_image']['type'];
+                                    $type_image2 = $_FILES['post_image2']['type'];
+                                    if ((empty($post_image)) && (empty($post_image2))) {
+                                        $post_image = $totall['post_image'];
+                                        $post_image2 = $totall['post_image2'];
+                                        $sql = "update postnews set title = '$title', post_image = '$post_image', post_image2 = '$post_image2',
+                                        content_short = '$content_short', content = '$content', author = '$author' where id_post = $id";
+                                        $total = $local->prepare($sql);
+                                        if ($total->execute()) {
+                                            echo '<div class="text-center font-bold text-green-600" >Cập nhật bài viết thành công</div>';
+                                        } else {
+                                            echo '<div class="text-center font-bold text-green-600" >Cập nhật bài viết thất bại</div>';
+                                        }
+                                    } else {
+                                        if (($type_image == "image/png" || $type_image == "image/jpeg") || ($type_image2 == "image/png" || $type_image2 == "image/jpeg")) {
+                                            if (empty($post_image)) {
+                                                $post_image = $totall['post_image'];
+                                            }
+                                            if (empty($post_image2)) {
+                                                $post_image2 = $totall['post_image2'];
+                                            }
+                                            move_uploaded_file($tmp_post_image, "../../assets/img/" . $post_image);
+                                            move_uploaded_file($tmp_post_image2, "../../assets/img/" . $post_image2);
+                                            $sql = "update postnews set title = '$title', post_image = '$post_image', post_image2 = '$post_image2',
+                                        content_short = '$content_short', content = '$content', author = '$author' where id_post = $id";
+                                            $total = $local->prepare($sql);
+                                            if ($total->execute()) {
+                                                echo '<div class="text-center font-bold text-green-600" >Cập nhật bài viết thành công</div>';
+                                            } else {
+                                                echo '<div class="text-center font-bold text-red-600" >Cập nhật bài viết thất bại</div>';
+                                            }
+                                        } else {
+                                            echo '<div class="text-center font-bold text-red-600" >Định dạng ảnh sai</div>';
+                                        }
+                                    }
+                                }
+                                ?>
                             </div>
                         </div>
                     </div>

@@ -171,12 +171,23 @@ The above copyright notice and this permission notice shall be included in all c
                                     <h4 class="card-title">Cập nhật voucher</h4>
                                 </div>
                                 <div class="card-body">
-                                    <form>
+                                    <?php
+                                    include '../../examples/local.php';
+                                    if (isset($_GET['id_voucher'])) {
+                                        $id = $_GET['id_voucher'];
+                                        $sqll = "select * from voucher where id_voucher = $id";
+                                        $totall = $local->query($sqll)->fetch();
+                                        $ti = strtotime($totall['voucher_endtime']);
+                                        $t = date('Y-m-d', $ti);
+                                    }
+                                    ?>
+                                    <form method="POST" enctype="multipart/form-data">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Mã voucher (disabled)</label>
-                                                    <input type="text" class="form-control" disabled>
+                                                    <input type="text" class="form-control" name="id_voucher"
+                                                        value="<?php echo $totall['id_voucher'] ?>" disabled>
                                                 </div>
                                             </div>
 
@@ -184,14 +195,18 @@ The above copyright notice and this permission notice shall be included in all c
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label class="bmd-label-floating">Mã đơn hàng</label>
-                                                    <input type="text" class="form-control" id="title" required>
+                                                    <label class="bmd-label-floating">Tên voucher</label>
+                                                    <input type="text" class="form-control" id="voucher_name"
+                                                        name="voucher_name"
+                                                        value="<?php echo $totall['vourcher_name'] ?>" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label class="bmd-label-floating">Tác giả</label>
-                                                    <input type="text" class="form-control" id="author" required>
+                                                    <label class="bmd-label-floating">Mã vourcher hiển thị</label>
+                                                    <input type="text" class="form-control" id="title"
+                                                        name="voucher_code"
+                                                        value="<?php echo $totall['voucher_code'] ?>" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -199,13 +214,19 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-6">
                                                 <div class="">
                                                     <label class="bmd-label-floating">Ảnh voucher</label>
-                                                    <input type="file" class="form-control" id="image2">
+                                                    <img class="w-20 object-cover"
+                                                        src="../../assets/img/<?php echo $totall['voucher_image'] ?>"
+                                                        alt="">
+                                                    <input type="file" class="form-control" id="image2"
+                                                        name="voucher_image">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="">
                                                     <label class="bmd-label-floating">Giảm giá (%)</label>
-                                                    <input type="number" class="form-control" id="sale" required>
+                                                    <input type="number" class="form-control" id="sale"
+                                                        name="voucher_sale"
+                                                        value="<?php echo $totall['voucher_sale'] ?>" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -213,8 +234,9 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-12">
                                                 <div class="">
                                                     <label class="bmd-label-floating">Thông tin</label>
-                                                    <textarea name="" id="contentvt" cols="30" rows="10"
-                                                        class="form-control" required></textarea>
+                                                    <textarea id="contentvt" cols="30" rows="5" class="form-control"
+                                                        name="voucher_information"
+                                                        required><?php echo $totall['voucher_information'] ?></textarea>
 
                                                 </div>
                                             </div>
@@ -223,14 +245,18 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">số lượng </label>
-                                                    <input type="number" class="form-control" id="number">
+                                                    <input type="number" class="form-control" id="number"
+                                                        name="voucher_number"
+                                                        value="<?php echo $totall['voucher_number'] ?>" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Điều kiện sử dụng (từ ? người)
                                                     </label>
-                                                    <input type="number" class="form-control" id="condition">
+                                                    <input type="number" class="form-control" id="condition"
+                                                        name="voucher_people"
+                                                        value="<?php echo $totall['voucher_people'] ?>" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -238,18 +264,82 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-12">
                                                 <div class="">
                                                     <label class="bmd-label-floating">Thời gian hết hạn</label>
-                                                    <input type="date" class="form-control" id="day_end">
+                                                    <input type="date" class="form-control" id="day_end"
+                                                        name="voucher_endtime"
+                                                        value="<?php echo $t = date('Y-m-d', $ti); ?>" required>
 
                                                 </div>
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-primary pull-left">Cập nhật</button>
+
+                                        <button type="submit" name="submit" class="btn btn-primary pull-left">Cập
+                                            nhật</button>
                                     </form>
                                     <button type="submit" class="btn btn-primary pull-left" id="reseting">Nhập
                                         lại</button>
                                     <a href="../../examples/voucher.php"> <button type="submit"
                                             class="btn btn-primary pull-left">Danh sách</button></a>
                                 </div>
+                                <?php
+                                include "../../examples/local.php";
+                                if (isset($_POST['submit'])) {
+                                    $voucher_name = $_POST['voucher_name'];
+                                    $id_voucher = $_POST['id_voucher'];
+                                    $voucher_code = $_POST['voucher_code'];
+                                    $voucher_information = $_POST['voucher_information'];
+                                    $voucher_number = $_POST['voucher_number'];
+                                    $voucher_people = $_POST['voucher_people'];
+                                    $voucher_endtime = $_POST['voucher_endtime'];
+                                    $voucher_sale = $_POST['voucher_sale'];
+                                    $voucher_image = $_FILES['voucher_image']['name'];
+                                    $type_voucher_image = $_FILES['voucher_image']['type'];
+                                    $today = date('Y-m-d');
+                                    if ($voucher_endtime >= $today) {
+                                        if (empty($voucher_image)) {
+                                            $voucher_image = $totall['voucher_image'];
+                                            $sql = "update voucher set vourcher_name = '$voucher_name'
+                                           , voucher_code = '$voucher_code',
+                                                                        voucher_image = '$voucher_image',
+                                                                        voucher_information = '$voucher_information',
+                                                                        voucher_number = '$voucher_number',
+                                                                        voucher_people = '$voucher_people',
+                                                                        voucher_endtime = '$voucher_endtime',
+                                                                        voucher_sale = '$voucher_sale'
+                                                    where id_voucher = $id";
+                                            $total = $local->prepare($sql);
+                                            if ($total->execute()) {
+                                                echo '<div class="text-center font-bold text-green-600" >Sửa voucher thành công</div>';
+                                            } else {
+                                                echo '<div class="text-center font-bold text-red-600" >Sửa voucher thất bại</div>';
+                                            }
+                                        } else {
+                                            if (($type_voucher_image != 'image/png') && ($type_voucher_image != 'image/jpeg')) {
+                                                echo '<div class="text-center font-bold text-red-600" >Ảnh sai định dạng!</div>';
+                                            } else {
+                                                $tmp_voucher_image = $_FILES['voucher_image']['tmp_name'];
+                                                move_uploaded_file($tmp_voucher_image, "../../assets/img/" . $voucher_image);
+                                                $sql = "update voucher set vourcher_name = '$voucher_name',
+                                                 voucher_code = '$voucher_code',
+                                                                            voucher_image = '$voucher_image',
+                                                                            voucher_information = '$voucher_information',
+                                                                            voucher_number = '$voucher_number',
+                                                                            voucher_people = '$voucher_people',
+                                                                            voucher_endtime = '$voucher_endtime',
+                                                                            voucher_sale = '$voucher_sale'
+                                                        where id_voucher = $id";
+                                                $total = $local->prepare($sql);
+                                                if ($total->execute()) {
+                                                    echo '<div class="text-center font-bold text-green-600" >Sửa voucher thành công</div>';
+                                                } else {
+                                                    echo '<div class="text-center font-bold text-red-600" >Sửa voucher thất bại</div>';
+                                                }
+                                            }
+                                        }
+                                    } else {
+                                        echo '<div class="text-center font-bold text-red-600" >Ngày hết hạn phải lớn hơn hoặc bằng ngày hiện tại</div>';
+                                    }
+                                }
+                                ?>
                             </div>
                         </div>
                     </div>
@@ -281,7 +371,7 @@ The above copyright notice and this permission notice shall be included in all c
         document.querySelector('#number').value = " ";
         document.querySelector('#condition').value = " ";
         document.querySelector('#day_end').value = " ";
-        ocument.querySelector('#sale').value = " ";
+        document.querySelector('#sale').value = " ";
         content.innerHTML = "";
         contentvt.innerHTML = "";
     });

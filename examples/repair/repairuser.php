@@ -171,18 +171,29 @@ The above copyright notice and this permission notice shall be included in all c
                                     <h4 class="card-title">Cập nhật user</h4>
                                 </div>
                                 <div class="card-body">
-                                    <form>
+                                    <?php
+                                    include "../../examples/local.php";
+                                    if (isset($_GET['user'])) {
+                                        $id = $_GET['user'];
+                                        $sqll = "select * from user where username = '$id'";
+                                        $totall = $local->query($sqll)->fetch();
+                                    }
+                                    ?>
+                                    <form method="POST" enctype="multipart/form-data">
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">User (disabled)</label>
-                                                    <input type="text" class="form-control" disabled>
+                                                    <input type="text" class="form-control"
+                                                        value="<?php echo $totall['username'] ?>" disabled>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">password</label>
-                                                    <input type="password" class="form-control" id="password" required>
+                                                    <input type="password" class="form-control" id="password"
+                                                        name="password" value="<?php echo $totall['password'] ?>"
+                                                        required>
                                                 </div>
                                             </div>
 
@@ -191,13 +202,15 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Họ tên</label>
-                                                    <input type="text" class="form-control" id="slogan" required>
+                                                    <input type="text" class="form-control" id="slogan" name="fullname"
+                                                        value="<?php echo $totall['fullname'] ?>" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Số điện thoại</label>
-                                                    <input type="tel" class="form-control" required>
+                                                    <input type="tel" class="form-control" name="phone_number"
+                                                        value="<?php echo $totall['phone_number'] ?>" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -205,7 +218,8 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Email</label>
-                                                    <input type="email" class="form-control" id="email" required>
+                                                    <input type="email" class="form-control" id="email" name="email"
+                                                        value="<?php echo $totall['email'] ?>" required>
                                                 </div>
 
                                             </div>
@@ -214,7 +228,8 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Địa chỉ</label>
-                                                    <input type="text" class="form-control" required>
+                                                    <input type="text" class="form-control" name="address"
+                                                        value="<?php echo $totall['address'] ?>" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -222,7 +237,10 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-12">
                                                 <div class="">
                                                     <label class="bmd-label-floating">Ảnh</label>
-                                                    <input type="file" class="form-control">
+                                                    <img class="w-32 object-cover"
+                                                        src="../../assets/img/<?php echo $totall['user_image'] ?>"
+                                                        alt="">
+                                                    <input type="file" class="form-control" name="user_image">
                                                 </div>
                                             </div>
                                         </div>
@@ -231,20 +249,62 @@ The above copyright notice and this permission notice shall be included in all c
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Quyền hạn</label></br>
                                                     <label for="Admin">Admin</label>
-                                                    <input type="radio" name="permission" id="" value="">
+                                                    <input type="radio" name="permission" id="" value="admin" <?php if ($totall['permission'] == 'admin') {
+                                                                                                                    echo "checked";
+                                                                                                                } ?>>
                                                     <label for="customer">Khách hàng</label><input type="radio"
-                                                        name="permission" id="" value="customer">
+                                                        name="permission" id="" value="customer"
+                                                        <?php if ($totall['permission'] == 'customer') {
+                                                                                                                                                                echo "checked";
+                                                                                                                                                            } ?>>
                                                 </div>
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-primary pull-left">Cập nhật</button>
+                                        <button type="submit" class="btn btn-primary pull-left" name="submit">Cập
+                                            nhật</button>
                                     </form>
-
                                     <button type="submit" class="btn btn-primary pull-left" id="reseting">Nhập
                                         lại</button>
                                     <a href="../../examples/user.php"> <button type="submit"
                                             class="btn btn-primary pull-left">Danh sách</button></a>
                                 </div>
+                                <?php
+                                if (isset($_POST['submit'])) {
+                                    $password = $_POST['password'];
+                                    $fullname = $_POST['fullname'];
+                                    $phone_number = $_POST['phone_number'];
+                                    $email = $_POST['email'];
+                                    $address = $_POST['address'];
+                                    $user_image = $_FILES['user_image']['name'];
+                                    $tmp_image = $_FILES['user_image']['tmp_name'];
+                                    $permission = $_POST['permission'];
+                                    $type_image = $_FILES['user_image']['type'];
+
+
+                                    if ($user_image == '') {
+                                        $user_image = $totall['user_image'];
+                                        $sql = "update user set password = '$password', fullname = '$fullname', phone_number = '$phone_number', 
+                                        email = '$email', user_image = '$user_image', permission = '$permission' where username = '$id' ";
+                                        $total = $local->prepare($sql);
+                                        if ($total->execute()) {
+                                            echo '<div class="text-center font-bold text-green-600" >Cập nhật user thành công</div>';
+                                        } else {
+                                            echo '<div class="text-center font-bold text-red-600" >Cập nhật user thất bại</div>';
+                                        }
+                                    } else {
+                                        move_uploaded_file($tmp_image, "../../assets/img/" . $user_image);
+                                        $sql = "update user set password = '$password', fullname = '$fullname', phone_number = '$phone_number', 
+                                        email = '$email', user_image = '$user_image', permission = '$permission' where username = '$id' ";
+                                        $total = $local->prepare($sql);
+                                        if ($total->execute()) {
+                                            echo '<div class="text-center font-bold text-green-600" >Cập nhật user thành công</div>';
+                                        } else {
+                                            echo '<div class="text-center font-bold text-red-600" >Cập nhật user thất bại</div>';
+                                        }
+                                    }
+                                }
+
+                                ?>
                             </div>
                         </div>
                     </div>

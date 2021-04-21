@@ -74,51 +74,10 @@ if ($_GET['id_category'] == 0) {
     </section>
     <section class="container mx-auto grid grid-cols-12">
         <div class="col-span-2">
-            <div class="my-3">
-                <h2 class="text-xl font-bold uppercase"><a href="#">khoảng giá</a></h2>
-                <div class="border-b-2 rounded-full bg-gray-200 w-24 mt-3"></div>
-                <div class="">
-                    <form>
-                        <div class="my-4">
-                            <input type="radio" name="filter_price" id="" class="mx-px">
-                            <p class="inline-block">Tất cả</p>
-                        </div>
-                        <div class="my-4">
-                            <input type="radio" name="filter_price" id="" class="mx-px">
-                            <p class="inline-block">Từ <span class="font-bold">0 ₫</span> đến <span
-                                    class="font-bold">999,000 ₫</span></p>
-                        </div>
-                        <div class="my-4">
-                            <input type="radio" name="filter_price" id="" class="mx-px">
-                            <p class="inline-block">Từ <span class="font-bold">1,000,000 ₫</span> đến <span
-                                    class="font-bold">999,000 ₫</span></p>
-                        </div>
-                        <div class="my-4">
-                            <input type="radio" name="filter_price" id="" class="mx-px">
-                            <p class="inline-block">Từ <span class="font-bold">1,000,000 ₫</span> đến <span
-                                    class="font-bold">1,999,000 ₫</span></p>
-                        </div>
-                        <div class="my-4">
-                            <input type="radio" name="filter_price" id="" class="mx-px">
-                            <p class="inline-block">Từ <span class="font-bold">2,000,000 ₫</span> đến <span
-                                    class="font-bold">2,999,000 ₫</span></p>
-                        </div>
-                        <div class="my-4">
-                            <input type="radio" name="filter_price" id="" class="mx-px">
-                            <p class="inline-block">Từ <span class="font-bold">3,000,000 ₫</span> đến <span
-                                    class="font-bold">3,999,000 ₫</span></p>
-                        </div>
-                        <div class="my-4">
-                            <input type="radio" name="filter_price" id="" class="mx-px">
-                            <p class="inline-block">Trên <span class="font-bold"> 4,000,000 ₫</span></p>
-                        </div>
-                    </form>
-                </div>
-            </div>
             <div class="mt-10">
                 <h2 class="text-xl font-bold uppercase"><a href="#">Ưu đãi Voucher</a></h2>
                 <?php
-                $sqlvour = "select * from voucher order by id_voucher desc limit 3";
+                $sqlvour = "select * from voucher where id_voucher<='27' or id_voucher>'28' order by id_voucher desc limit 3";
                 $showtvour = $local->query($sqlvour);
                 foreach ($showtvour as $voucher) {
 
@@ -141,31 +100,6 @@ if ($_GET['id_category'] == 0) {
                     <div class="border-gray-300 border-b mb-3"></div>
                 </article>
                 <?php } ?>
-                <!-- <a class="group" href="">
-                    <img class="rounded-md" src="./content/image/Thẻ thành viên/7.png">
-                    <div class="">
-                        <h3 class="text-center font-bold my-2">Voucher SKY</h3>
-                        <ul class="list-disc list-inside">
-                            <li class="py-px">Giảm 5% cho tour nội thành</li>
-                            <li class="py-px">Giảm 7% cho tour ngoại thành</li>
-                        </ul>
-                    </div>
-                    <p class="py-3 text-right uppercase text-yellow-500 underline group-hover:text-blue-600 text-sm">đặt
-                        tour ngay</p>
-                </a>
-                <div class="border-gray-300 border-b mb-3"></div>
-                <a class="" href="">
-                    <img class="rounded-md" src="./content/image/Thẻ thành viên/10.png" alt="">
-                    <div class="">
-                        <h3 class="text-center font-bold my-2">Voucher SUN</h3>
-                        <ul class="list-disc list-inside">
-                            <li class="py-px">Giảm 7% cho tour nội thành</li>
-                            <li class="py-px">Giảm 10% cho tour ngoại thành</li>
-                        </ul>
-                    </div>
-                    <p class="py-3 text-right uppercase text-yellow-500 underline group-hover:text-blue-600">đặt tour
-                        ngay</p>
-                </a> -->
             </div>
 
         </div>
@@ -295,7 +229,7 @@ if ($_GET['id_category'] == 0) {
                                 src="../../DA1/assets/img/<?php echo $values['image_main'] ?>" alt="">
                         </div>
 
-                        <div class="text-left px-5 py-3">
+                        <div class="text-left px-5 py-3 relative" style="height: 250px;">
                             <h3 class="text-base font-bold uppercase"><?php echo $values['name_tour'] ?></h3>
                             <div class="flex mt-2  items-center">
                                 <i class="fas fa-map-marker-alt py-2 pr-5"></i>
@@ -325,7 +259,8 @@ if ($_GET['id_category'] == 0) {
                                                                                                     echo number_format($values['price'], 0, '.', ',');
                                                                                                 } ?>
                                     ₫/khách</span>
-                                <button class="border w-full py-2 mb-1 group-hover:border-yellow-500 uppercase">Đặt
+                                <button
+                                    class="border w-full absolute inset-x-0 bottom-0  py-2 mb-1 group-hover:border-yellow-500 uppercase">Đặt
                                     ngay<i
                                         class="fas fa-angle-double-right text-sm pl-2 transform group-hover:translate-x-3 transition duration-150"></i></button>
                         </div>

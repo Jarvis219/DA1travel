@@ -58,7 +58,7 @@ include "../../DA1/examples/local.php";
                 hành những ưu đãi tốt nhất thuận tiện cho việc du lịch cùng Hanoitourist</p>
             <div class="grid grid-cols-3 gap-12 container mx-auto">
                 <?php
-                $sqlvoucher = "select * from voucher";
+                $sqlvoucher = "select * from voucher where id_voucher<='27' or id_voucher>'28'";
                 $showvoucher = $local->query($sqlvoucher);
                 foreach ($showvoucher as $voucher) {
                 ?>
@@ -80,7 +80,9 @@ include "../../DA1/examples/local.php";
                     <div class="show pt-5 hidden">
                         <h3 class="text-blue-500 font-bold text-2xl pb-5"><?php echo $voucher['vourcher_name'] ?></h3>
                         <div class="text-left">
-                            <h3><?php echo $voucher['voucher_code'] ?></h3>
+                            <h3 class="text-xl ">Mã voucher: <span
+                                    class="font-bold"><?php echo $voucher['voucher_code'] ?></span>
+                            </h3>
                             <p>
                                 <?php
                                     echo $voucher['voucher_information'] ?>

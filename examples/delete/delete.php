@@ -54,3 +54,9 @@ if (isset($_GET['id_image'])) {
     $total = $local->exec($sql);
     header('location:../../examples/image.php');
 }
+if (isset($_GET['id_cartfont'])) {
+    $id = $_GET['id_cartfont'];
+    $sql = "delete from cart where id_cart = '$id'";
+    $total = $local->exec($sql);
+    header('location:../../../../../DA1/DA/success.php');
+}

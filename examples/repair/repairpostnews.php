@@ -114,6 +114,12 @@ The above copyright notice and this permission notice shall be included in all c
                             <p>QUẢN LÝ VOUCHER</p>
                         </a>
                     </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="../../total.php">
+                            <i class="fab fa-wolf-pack-battalion"></i>
+                            <p>THỐNG KÊ</p>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -250,6 +256,17 @@ The above copyright notice and this permission notice shall be included in all c
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="">
+                                                    <label class="bmd-label-floating">Nội dung chi tiết</label>
+                                                    <textarea name="content2" id="content2" cols="30" rows="10"
+                                                        class="form-control"
+                                                        required> <?php echo $totall['content2'] ?></textarea>
+
+                                                </div>
+                                            </div>
+                                        </div>
                                         <button type="submit" class="btn btn-primary pull-left" name="submit">Cập
                                             nhật</button>
                                     </form>
@@ -269,13 +286,20 @@ The above copyright notice and this permission notice shall be included in all c
                                     $tmp_post_image2 = $_FILES['post_image2']['tmp_name'];
                                     $content_short = $_POST['content_short'];
                                     $content = $_POST['content'];
+                                    $content2 = $_POST['content2'];
                                     $type_image = $_FILES['post_image']['type'];
                                     $type_image2 = $_FILES['post_image2']['type'];
                                     if ((empty($post_image)) && (empty($post_image2))) {
                                         $post_image = $totall['post_image'];
                                         $post_image2 = $totall['post_image2'];
-                                        $sql = "update postnews set title = '$title', post_image = '$post_image', post_image2 = '$post_image2',
-                                        content_short = '$content_short', content = '$content', author = '$author' where id_post = $id";
+                                        $sql = "update postnews set title = '$title', 
+                                                                    post_image = '$post_image', 
+                                                                    post_image2 = '$post_image2',
+                                                                    content_short = '$content_short', 
+                                                                    content = '$content', 
+                                                                    content2 = '$content2', 
+                                                                    author = '$author' 
+                                        where id_post = $id";
                                         $total = $local->prepare($sql);
                                         if ($total->execute()) {
                                             echo '<div class="text-center font-bold text-green-600" >Cập nhật bài viết thành công</div>';
@@ -329,12 +353,14 @@ The above copyright notice and this permission notice shall be included in all c
     var title = document.querySelector('#title');
     var author = document.querySelector('#author');
     var content = document.querySelector('#content');
+    var content2 = document.querySelector('#content2');
     var contentvt = document.querySelector('#contentvt');
     var reseting = document.querySelector('#reseting');
     reseting.addEventListener('click', () => {
         title.value = '';
         author.value = "";
         content.value = "";
+        content2.value = "";
         contentvt.value = "";
     });
     </script>

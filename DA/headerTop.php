@@ -41,8 +41,13 @@ $total = $local->query($sql)->fetch();
                                     } else {
                                         echo 'hidden';
                                     } ?>">
-                        <img class="inline-block pr-1 h-6 w-7"
-                            src="../../DA1/assets/img/<?php echo $totals['user_image'] ?>" alt="">
+                        <img class="inline-block pr-1 h-6 w-7" src="../../DA1/assets/img/<?php
+                                                                                            if (!empty($totals['user_image'])) {
+                                                                                                echo $totals['user_image'];
+                                                                                            } else {
+                                                                                                echo 'user-vector-png.png';
+                                                                                            }
+                                                                                            ?>" alt="">
                         <span class="text-yellow-400 font-black text-sm uppercase" id="login">Hi
                             <?php echo $totals['fullname'] ?>
                         </span>
@@ -60,7 +65,7 @@ $total = $local->query($sql)->fetch();
                             nhập</span></a>
 
                 </span>
-                <div class="absolute top-0 mt-8 pl-5 group-hover:block hidden  <?php
+                <div class="absolute top-0 mt-5 pl-5 group-hover:block hidden  <?php
                                                                                 if (isset($_SESSION['user'])) {
                                                                                     echo 'inline';
                                                                                 } else {
@@ -73,10 +78,6 @@ $total = $local->query($sql)->fetch();
                         <li class="bg-white pl-5 w-40 py-1 font-bold text-black hover:text-blue-500 "><a class=""
                                 href="../../DA1/DA/changeinforuser.php?user=<?php echo $totals['username'] ?>">Quản lý
                                 tài khoản</a></li>
-                        <form method="POST">
-                            <li class="bg-white pl-5 w-40 py-1 font-bold text-black hover:text-blue-500 "><input
-                                    type="submit" name="Logout" value="Đăng xuất" id="" class="bg-white"></li>
-                        </form>
                         <li class="bg-white pl-5 w-40 py-1 font-bold text-black hover:text-blue-500 ">
                             <?php
                             if ($totals['permission'] == 'admin') {
@@ -84,6 +85,11 @@ $total = $local->query($sql)->fetch();
                             }
                             ?>
                         </li>
+                        <form method="POST">
+                            <li class="bg-white pl-5 w-40 py-1 font-bold text-black hover:text-blue-500 "><input
+                                    type="submit" name="Logout" value="Đăng xuất" id="" class="bg-white font-bold"></li>
+                        </form>
+
                     </ul>
                 </div>
                 <?php
@@ -99,7 +105,7 @@ $total = $local->query($sql)->fetch();
                                             } else {
                                                 echo 'hidden';
                                             } ?>">
-                <a href="tourmenu.php">
+                <a href="success.php">
                     <span class="text-base text-white hover:text-yellow-500"><i
                             class="fas fa-cart-plus py-2 pr-3"></i>Tour
                         của bạn</span>

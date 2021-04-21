@@ -107,7 +107,7 @@
                 $fullname = $_POST['fullname'];
                 $address = $_POST['address'];
                 $email = $_POST['email'];
-                $phone = $phone['phone'];
+                $phone = $_POST['phone'];
                 $image = $_FILES['image']['name'];
                 $tmp_image = $_FILES['image']['tmp_name'];
                 $type_image = $_FILES['image']['type'];
@@ -123,7 +123,7 @@
                         $data->execute();
                         return $data->fetchColumn();
                     }
-                    echo   $test_user = checkuser($username);
+                    $test_user = checkuser($username);
                     if ($test_user != 0) {
                         echo "<div class='text-red-600 text-center'>User đã tồn tại</div>";
                     } else {

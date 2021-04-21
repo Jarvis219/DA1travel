@@ -119,6 +119,12 @@ The above copyright notice and this permission notice shall be included in all c
                             <p>QUẢN LÝ VOUCHER</p>
                         </a>
                     </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="../../total.php">
+                            <i class="fab fa-wolf-pack-battalion"></i>
+                            <p>THỐNG KÊ</p>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -180,10 +186,10 @@ The above copyright notice and this permission notice shall be included in all c
                                         <table class="table">
                                             <thead class=" text-primary">
                                                 <th>
-                                                    Mã tour
+                                                    Số lượng người lớn
                                                 </th>
                                                 <th>
-                                                    Thể loại tour
+                                                    Số lượng trẻ em
                                                 </th>
                                                 <th>
                                                     Giá tiền
@@ -191,10 +197,10 @@ The above copyright notice and this permission notice shall be included in all c
                                                 <th>
                                                     Giá khuyến mãi
                                                 </th>
+                                                <th>Vourcher giảm</th>
                                                 <th>
                                                     Tổng tiền
                                                 </th>
-                                                <th>ngày đi</th>
                                                 <th>Thời gian bắt đầu</th>
                                                 <th>Thời gian kết thúc</th>
                                                 <th>Điểm bắt đầu</th>
@@ -211,10 +217,10 @@ The above copyright notice and this permission notice shall be included in all c
                                                 ?>
                                                 <tr>
                                                     <td>
-                                                        <?php echo $totall['id_tour'] ?>
+                                                        <?php echo $totall['adult_amount'] ?>
                                                     </td>
                                                     <td>
-                                                        <?php echo $totall['name_tour'] ?>
+                                                        <?php echo $totall['child_amount'] ?>
                                                     </td>
 
                                                     <td class="text-primary">
@@ -224,15 +230,33 @@ The above copyright notice and this permission notice shall be included in all c
                                                         <?php echo number_format($totall['promotional'], 0, '.', ','); ?>vnd
                                                     </td>
                                                     <td class="text-primary">
+                                                        <?php echo $totall['voucher_sale'] . '%' ?>
+                                                    </td>
+                                                    <td class="text-primary">
                                                         <?php
                                                         $price = $totall['price'];
-                                                        $sale = $totall['promotional'];
                                                         $saleP = $totall['voucher_sale'];
-                                                        $sum = $price - ((($price - $sale) * $saleP) / 100);
+                                                        $sale = $totall['promotional'];
+                                                        $adult_amount = (($price - $sale) * $totall['adult_amount']);
+                                                        //  $totall['child_amount'];
+                                                        if ($totall['child_amount'] != 0) {
+                                                            $child_amount =  (($price - $sale) * $totall['child_amount']) - (($price - $sale) * $totall['child_amount'] * 30 / 100) . '<br>';
+                                                            $person = $adult_amount + $child_amount;
+                                                            if ($saleP == 0) {
+                                                                $sum = $person + ($price - $price); //ok
+                                                            } else {
+                                                                $sum = $person - ($person * $saleP / 100); //ok
+                                                            }
+                                                        } else {
+                                                            if ($saleP == 0) {
+                                                                $sum = $adult_amount;
+                                                            } else {
+                                                                $sum = $adult_amount - ($adult_amount * $saleP / 100);
+                                                            }
+                                                        }
                                                         echo number_format($sum, 0, '.', ',') . 'vnd';
                                                         ?>
                                                     </td>
-                                                    <td><?php echo $totall['departure_day'] ?></td>
                                                     <td> <?php echo $totall['time_start'] ?></td>
                                                     <td> <?php echo $totall['time_end'] ?></td>
                                                     <td><?php echo $totall['place_start'] ?></td>

@@ -83,9 +83,6 @@ $total = $local->query($sql)->fetch();
         <div class="">
             <h3 class="font-bold text-base my-1 uppercase">liên hệ</h3>
             <ul>
-                <li class="py-2"><a class="text-sm hover:underline capitalize" href="#">Quy định
-                        bảo vệ </a>
-                </li>
                 <li class="py-2"><a class="text-sm hover:underline capitalize" href="#">Điều khoản
                         chung </a>
                 </li>

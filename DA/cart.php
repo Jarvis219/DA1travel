@@ -39,7 +39,7 @@ $category = $showtour['id_category'];
     <div id="main">
         <header class="relative">
             <img src="../../DA1/assets/img/bg-cart.jpg" alt="">
-            <div id="navbar" class="absolute top-0 left-0 right-0 flex mt-8 px-32 bg-blue-300">
+            <div id="navbar" class="absolute top-0 left-0 right-0 flex mt-8 px-32 bg-blue-300 bg-opacity-50">
                 <?php require "menu.php"; ?>
             </div>
             <div class="bg-blue-400 bg-opacity-50 absolute top-0 left-0 right-0">
@@ -138,9 +138,9 @@ $category = $showtour['id_category'];
                                 </td>
                                 <td class="border py-2">
                                     <p><span id="priceChid"><?php if ($showtour['promotional'] > 0) {
-                                                                echo ((($showtour['price'] - $showtour['promotional']) * 0.3));
+                                                                echo (($showtour['price'] - ($showtour['promotional'])) - ((($showtour['price'] - $showtour['promotional']) * 0.3)));
                                                             } else {
-                                                                echo ($showtour['price'] * 0.7); // tre em giam gia 30%
+                                                                echo $showtour['price'] - ($showtour['price'] * 0.3); // tre em giam gia 30%
                                                             } ?> </span> ₫</p>
                                 </td>
                             </tr>
@@ -264,8 +264,9 @@ $category = $showtour['id_category'];
                         <input type="text" name="sumV" id="sumV" value="00">
                     </div>
                     <div class="flex justify-end">
+                        <input type="text" name="allPrice" class="hidden" id="allPrice">
                         <p class="mt-5">Tổng tiền: <span class="text-red-500 text-2xl font-bold italic"
-                                id="allPrice">000</span>
+                                id="allPrices">000</span>
                             ₫</p>
                     </div>
                     <div class="flex justify-center items-center">
@@ -376,11 +377,11 @@ $category = $showtour['id_category'];
         $todayl = date('Y-m-d', $todays);
         $sqlcheckvou = "select * from voucher where vourcher_name = '$chose_voucher'";
         $showcheckvou = $local->query($sqlcheckvou)->fetch();
-        echo $id_voucher = $showcheckvou['id_voucher'];
+        $id_voucher = $showcheckvou['id_voucher'];
         $username = $_SESSION['user'];
+        $allPrice = $_POST['allPrice'];
         if (empty($id_voucher)) {
-            echo "sss";
-            $id_voucher = 0;
+            $id_voucher = 28;
         } else {
             $sqlcheckV = "update voucher set voucher_number=voucher_number-1 where id_voucher like '$id_voucher'";
             $setV = $local->prepare($sqlcheckV);
@@ -393,14 +394,12 @@ $category = $showtour['id_category'];
         // echo $departure_day;
         if ($departure_day > $today && $departure_day <= $todayl) {
             echo '<span class="checkday hidden">0</span>';
-            $sqladd = "insert into cart values(null,'$id','$id_voucher','$username','$phone_number','$note','$adult_amount','$child_amount','$departure_day',0,null)";
+            $sqladd = "insert into cart values(null,'$id','$id_voucher','$username','$phone_number','$fullname','$email','$note','$adult_amount','$child_amount','$allPrice','$departure_day','0',null)";
             $addvour = $local->exec($sqladd);
-            header("location:../../../../DA1/DA/success.php?id_cart=1");
-            // if ($addvour == 1) {
-            //     echo "add ok";
-            // } else {
-            //     echo 'add false';
-            // }
+            $sqlshowCart = "select * from cart order by id_cart desc";
+            $showCart = $local->query($sqlshowCart)->fetch();
+            $id_Cart = $showCart['id_cart'];
+            header("location:../../../../DA1/DA/success.php?id_cart=$id_Cart");
         } else {
             echo '<span  class="checkday hidden">1</span>';
         }
@@ -434,17 +433,20 @@ $category = $showtour['id_category'];
     var checkRadio = document.querySelectorAll('.checkRadio');
     var priceChild = Math.ceil(priceChid.innerText);
     var priceOldd = Math.ceil(priceOld.innerText);
-
+    var allPrices = document.querySelector('#allPrices');
 
     main.addEventListener('mouseover', () => {
         // console.log(showVoucher.value);
-        console.log(sumP.value);
+        // console.log(sumP.value);
+
         if (showVoucher.value != '') {
-            allPrice.innerHTML = (Number(sumprice.value)) - (Number(sumprice.value) * Number(sumP.value) / 100);
-            allPrice.innerHTML = (Number(sumprice.value)) - (Number(sumprice.value) * Number(codeV.innerHTML) /
+            allPrice.value = (Number(sumprice.value)) - (Number(sumprice.value) * Number(sumP.value) / 100);
+            allPrice.value = (Number(sumprice.value)) - (Number(sumprice.value) * Number(codeV.innerHTML) /
                 100);
+            allPrices.innerHTML = allPrice.value;
         } else {
-            allPrice.innerHTML = (Number(sumprice.value));
+            allPrice.value = (Number(sumprice.value));
+            allPrices.innerHTML = allPrice.value;
         }
     });
     main.addEventListener('mousewheel', () => {
@@ -544,6 +546,7 @@ $category = $showtour['id_category'];
         sumprice.value = ((Number(priceOldd) * Number(elderly.value)) + (Number(priceChild) *
             Number(young
                 .value)));
+        // console.log(sumprice.value);
         // for (var p = 0; p < people.length; p++) {
         //     for (var t = 0; t < voucherLL.length; t++) {
         //         // console.log(people[t].innerHTML);

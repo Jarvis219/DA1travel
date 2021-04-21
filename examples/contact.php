@@ -32,6 +32,7 @@ The above copyright notice and this permission notice shall be included in all c
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 
     <script src="https://kit.fontawesome.com/5cd69ad435.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 
 </head>
@@ -113,6 +114,12 @@ The above copyright notice and this permission notice shall be included in all c
                         <a class="nav-link" href="./voucher.php">
                             <i class="fas fa-piggy-bank"></i>
                             <p>QUẢN LÝ VOUCHER</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="./total.php">
+                            <i class="fab fa-wolf-pack-battalion"></i>
+                            <p>THỐNG KÊ</p>
                         </a>
                     </li>
                 </ul>
@@ -203,7 +210,7 @@ The above copyright notice and this permission notice shall be included in all c
                                                 $totall = $local->query($sqll);
                                                 foreach ($totall as $values) {
                                                 ?>
-                                                <tr>
+                                                <tr data-id="<?php echo $values['id_contact'] ?>">
                                                     <td>
                                                         <?php echo $values['id_contact'] ?>
                                                     </td>
@@ -223,11 +230,20 @@ The above copyright notice and this permission notice shall be included in all c
 
                                                     <td> <?php echo $values['create_at'] ?></td>
                                                     <td>
-                                                        <form method="POST" id="parent"> <select name="status"
-                                                                id="id_status"
-                                                                class="border-2 border-green-400 border-opacity-100 rounded-lg text-green-700">
-                                                                <option value="0">Chưa xem</option>
-                                                                <option value="1">Đã xem</option>
+                                                        <form method="POST">
+                                                            <select name="status"
+                                                                class="status border-2 border-green-400 border-opacity-100 rounded-lg text-green-700">
+                                                                <option value="0">
+                                                                    <?php
+                                                                        if ($values['contact_status'] == 0) {
+                                                                            echo "Chưa duyệt";
+                                                                        } else {
+                                                                            echo "Đã duyệt";
+                                                                        } ?></option>
+                                                                <option value="1" class="<?php if ($values['contact_status'] == 1) {
+                                                                                                    echo "hidden";
+                                                                                                } ?>">Đã
+                                                                    duyệt</option>
                                                             </select>
                                                         </form>
                                                     </td>
@@ -263,22 +279,25 @@ The above copyright notice and this permission notice shall be included in all c
     <!--   Core JS Files   -->
     <script>
     $(document).ready(function() {
-        $('#parent select').on('change', function() {
-            console.log('dsadasds');
-            var statuss = $('#status').val();
+        $('.status').change(function() {
+            // console.log('sss');
+            // var id = $('.status').val();
+            // var status = $('.status :selected').text();
+            // console.log(id);
+            // console.log(status);
+            var dataId = $(this).parent().parent().parent().data('id');
             $.ajax({
                 type: 'POST',
-                url: 'ajaxdata.php',
+                url: '../../DA1/examples/repair/ajaxdata.php',
                 data: {
-                    statuss: statuss
+                    "id": dataId,
+                    "statuss": $(this).find('option:selected').val(),
+                    // "statuss": $("select[name=status]:selected").text()
+                    // "id": id[i].innerHTML.val()
                 },
                 success: function(data) {
-                    // $('#status').html(data);
-                    if (data) {
-                        alert('success'); //testing purposes
-                    } else {
-                        alert('fail'); //testing purposes
-                    }
+                    alert(data);
+                    location.reload();
                 }
             });
         });

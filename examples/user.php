@@ -119,6 +119,12 @@ The above copyright notice and this permission notice shall be included in all c
                             <p>QUẢN LÝ VOUCHER</p>
                         </a>
                     </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="./total.php">
+                            <i class="fab fa-wolf-pack-battalion"></i>
+                            <p>THỐNG KÊ</p>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>

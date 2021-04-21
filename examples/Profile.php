@@ -9,6 +9,14 @@ Coded by Creative Tim
 
 =========================================================
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
+<?php
+ob_start();
+session_start();
+include "../../DA1/examples/local.php";
+$user = $_SESSION['user'];
+$sqlP = "select * from user where username like '$user'";
+$showP = $local->query($sqlP)->fetch();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,7 +50,7 @@ The above copyright notice and this permission notice shall be included in all c
 
         Tip 2: you can also add an image using data-image tag
     -->
-            <div class="logo"><a href="#" class="simple-text logo-normal">
+            <div class="logo"><a href="../../DA1/DA/" class="simple-text logo-normal">
                     <img src="../assets/img/logo.png" alt="">
                 </a></div>
             <div class="sidebar-wrapper">
@@ -113,6 +121,12 @@ The above copyright notice and this permission notice shall be included in all c
                             <p>QUẢN LÝ VOUCHER</p>
                         </a>
                     </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="./total.php">
+                            <i class="fab fa-wolf-pack-battalion"></i>
+                            <p>THỐNG KÊ</p>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -168,17 +182,22 @@ The above copyright notice and this permission notice shall be included in all c
                             <div class="card card-profile">
                                 <div class="card-avatar">
                                     <a href="javascript:;">
-                                        <img class="img" src="../assets/img/faces/marc.jpg" />
+                                        <img class="img" src="../assets/img/<?php echo $showP['user_image'] ?>" />
                                     </a>
                                 </div>
                                 <div class="card-body ">
                                     <h6 class="card-category text-gray">Admin</h6>
-                                    <h4 class="card-title">Quang</h4>
-                                    <span class="card-description block"> Username :&ensp; Rin</span>
-                                    <span class="card-description block"> Password :&ensp; xxx</span>
-                                    <span class="card-description block"> Số điện thoại : Rin</span>
-                                    <span class="card-description block"> Email :&emsp; Rin</span>
-                                    <span class="card-description block"> Địa chỉ :&ensp;&ensp; Rin</span>
+                                    <h4 class="card-title"><?php echo $showP['fullname'] ?></h4>
+                                    <span class="card-description block"> Username :&ensp;
+                                        <?php echo $showP['username'] ?></span>
+                                    <span class="card-description block"> Password :&ensp;
+                                        <?php echo $showP['password'] ?></span>
+                                    <span class="card-description block"> Số điện thoại :
+                                        <?php echo $showP['phone_number'] ?></span>
+                                    <span class="card-description block"> Email :&emsp;
+                                        <?php echo $showP['email'] ?></span>
+                                    <span class="card-description block"> Địa chỉ :&ensp;&ensp;
+                                        <?php echo $showP['address'] ?></span>
                                     <a href="javascript:;" class="btn btn-primary btn-round">Follow</a>
                                 </div>
                             </div>

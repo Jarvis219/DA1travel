@@ -12,13 +12,14 @@ if (isset($_GET['id_tour'])) {
     $id = $_GET['id_tour'];
     $sqlupdate = "update tour set view = 1 + view where id_tour = $id";
     $totalupdate = $local->exec($sqlupdate);
-    $sqll = " SELECT tour.id_tour, tour.id_category, name_category, category.id_parent, images.id_image, comment.id_comment,name_tour, time_start,time_end, place_start, place_end, price, promotional, introduction, content, plan1, plan2, plan3
+    $sqll = " SELECT tour.id_tour, tour.id_category, name_category,id_parent, images.id_image, comment.id_comment,name_tour, time_start,time_end, place_start, place_end, price, promotional, introduction, content, plan1, plan2, plan3
         ,image_main, image_detail, image_plan1,image_plan2, image_plan3,comment.username,  COUNT(DISTINCT username), SUM(evaluate), tour.create_at tour FROM tour
          join comment on comment.id_tour=tour.id_tour 
          join images on images.id_image=tour.id_image
          join category on tour.id_category=category.id_category
           where tour.id_tour = $id";
     $totall1 = $local->query($sqll)->fetch();
+    $parent = $totall1['id_parent'];
 }
 ?>
 <!DOCTYPE html>
@@ -63,7 +64,7 @@ if (isset($_GET['id_tour'])) {
                 <?php echo $totall1['name_category'] . '-' . $totall1['name_tour'] ?>
 
             </h3>
-            <img class="w-20 mx-170" src="./content/image/gachvang.png" alt="">
+            <img class="w-20 mx-170" src="../assets/img/gachvang.png" alt="">
         </div>
     </header>
 
@@ -71,10 +72,17 @@ if (isset($_GET['id_tour'])) {
         <section class="flex container mx-auto my-5">
             <h3><a class="uppercase text-sm text-blue-400 hover:underline" href="index.php">Trang chủ</a></h3>
             <i class="fas fa-angle-right px-3 items-center flex text-sm text-gray-400"></i>
-            <h3><a class="uppercase text-sm text-blue-400 hover:underline" href="tourNoithanh.php">tour ngoại thành</a>
+            <h3><a class="uppercase text-sm text-blue-400 hover:underline"
+                    href="tourNoithanh.php?id_category=<?php echo $parent ?>">tour
+                    <?php if ($parent == '25' || $category == '25') {
+                        echo "nội thành";
+                    }
+                    if ($parent == '26' || $category == '26') {
+                        echo "ngoại thành";
+                    } ?></a>
             </h3>
             <i class="fas fa-angle-right px-3 items-center flex text-sm text-gray-400"></i>
-            <h3><a class="uppercase text-sm" href="tourNoithanh.php"><?php echo $totall1['name_tour'] ?></a></h3>
+            <h3 class="uppercase text-sm  font-bold" style="margin-top: 2px;"><?php echo $totall1['name_tour'] ?></h3>
         </section>
         <section class="bg-white my-5">
             <div class="container mx-auto grid grid-cols-12 gap-10 justify-center">
@@ -119,9 +127,9 @@ if (isset($_GET['id_tour'])) {
                             <p class="my-px text-yellow-400">
                                 <?php
                                 if (!empty($totall1['COUNT(DISTINCT username)'])) {
-                                    $user = $totall1['COUNT(DISTINCT username)'];
+                                    $users = $totall1['COUNT(DISTINCT username)'];
                                     $star = $totall1['SUM(evaluate)'];
-                                    $result = $star / $user;
+                                    $result = $star / $users;
                                     $result;
                                     for ($i = 0; $i < $result; $i++) {
                                         echo '<i class="fas fa-star"></i>';
@@ -130,9 +138,15 @@ if (isset($_GET['id_tour'])) {
                                 ?>
                             </p>
                             <span class="px-2">|</span>
-                            <span><?php echo $user ?> Đánh giá</span>
+                            <span><?php
+                                    if (!empty($users)) {
+                                        echo $users . ' Đánh giá';
+                                    } else {
+                                        echo  '0 Đánh giá';
+                                    }
+                                    ?></span>
                         </div>
-                        <span class="mr-3 line-through text-gray-400 px-5  text-2xl">
+                        <span class="mr-3 line-through text-gray-400 px-5  text-xl">
                             <?php if ($totall1['promotional'] > 0) {
                                 echo number_format($totall1['price'], 0, '.', ',');
                             } ?>
@@ -156,9 +170,23 @@ if (isset($_GET['id_tour'])) {
                             </p>
                         </div>
                         <div class="my-10">
-                            <a href="cart.php?id_tour=<?php echo $totall1['id_tour'] ?>"
-                                class=" text-black border hover:border-yellow-400 px-12 py-3 w-full text-base rounded bg-red-400 hover:bg-white text-center">Đặt
-                                ngay</a>
+                            <form method="POST">
+                                <button name="submitAdd"
+                                    class="text-black border hover:border-yellow-400 px-12 py-3 w-full text-base rounded bg-red-400 hover:bg-white text-center">
+                                    Đặt ngay
+                                </button>
+                            </form>
+                            <?php
+                            if (isset($_POST['submitAdd'])) {
+                                $id_T = $totall1['id_tour'];
+                                if ($_SESSION['user']) {
+                                    header("location:cart.php?id_tour=$id_T");
+                                } else {
+                                    $message = 'Bạn cần đăng nhập để đặt tour!';
+                                    echo "<script>alert('$message');</script>";
+                                }
+                            }
+                            ?>
                         </div>
                         <div class="flex items-center mt-7">
                             <span>Chia sẻ</span>
@@ -270,11 +298,11 @@ if (isset($_GET['id_tour'])) {
                         <div class="mt-5">
                             <?php
                             $parent = $totall1['id_parent'];
-                            $show = "select tour.id_tour, name_tour,place_start, price, promotional , category.id_category, category.id_parent, images.image_main, tour.id_image
+                            $show = "select tour.id_tour, name_tour,place_start, price, promotional , category.id_category, id_parent, images.image_main, tour.id_image
                             from tour 
                             join category on category.id_category=tour.id_category 
                             join images on tour.id_image=images.id_image
-                            where category.id_parent = '$parent' limit 6";
+                            where id_parent = '$parent' limit 6";
                             $shows = $local->query($show);
                             foreach ($shows as $row) {
                                 $rowstar = $row['id_tour'];
@@ -285,7 +313,8 @@ if (isset($_GET['id_tour'])) {
                                 <a class="group shadow-lg rounded-md" href="">
                                     <div class="overflow-hidden rounded-md border border-white">
                                         <img class="transition duration-300 transform group-hover:opacity-80"
-                                            src="../../DA1//assets/img/<?php echo $row['image_main'] ?>" alt="">
+                                            src="../../DA1//assets/img/<?php echo $row['image_main'] ?>" alt=""
+                                            width="3011" style="height: 183px;">
                                     </div>
                                     <div class="text-left px-5 py-3">
                                         <h3 class="text-base font-bold uppercase"><?php echo $row['name_tour'] ?></h3>
@@ -475,35 +504,10 @@ if (isset($_GET['id_tour'])) {
                     </div>
 
                 </div>
-                <div class="col-span-4 px-10">
+                <!-- <div class="col-span-4 px-10">
                     <h3 class="my-4 text-xl font-bold">Nhận xét</h3>
-                    <?php
-                    $sql = "select * from comment join user on user.username=comment.username where id_tour = $id and
-                    (id_parent = 4 or id_comment = 4 )";
-                    $totalss = $local->query($sql)->fetchAll();
-                    // print_r($total);
-                    $category = array();
-                    // $categories[] = $row;    
-                    function showCategories($categories, $parent_id = 0, $char = '')
-                    {
-                        foreach ($categories as $key => $item) {
-                            // Nếu là chuyên mục con thì hiển thị
-                            if ($item['id_parent'] == $parent_id) {
-                                echo '<img class="" src="./content/image/user.png" alt="">';
-                                echo '<span class="px-3">' . $item['fullname'] . '</span>';
-                                echo '<i class="fas fa-star text-yellow-300"></i>';
-                                echo ' <p class="py-2">' . $char . $item['content_comment']  . "</p>";
-                                echo ' <a href="" class="text-blue-500">Trả lời</a>';
-                                // Xóa chuyên mục đã lặp
-                                unset($categories[$key]);
-                                // Tiếp tục đệ quy để tìm chuyên mục con của chuyên mục đang lặp
-                                showCategories($categories, $item['id_comment'], $char .  ' --');
-                            }
-                        }
-                    }
-                    ?>
-                    <?php showCategories($totalss); ?>
-                </div>
+                    
+                </div> -->
             </div>
             </div>
             </div>

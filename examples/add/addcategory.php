@@ -44,7 +44,7 @@ The above copyright notice and this permission notice shall be included in all c
 
         Tip 2: you can also add an image using data-image tag
     -->
-            <div class="logo"><a href="#" class="simple-text logo-normal">
+            <div class="logo"><a href="../../../DA1/DA/" class="simple-text logo-normal">
                     <img src="../../assets/img/logo.png" alt="">
                 </a></div>
             <div class="sidebar-wrapper">
@@ -113,6 +113,12 @@ The above copyright notice and this permission notice shall be included in all c
                         <a class="nav-link" href="../../examples/voucher.php">
                             <i class="fas fa-piggy-bank"></i>
                             <p>QUẢN LÝ VOUCHER</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="../../total.php">
+                            <i class="fab fa-wolf-pack-battalion"></i>
+                            <p>THỐNG KÊ</p>
                         </a>
                     </li>
                 </ul>

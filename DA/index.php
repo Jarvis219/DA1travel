@@ -1,4 +1,6 @@
 <?php
+ob_start();
+session_start();
 include "../../DA1/examples/local.php";
 
 
@@ -48,7 +50,7 @@ include "../../DA1/examples/local.php";
 <body class="nunito">
     <header>
         <div class="relative">
-            <div class="sliderBanner ">
+            <div class="sliderBanner overflow-hidden">
                 <?php
                 $sqll = "select * from slide";
                 $totall = $local->query($sqll);
@@ -58,10 +60,10 @@ include "../../DA1/examples/local.php";
                     src="../../DA1//assets/img/<?php echo $values['slide'] ?>" alt="">
                 <?php } ?>
             </div>
-            <div class="bg-blue-400 bg-opacity-50 absolute top-0 left-0 right-0">
+            <div class="bg-blue-400 bg-opacity-50 absolute top-0 left-0 right-0 ">
                 <?php require "headerTop.php"; ?>
             </div>
-            <div id="navbar" class="absolute top-0 left-0 right-0 flex mt-8 px-32 bg-blue-300">
+            <div id="navbar" class="absolute top-0 left-0 right-0 flex mt-8 px-32 bg-blue-300  bg-opacity-50">
                 <?php require "menu.php"; ?>
             </div>
             <div class="absolute bottom-0 left-0 mx-72 my-20">
@@ -78,11 +80,68 @@ include "../../DA1/examples/local.php";
             <p>Điểm đến trên cả tuyệt vời</p>
             <div class="py-5">
                 <h3 class="font-bold text-2xl uppercase">tour lễ 30/04 - 01/05</h3>
-                <img class="w-20 mx-auto mt-2" src="./content/image/gachvang.png" alt="">
+                <img class="w-20 mx-auto mt-2" src="../assets/img/gachvang.png" alt="">
             </div>
         </div>
         <div class="grid grid-cols-2 gap-20">
+            <?php
+            $sqlholi = "select tour.id_tour, name_tour, price, promotional , category.id_category, category.id_parent, images.image_main, tour.id_image
+        from tour 
+        join category on category.id_category=tour.id_category 
+        join images on tour.id_image=images.id_image
+        where holiday like 'yes' ";
+            $showholi = $local->query($sqlholi);
+            foreach ($showholi as $holi) {
+                $rowstarss = $holi['id_tour'];
+                $queryss = "select sum(comment.evaluate) as sumStar, COUNT(DISTINCT comment.username) as sumName, comment.id_tour from tour join comment on tour.id_tour=comment.id_tour where tour.id_tour = $rowstarss";
+                $resultqueryss = $local->query($queryss)->fetch();
+
+            ?>
             <div class="relative group">
+                <a class="" href="product.php?id_tour=<?php echo $holi['id_tour'] ?>">
+                    <div class="overflow-hidden rounded-md border border-white">
+                        <img class="transition duration-300 transform group-hover:scale-105 w-full"
+                            src="../assets/img/<?php echo $holi['image_main'] ?>" alt=""
+                            style="height: 430px;width: 725px;">
+                    </div>
+                    <img class="absolute top-0 right-0 object-fill" src="../assets/img/hot-travel-small.png" alt=""
+                        style="height: 100px; width: 150px;">
+                    <div
+                        class="absolute left-0 right-0 bottom-0 mx-px mb-5 flex justify-center items-center uppercase text-white shadow-lg bg-black bg-opacity-50 hover:text-blue-400">
+                        <div class="text-center ">
+                            <h4><?php echo $holi['name_tour'] ?></h4>
+                            <p class="my-px">
+                                <?php
+                                    if (!empty($resultqueryss['sumName'])) {
+                                        $user = $resultqueryss['sumName'];
+                                        $star = $resultqueryss['sumStar'];
+                                        $result = $star / $user;
+                                        $result;
+                                        for ($i = 0; $i < $result; $i++) {
+                                            echo '<i class="fas fa-star"></i>';
+                                        }
+                                    }
+                                    ?>
+                            </p>
+                            <span class="mr-3 line-through text-gray-500 text-lg">
+                            </span>
+                            <span class="mr-3 line-through  text-md">
+                                <?php if ($holi['promotional'] > 0) {
+                                        echo number_format($holi['price'], 0, '.', ',');
+                                    } ?>
+                            </span>
+                            <span class="text-xl font-bold text-red-400"> <?php if ($holi['promotional'] > 0) {
+                                                                                    echo number_format(($holi['price'] - $holi['promotional']), 0, '.', ',');
+                                                                                } else {
+                                                                                    echo number_format($holi['price'], 0, '.', ',');
+                                                                                } ?>
+                                ₫/khách</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <?php } ?>
+            <!-- <div class="relative group">
                 <a class="" href="#">
                     <div class="overflow-hidden rounded-md border border-white">
                         <img class="transition duration-300 transform group-hover:scale-105 w-full"
@@ -107,33 +166,7 @@ include "../../DA1/examples/local.php";
                         </div>
                     </div>
                 </a>
-            </div>
-            <div class="relative group">
-                <a class="" href="#">
-                    <div class="overflow-hidden rounded-md border border-white">
-                        <img class="transition duration-300 transform group-hover:scale-105 w-full"
-                            src="./content/image/1.jpg" alt="">
-                    </div>
-                    <img class="absolute top-0 right-0 object-fill" src="../assets/img/hot-travel-small.png" alt=""
-                        style="height: 100px; width: 150px;">
-                    <div
-                        class="absolute left-0 right-0 bottom-0 mx-px mb-5 flex justify-center items-center uppercase text-white shadow-lg bg-black bg-opacity-50 hover:text-blue-400">
-                        <div class="text-center ">
-                            <h4>Lăng Bác - Hoàng Thành - Phố cổ</h4>
-                            <p class="my-px">
-                                <i class="fas fa-star text-yellow-300"></i>
-                                <i class="fas fa-star text-yellow-300"></i>
-                                <i class="fas fa-star text-yellow-300"></i>
-                                <i class="fas fa-star text-yellow-300"></i>
-                                <i class="fas fa-star-half-alt text-yellow-300"></i>
-                            </p>
-                            <span class="mr-3 line-through text-gray-500 text-lg">
-                            </span>
-                            <span class="text-lg font-bold">5,900,000₫</span>
-                        </div>
-                    </div>
-                </a>
-            </div>
+            </div> -->
         </div>
     </section>
     <section class="mt-20 background1 py-10">
@@ -182,16 +215,16 @@ include "../../DA1/examples/local.php";
                                     }
                                     ?>
                             </p>
-                            <span class="mr-3 line-through text-red-400 text-lg">
+                            <span class="mr-3 line-through  text-md">
                                 <?php if ($row['promotional'] > 0) {
                                         echo number_format($row['price'], 0, '.', ',');
                                     } ?>
                             </span>
-                            <span class="text-lg font-bold"> <?php if ($row['promotional'] > 0) {
-                                                                        echo number_format(($row['price'] - $row['promotional']), 0, '.', ',');
-                                                                    } else {
-                                                                        echo number_format($row['price'], 0, '.', ',');
-                                                                    } ?>
+                            <span class="text-xl font-bold text-red-400"> <?php if ($row['promotional'] > 0) {
+                                                                                    echo number_format(($row['price'] - $row['promotional']), 0, '.', ',');
+                                                                                } else {
+                                                                                    echo number_format($row['price'], 0, '.', ',');
+                                                                                } ?>
                                 ₫/khách</span>
                         </div>
                     </div>
@@ -203,23 +236,23 @@ include "../../DA1/examples/local.php";
     <section class="container mx-auto my-16 text-center">
         <div class="">
             <h3 class="font-bold text-2xl uppercase">lý do chọn HANOITOURIST</h3>
-            <img class="w-20 mx-auto" src="./content/image/gachvang.png" alt="">
+            <img class="w-20 mx-auto" src="../assets/img/gachvang.png" alt="">
         </div>
         <div class="grid grid-cols-3 mx-24 gap-36 mt-10">
             <div>
-                <img class="px-28" src="./content/image/lý do chọn/hotel.png" alt="">
+                <img class="px-28" src="../assets/img/hotel.png" alt="">
                 <h3 class="font-bold text-xl py-5">Tour được chọn lựa</h3>
                 <p>Để mọi người - mọi nhà đều có thể đi du lịch với chất lượng tour hợp lý nhất.
                 </p>
             </div>
             <div>
-                <img class="px-28" src="./content/image/lý do chọn/customer-service.png" alt="">
+                <img class="px-28" src="../assets/img/customer-service.png" alt="">
                 <h3 class="font-bold text-xl py-5">Hỗ trợ 24/7</h3>
                 <p>Để mọi người - mọi nhà đều có thể đi du lịch với hỗ trợ tốt nhất.
                 </p>
             </div>
             <div>
-                <img class="px-28" src="./content/image/lý do chọn/best-price.png" alt="">
+                <img class="px-28" src="../assets/img/best-price.png" alt="">
                 <h3 class="font-bold text-xl py-5">Giá luôn tốt nhất</h3>
                 <p>Để mọi người - mọi nhà đều có thể đi du lịch với giá thành hợp lý nhất.
                 </p>
@@ -231,33 +264,33 @@ include "../../DA1/examples/local.php";
             <p class="mx-150 py-2 text-white">Sự hài lòng của khách hàng làm niềm vui của chúng tôi</p>
             <div class="py-5">
                 <h3 class="font-bold text-2xl uppercase text-white">thành quả của HANOITOURIST</h3>
-                <img class="w-20 mx-225 pt-3" src="./content/image/gachtrang.png" alt="">
+                <img class="w-20 mx-225 pt-3" src="../assets/img/gachtrang.png" alt="">
             </div>
         </div>
         <div class="grid grid-cols-4 container mx-auto px-28 gap-10">
             <div>
-                <img class="px-28" src="./content/image/lý do chọn/airplane-around-earth.png" alt="">
+                <img class="px-28" src="../assets/img/airplane-around-earth.png" alt="">
                 <div class="text-center">
                     <h3 class="font-bold text-4xl text-yellow-400 py-5">20,549+</h3>
                     <p class="text-white text-xl">Tour hoàn thành</p>
                 </div>
             </div>
             <div>
-                <img class="px-28" src="./content/image/lý do chọn/guest.png" alt="">
+                <img class="px-28" src="../assets/img/guest.png" alt="">
                 <div class="text-center">
                     <h3 class="font-bold text-4xl text-yellow-400 py-5">60,419+</h3>
                     <p class="text-white text-xl">Khách hàng</p>
                 </div>
             </div>
             <div>
-                <img class="px-28" src="./content/image/lý do chọn/world.png" alt="">
+                <img class="px-28" src="../assets/img/world.png" alt="">
                 <div class="text-center">
                     <h3 class="font-bold text-4xl text-yellow-400 py-5">500+</h3>
                     <p class="text-white text-xl">Điểm tham quan</p>
                 </div>
             </div>
             <div>
-                <img class="px-28" src="./content/image/lý do chọn/truck.png" alt="">
+                <img class="px-28" src="../assets/img/truck.png" alt="">
                 <div class="text-center">
                     <h3 class="font-bold text-4xl text-yellow-400 py-5">856+</h3>
                     <p class="text-white text-xl">Phương tiện</p>
@@ -284,14 +317,14 @@ include "../../DA1/examples/local.php";
             $totalln = $local->query($sqlln);
             foreach ($totalln as $rown) {
                 $rowstarn = $rown['id_tour'];
-                $queryn = "select sum(comment.evaluate) as sumStar, COUNT(DISTINCT comment.username) as sumName, comment.id_tour from tour join comment on tour.id_tour=comment.id_tour where tour.id_tour = $rowstar";
+                $queryn = "select sum(comment.evaluate) as sumStar, COUNT(DISTINCT comment.username) as sumName, comment.id_tour from tour join comment on tour.id_tour=comment.id_tour where tour.id_tour = $rowstarn";
                 $resultqueryn = $local->query($queryn)->fetch();
             ?>
             <div class="col-span-2 mt-2">
-                <div class="relative group mr-2">
+                <div class="relative group mr-2 object-fill">
                     <a class="" href="../../DA1/DA/product.php?id_tour=<?php echo $rown['id_tour'] ?>">
                         <div class="overflow-hidden rounded-md border border-white">
-                            <img class="transition duration-300 transform group-hover:scale-105 w-full"
+                            <img class="transition duration-300 transform group-hover:scale-105 w-full object-cover"
                                 src="../../DA1/assets/img/<?php echo $rown['image_main'] ?>" alt="">
                         </div>
                         <div
@@ -328,19 +361,19 @@ include "../../DA1/examples/local.php";
             from tour 
             join category on category.id_category=tour.id_category 
             join images on tour.id_image=images.id_image
-            where category.id_parent = 26 order by id_tour desc limit 3";
+            where category.id_parent = 26 order by id_tour desc limit 4";
                 $totallnn = $local->query($sqllnn);
                 foreach ($totallnn as $rownn) {
                     $rowstarnn = $rownn['id_tour'];
-                    $querynn = "select sum(comment.evaluate) as sumStar, COUNT(DISTINCT comment.username) as sumName, comment.id_tour from tour join comment on tour.id_tour=comment.id_tour where tour.id_tour = $rowstar";
+                    $querynn = "select sum(comment.evaluate) as sumStar, COUNT(DISTINCT comment.username) as sumName, comment.id_tour from tour join comment on tour.id_tour=comment.id_tour where tour.id_tour = $rowstarnn";
                     $resultquerynn = $local->query($querynn)->fetch();
                 ?>
-                <article class="relative group m-2">
+                <article class="relative group m-2" style="width: 365px; height: 242px;">
                     <a class="" href="../../DA1/DA/product.php?id_tour=<?php echo $rownn['id_tour'] ?>">
                         <div class="overflow-hidden rounded-md border border-white">
                             <img class="transition duration-300 transform group-hover:scale-105 w-full"
                                 src="../../DA1/assets/img/<?php echo $rownn['image_main'] ?>"
-                                style="width: 365px; height: 222px;" alt="">
+                                style="width: 365px; height: 242px;" alt="">
                         </div>
                         <div
                             class="absolute left-0 right-0 bottom-0 mb-3 mx-px flex justify-center items-center uppercase text-white shadow-lg bg-black bg-opacity-50 hover:text-blue-400">
@@ -369,31 +402,6 @@ include "../../DA1/examples/local.php";
                     </a>
                 </article>
                 <?php } ?>
-
-                <div class="relative group m-2">
-                    <a class="" href="#">
-                        <div class="overflow-hidden rounded-md border border-white">
-                            <img class="transition duration-300 transform group-hover:scale-105 w-full"
-                                src="./content/image/1.jpg" alt="">
-                        </div>
-                        <div
-                            class="absolute left-0 right-0 bottom-0 mb-3 mx-px flex justify-center items-center uppercase text-white shadow-lg bg-black bg-opacity-50 hover:text-blue-400">
-                            <div class="text-center ">
-                                <h4>Lăng Bác - Hoàng Thành - Phố cổ</h4>
-                                <p class="my-px">
-                                    <i class="fas fa-star text-yellow-300"></i>
-                                    <i class="fas fa-star text-yellow-300"></i>
-                                    <i class="fas fa-star text-yellow-300"></i>
-                                    <i class="fas fa-star text-yellow-300"></i>
-                                    <i class="fas fa-star-half-alt text-yellow-300"></i>
-                                </p>
-                                <span class="mr-3 line-through text-gray-500 text-lg">
-                                </span>
-                                <span class="text-lg font-bold">5,900,000₫</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
             </div>
         </div>
     </section>
@@ -404,71 +412,25 @@ include "../../DA1/examples/local.php";
                 <img class="w-20 mx-auto" src="./content/image/gachvang.png" alt="">
             </div>
             <div class="background5 binhLuan container mx-auto py-5 rounded-md">
-                <div class="my-12 focus:outline-none">
-                    <img class="mx-36" src="./content/image/user.png">
+                <?php
+                $sqlcomt = "select * from comment join user on user.username=comment.username where evaluate >=4 limit 5";
+                $showcmt = $local->query($sqlcomt);
+                foreach ($showcmt as $cmt) {
+                ?>
+                <div class="my-12 focus:outline-none text-center">
+                    <img class="mx-auto w-24 h-24 rounded-full" src="../assets/img/<?php echo $cmt['user_image'] ?>">
                     <p class="my-3 text-center">
-                        <i class="fas fa-star text-blue-500"></i>
-                        <i class="fas fa-star text-blue-500"></i>
-                        <i class="fas fa-star text-blue-500"></i>
-                        <i class="fas fa-star text-blue-500"></i>
-                        <i class="fas fa-star-half-alt text-blue-500"></i>
+                        <?php
+                            $evaluate = $cmt['evaluate'];
+                            for ($i = 0; $i < $evaluate; $i++) {
+                                echo '<i class="fas fa-star text-blue-500"></i>';
+                            }
+                            ?>
                     </p>
-                    <span class="text-center block">Name</span>
-                    <p class="mx-10 italic my-3 text-justify">Tôi đi tour vòng quanh Hà Nội thấy các dịch vụ của công ty
-                        khá ổn
-                        từ
-                        khách sạn,
-                        nhà
-                        hàng,
-                        phương tiện di
-                        chuyển đến hành trình tham quan. Không phát sinh chi phí phụ là
-                        điều
-                        tuyệt với.</p>
-                    <span class="text-center block">-tên tour-</span>
+                    <span class="text-center block "><?php echo $cmt['fullname'] ?></span>
+                    <p class="mx-10 italic my-3 w-72 h-20 overflow-hidden"><?php echo $cmt['content_comment'] ?></p>
                 </div>
-                <div class="my-12 focus:outline-none">
-                    <img class="mx-36" src="./content/image/user.png">
-                    <p class="my-3 text-center">
-                        <i class="fas fa-star text-blue-500"></i>
-                        <i class="fas fa-star text-blue-500"></i>
-                        <i class="fas fa-star text-blue-500"></i>
-                        <i class="fas fa-star text-blue-500"></i>
-                        <i class="fas fa-star-half-alt text-blue-500"></i>
-                    </p>
-                    <span class="text-center block">Name</span>
-                    <p class="mx-10 italic my-3 text-justify">Tôi đi tour vòng quanh Hà Nội thấy các dịch vụ của công ty
-                        khá ổn
-                        từ
-                        khách sạn,
-                        nhà
-                        hàng,
-                        phương tiện di
-                        chuyển đến hành trình tham quan. Không phát sinh chi phí phụ là
-                        điều
-                        tuyệt với.</p>
-                    <span class="text-center block">-tên tour-</span>
-                </div>
-                <div class="my-12 focus:outline-none">
-                    <img class="mx-36" src="./content/image/user.png">
-                    <p class="my-3 text-center">
-                        <i class="fas fa-star text-blue-500"></i>
-                        <i class="fas fa-star text-blue-500"></i>
-                        <i class="fas fa-star text-blue-500"></i>
-                        <i class="fas fa-star text-blue-500"></i>
-                        <i class="fas fa-star-half-alt text-blue-500"></i>
-                    </p>
-                    <span class="text-center block">Name</span>
-                    <p class="mx-10 italic my-3 text-justify">Tôi đi tour vòng quanh Hà Nội thấy các dịch vụ của công ty
-                        khá ổn
-                        từ khách sạn,
-                        nhà
-                        hàng,
-                        phương tiện di
-                        chuyển đến hành trình tham quan. Không phát sinh chi phí phụ là
-                        điều
-                        tuyệt với.</p>
-                    <span class="text-center block">-tên tour-</span>
-                </div>
+                <?php } ?>
             </div>
         </div>
         <div class="col-span-3">
@@ -477,57 +439,28 @@ include "../../DA1/examples/local.php";
                 <img class="w-20 mx-auto" src="./content/image/gachvang.png" alt="">
             </div>
             <div class="grid grid-cols-3 gap-10">
-                <a class="group" href="">
-                    <div class="overflow-hidden rounded-md border border-white">
-                        <img class="transition duration-300 transform group-hover:opacity-80"
-                            src="./content/image/201H-370x260.jpg" alt="">
-                    </div>
-                    <div class="text-left">
-                        <h3 class="text-xl font-bold pt-2">Tất tần tật những kinh nghiệm bạn cần biết
-                            trước khi du lịch Bình Ba
-                        </h3>
-                        <span class="text-sm group-hover:text-blue-400">7 Tháng Mười Hai,
-                            2018</span>
-                        <p class="py-8 group-hover:text-blue-400">Giới thiệu sơ lượt về đảo
-                            Bình Ba Bình Ba là một đảo
-                            nhỏ, diện [...]
-                        </p>
-                    </div>
-                </a>
-                <a class="group" href="">
-                    <div class="overflow-hidden rounded-md border border-white">
-                        <img class="transition duration-300 transform group-hover:opacity-80"
-                            src="./content/image/201H-370x260.jpg" alt="">
-                    </div>
-                    <div class="text-left">
-                        <h3 class="text-xl font-bold pt-2">Tất tần tật những kinh nghiệm bạn cần biết
-                            trước khi du lịch Bình Ba
-                        </h3>
-                        <span class="text-sm group-hover:text-blue-400">7 Tháng Mười Hai,
-                            2018</span>
-                        <p class="py-8 group-hover:text-blue-400">Giới thiệu sơ lượt về đảo
-                            Bình Ba Bình Ba là một đảo
-                            nhỏ, diện [...]
-                        </p>
-                    </div>
-                </a>
-                <a class="group" href="">
-                    <div class="overflow-hidden rounded-md border border-white">
-                        <img class="transition duration-300 transform group-hover:opacity-80"
-                            src="./content/image/201H-370x260.jpg" alt="">
-                    </div>
-                    <div class="text-left">
-                        <h3 class="text-xl font-bold pt-2">Tất tần tật những kinh nghiệm bạn cần biết
-                            trước khi du lịch Bình Ba
-                        </h3>
-                        <span class="text-sm group-hover:text-blue-400">7 Tháng Mười Hai,
-                            2018</span>
-                        <p class="py-8 group-hover:text-blue-400">Giới thiệu sơ lượt về đảo
-                            Bình Ba Bình Ba là một đảo
-                            nhỏ, diện [...]
-                        </p>
-                    </div>
-                </a>
+                <?php
+                $sqlpost = "select * from postnews order by id_post desc limit 3";
+                $showpost = $local->query($sqlpost);
+                foreach ($showpost as $post) {
+                ?>
+                <article>
+                    <a class="group" href="newdetail.php?id_post=<?php echo $post['id_post'] ?>">
+                        <div class="overflow-hidden rounded-md border border-white">
+                            <img class="transition duration-300 transform group-hover:opacity-80"
+                                src="../assets/img/<?php echo $post['post_image'] ?>" alt="">
+                        </div>
+                        <div class="text-left">
+                            <h3 class="text-xl font-bold pt-2"><?php echo $post['title'] ?>
+                            </h3>
+                            <span class="text-sm group-hover:text-blue-400"><?php echo $post['create_at'] ?></span>
+                            <p class="py-8 group-hover:text-blue-400 h-32 overflow-hidden">
+                                <?php echo $post['content_short'] ?>
+                            </p>
+                        </div>
+                    </a>
+                </article>
+                <?php } ?>
             </div>
     </section>
     <footer class="background4 bg-opacity-10 mt-10">
@@ -539,11 +472,5 @@ include "../../DA1/examples/local.php";
 <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script type="text/javascript" src="./content/slick-1.8.1/slick/slick.min.js"></script>
 <script type="text/javascript" src="./content/js/index.js"></script>
-<!-- <script>
-        var navbar = document.getElementById("navbar");
-        window.addEventListener("scroll", function() {
-                navbar.classList.toggle("sticky", window.scrollY > 0);
-        })
-</script> -->
 
 </html>

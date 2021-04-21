@@ -37,6 +37,7 @@ The above copyright notice and this permission notice shall be included in all c
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 
     <script src="https://kit.fontawesome.com/5cd69ad435.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- <style>
     input[type="checkbox"]+label {
         display: block;
@@ -157,6 +158,12 @@ The above copyright notice and this permission notice shall be included in all c
                             <p>QUẢN LÝ VOUCHER</p>
                         </a>
                     </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="./total.php">
+                            <i class="fab fa-wolf-pack-battalion"></i>
+                            <p>THỐNG KÊ</p>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -221,16 +228,16 @@ The above copyright notice and this permission notice shall be included in all c
                                                     Mã đơn tour
                                                 </th>
                                                 <th>
-                                                    Mã tour
-                                                </th>
-                                                <th>
                                                     Họ và Tên
                                                 </th>
                                                 <th>
-                                                    Số người lớn
+                                                    Tên tour
                                                 </th>
                                                 <th>
-                                                    Số trẻ em
+                                                    Số điện thoại
+                                                </th>
+                                                <th>
+                                                    ngày đi
                                                 </th>
                                                 <th>Ghi chú</th>
                                                 <th>Trạng thái</th>
@@ -238,36 +245,69 @@ The above copyright notice and this permission notice shall be included in all c
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                $sqll = "select * from cart join user on cart.username=user.username";
+                                                $sqll = "select * from cart 
+                                                join user on cart.username=user.username 
+                                                join tour on tour.id_tour=cart.id_tour ";
                                                 $totall = $local->query($sqll);
                                                 foreach ($totall as $value) {
                                                 ?>
-                                                <tr>
+                                                <tr data-id="<?php echo $value['id_cart'] ?>">
                                                     <td>
                                                         <?php echo $value['id_cart'] ?>
                                                     </td>
                                                     <td>
-                                                        <?php echo $value['id_tour'] ?>
-                                                    </td>
-                                                    <td>
                                                         <?php echo $value['fullname'] ?>
                                                     </td>
-                                                    <td class="text-primary">
-                                                        <?php echo $value['adult_amount'] ?>
+                                                    <td>
+                                                        <?php echo $value['name_tour'] ?>
                                                     </td>
-                                                    <td class="text-primary">
-                                                        <?php echo $value['child_amount'] ?>
+                                                    <td>
+                                                        <?php echo $value['phone_cart'] ?>
+                                                    </td>
+                                                    <td>
+                                                        <?php echo $value['departure_day'] ?>
                                                     </td>
                                                     <td> <?php echo $value['note'] ?></td>
-                                                    <form method="POST">
-                                                        <td><select name="checkstatus" id=""
-                                                                class="border-2 border-green-400 border-opacity-100 rounded-lg">
-                                                                <option value="Chưa xem">Chưa xem</option>
-                                                                <option value="Đã xem">Đã xem</option>
-                                                                <option value="Đã liên hệ">Đã liên hệ</option>
-                                                                <option value="Đã duyệt">Đã duyệt</option>
-                                                            </select></td>
-                                                    </form>
+
+                                                    <td>
+                                                        <form method="POST">
+                                                            <select name="checkstatus"
+                                                                class="checkstatus border-2 border-green-400 border-opacity-100 rounded-lg">
+                                                                <option value="<?php echo $value['cart_status'] ?>">
+                                                                    <?php if ($value['cart_status'] == 0) {
+                                                                            echo "Chưa duyệt";
+                                                                        } else if ($value['cart_status'] == 1) {
+                                                                            echo "Đã duyệt";
+                                                                        } else if ($value['cart_status'] == 2) {
+                                                                            echo "Đã hủy";
+                                                                        } else if ($value['cart_status'] == 3) {
+                                                                            echo "Đã hoàn thành";
+                                                                        }  ?></option>
+                                                                <option value="1" class="<?php
+                                                                                                if ($value['cart_status'] == 1) {
+                                                                                                    echo 'hidden';
+                                                                                                }
+
+                                                                                                ?>">Đã duyệt
+                                                                </option>
+                                                                <option value="2" class="<?php
+                                                                                                if ($value['cart_status'] == 2) {
+                                                                                                    echo 'hidden';
+                                                                                                }
+
+                                                                                                ?>">Đã hủy
+                                                                </option>
+                                                                <option value="3" class="<?php
+                                                                                                if ($value['cart_status'] == 3) {
+                                                                                                    echo 'hidden';
+                                                                                                }
+
+                                                                                                ?>">Đã
+                                                                    hoàn thành
+                                                                </option>
+                                                            </select>
+                                                        </form>
+                                                    </td>
                                                     <td><button
                                                             class="bg-gradient-to-r from-green-400 to-blue-500  text-white rounded-lg transition duration-300 ease-in-out transform hover:scale-105 flex items-center"><a
                                                                 href="../../DA1/examples/detail/cartdetail.php?id_cart=<?php echo $value['id_cart'] ?>"
@@ -279,11 +319,6 @@ The above copyright notice and this permission notice shall be included in all c
                                         </table>
                                     </div>
                                 </div>
-                                <!-- <div>
-                  <form action="">
-                    <button>d</button>
-                  </form>
-                </div> -->
                             </div>
                         </div>
                     </div>
@@ -303,6 +338,31 @@ The above copyright notice and this permission notice shall be included in all c
         </div>
     </div>
     <!--   Core JS Files   -->
+    <script>
+    $(document).ready(function() {
+        $('.checkstatus').change(function() {
+            // console.log('sss');
+            // var id = $('.status').val();
+            // var status = $('.status :selected').text();
+            // console.log(id);
+            // console.log(status);
+            var dataId = $(this).parent().parent().parent().data('id');
+            // console.log(dataId);
+            $.ajax({
+                type: 'POST',
+                url: '../../DA1/examples/repair/ajaxcart.php',
+                data: {
+                    "id": dataId,
+                    "statuss": $(this).find('option:selected').val(),
+                },
+                success: function(data) {
+                    alert(data);
+                    location.reload();
+                }
+            });
+        });
+    });
+    </script>
     <script src="../assets/js/core/jquery.min.js"></script>
     <script src="../assets/js/core/popper.min.js"></script>
     <script src="../assets/js/core/bootstrap-material-design.min.js"></script>

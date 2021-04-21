@@ -113,6 +113,12 @@ The above copyright notice and this permission notice shall be included in all c
                             <p>QUẢN LÝ VOUCHER</p>
                         </a>
                     </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="./total.php">
+                            <i class="fab fa-wolf-pack-battalion"></i>
+                            <p>THỐNG KÊ</p>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -189,10 +195,11 @@ The above copyright notice and this permission notice shall be included in all c
                                                     Nội dung ngắn
                                                 </th>
 
-                                                <th>Nội dung</th>
+                                                <th style="width: 350px;">Nội dung</th>
+                                                <th style="width: 350px;">Nội dung chi tiết</th>
                                                 <th>Tác giả</th>
                                                 <th>Thời gian tạo</th>
-                                                <th colspan="2"><span class="pl-4">Tùy chỉnh</span></th>
+                                                <th colspan="2"><span class="">Tùy chỉnh</span></th>
                                             </thead>
                                             <tbody>
                                                 <?php
@@ -220,18 +227,24 @@ The above copyright notice and this permission notice shall be included in all c
                                                     <td>
                                                         <?php echo $values['content_short'] ?>
                                                     </td>
-                                                    <td> <?php echo $values['content'] ?></td>
+                                                    <td class="overflow-y-scroll">
+                                                        <div style="height: 300px;"> <?php echo $values['content'] ?>
+                                                    </td>
+                                                    <td class="overflow-y-scroll">
+                                                        <div style="height: 300px;"><?php echo $values['content2'] ?>
+                                                        </div>
+                                                    </td>
                                                     <td>
                                                         <?php echo $values['author'] ?>
                                                     </td>
                                                     <td> <?php echo $values['create_at'] ?></td>
-                                                    <td class="w-20"><button
+                                                    <td class="w-16"><button
                                                             class=" bg-gradient-to-r from-green-400 to-blue-500  text-white rounded-lg transition duration-300 ease-in-out transform hover:scale-105 flex items-center"><a
                                                                 href="../../DA1/examples/repair/repairpostnews.php?id_postnews=<?php echo $values['id_post'] ?>"
                                                                 class="inline-block py-2 px-3">Sửa</a></button>
                                                     </td>
-                                                    <td class="w-20"><button
-                                                            onclick="return confirm('you want to delete!')" ;
+                                                    <td class="w-16"><button
+                                                            onclick="return confirm('Do you want to delete?')" ;
                                                             class="bg-gradient-to-r from-purple-200 via-pink-500 to-red-500 text-white rounded-lg  transition duration-300 ease-in-out transform hover:scale-105"><a
                                                                 href="../../DA1/examples/delete/delete.php?id_postnews=<?php echo $values['id_post'] ?>"
                                                                 class="inline-block px-3 py-2 ">Xóa</a></button></td>

@@ -57,7 +57,7 @@ include "../../DA1/examples/local.php";
                 foreach ($totall as $values) {
                 ?>
                 <img style="height: 1000px;" class="focus:outline-none"
-                    src="../../DA1//assets/img/<?php echo $values['slide'] ?>" alt="">
+                    src="../../DA1/assets/img/<?php echo $values['slide'] ?>" alt="">
                 <?php } ?>
             </div>
             <div class="bg-blue-400 bg-opacity-50 absolute top-0 left-0 right-0 ">
@@ -141,32 +141,6 @@ include "../../DA1/examples/local.php";
                 </a>
             </div>
             <?php } ?>
-            <!-- <div class="relative group">
-                <a class="" href="#">
-                    <div class="overflow-hidden rounded-md border border-white">
-                        <img class="transition duration-300 transform group-hover:scale-105 w-full"
-                            src="./content/image/1.jpg" alt="">
-                    </div>
-                    <img class="absolute top-0 right-0 object-fill" src="../assets/img/hot-travel-small.png" alt=""
-                        style="height: 100px; width: 150px;">
-                    <div
-                        class="absolute left-0 right-0 bottom-0 mx-px mb-5 flex justify-center items-center uppercase text-white shadow-lg bg-black bg-opacity-50 hover:text-blue-400">
-                        <div class="text-center ">
-                            <h4>Lăng Bác - Hoàng Thành - Phố cổ</h4>
-                            <p class="my-px">
-                                <i class="fas fa-star text-yellow-300"></i>
-                                <i class="fas fa-star text-yellow-300"></i>
-                                <i class="fas fa-star text-yellow-300"></i>
-                                <i class="fas fa-star text-yellow-300"></i>
-                                <i class="fas fa-star-half-alt text-yellow-300"></i>
-                            </p>
-                            <span class="mr-3 line-through text-gray-500 text-lg">
-                            </span>
-                            <span class="text-lg font-bold">5,900,000₫</span>
-                        </div>
-                    </div>
-                </a>
-            </div> -->
         </div>
     </section>
     <section class="mt-20 background1 py-10">
@@ -174,7 +148,7 @@ include "../../DA1/examples/local.php";
             <p>Chọn ngay cho bạn tour phù hợp</p>
             <div class="py-5">
                 <h3 class="font-bold text-2xl uppercase"><a href="">điểm đến nội thành</a></h3>
-                <img class="w-20 mx-auto pt-3" src="./content/image/gachvang.png" alt="">
+                <img class="w-20 mx-auto pt-3" src="../assets/img/gachvang.png" alt="">
             </div>
         </div>
         <div class="noiThanh container mx-auto">
@@ -303,7 +277,7 @@ include "../../DA1/examples/local.php";
             <p>Chọn ngay cho bạn tour phù hợp</p>
             <div class="py-5">
                 <h3 class="font-bold text-2xl uppercase"><a href="">điểm đến ngoại thành</a></h3>
-                <img class="w-20 mx-auto" src="./content/image/gachvang.png" alt="">
+                <img class="w-20 mx-auto" src="../assets/img/gachvang.png" alt="">
             </div>
         </div>
         <div class="container mx-auto grid grid-cols-4 mb-3">
@@ -357,11 +331,11 @@ include "../../DA1/examples/local.php";
             <?php } ?>
             <div class="col-span-2 grid grid-cols-2">
                 <?php
-                $sqllnn = "select tour.id_tour, name_tour, price, promotional , category.id_category, category.id_parent, images.image_main, tour.id_image
+                $sqllnn = "select tour.id_tour, name_tour, price, promotional , category.id_category, id_parent, images.image_main, tour.id_image
             from tour 
             join category on category.id_category=tour.id_category 
             join images on tour.id_image=images.id_image
-            where category.id_parent = 26 order by id_tour desc limit 4";
+            where id_parent = 26 order by id_tour desc limit 4";
                 $totallnn = $local->query($sqllnn);
                 foreach ($totallnn as $rownn) {
                     $rowstarnn = $rownn['id_tour'];
@@ -382,10 +356,9 @@ include "../../DA1/examples/local.php";
                                 <p class="my-px text-yellow-400">
                                     <?php
                                         if (!empty($resultquerynn['sumName'])) {
-                                            $user = $resultquery['sumName'];
-                                            $star = $resultquery['sumStar'];
+                                            $user = $resultquerynn['sumName'];
+                                            $star = $resultquerynn['sumStar'];
                                             $result = $star / $user;
-                                            $result;
                                             for ($i = 0; $i < $result; $i++) {
                                                 echo '<i class="fas fa-star"></i>';
                                             }
@@ -409,7 +382,7 @@ include "../../DA1/examples/local.php";
         <div class="col-span-1">
             <div class="py-5 text-center">
                 <h3 class="font-bold text-2xl uppercase">nhận xét</h3>
-                <img class="w-20 mx-auto" src="./content/image/gachvang.png" alt="">
+                <img class="w-20 mx-auto" src="../assets/img/gachvang.png" alt="">
             </div>
             <div class="background5 binhLuan container mx-auto py-5 rounded-md">
                 <?php
@@ -436,7 +409,7 @@ include "../../DA1/examples/local.php";
         <div class="col-span-3">
             <div class="py-5 text-center">
                 <h3 class="font-bold text-2xl uppercase">cẩn nang du lịch</h3>
-                <img class="w-20 mx-auto" src="./content/image/gachvang.png" alt="">
+                <img class="w-20 mx-auto" src="../assets/img/gachvang.png" alt="">
             </div>
             <div class="grid grid-cols-3 gap-10">
                 <?php

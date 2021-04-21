@@ -43,7 +43,7 @@ The above copyright notice and this permission notice shall be included in all c
 
         Tip 2: you can also add an image using data-image tag
     -->
-            <div class="logo"><a href="#" class="simple-text logo-normal">
+            <div class="logo"><a href="../../index.php" class="simple-text logo-normal">
                     <img src="../../assets/img/logo.png" alt="">
                 </a></div>
             <div class="sidebar-wrapper">
@@ -187,7 +187,8 @@ The above copyright notice and this permission notice shall be included in all c
                                                 <th>
                                                     Nội dung bình luận
                                                 </th>
-                                                <th colspan="2">Tùy chỉnh</th>
+                                                <th>Đánh giá</th>
+                                                <th>Tùy chỉnh</th>
                                             </thead>
                                             <tbody>
                                                 <?php
@@ -195,41 +196,28 @@ The above copyright notice and this permission notice shall be included in all c
                                                 if (isset($_GET['id_tour'])) {
                                                     $id = $_GET['id_tour'];
                                                     $sqll = "select * from comment where id_tour = $id";
-                                                    $toatlls = $local->query($sqll)->fetch();
-                                                    $idParent =  $toatlls['id_comment'];
-                                                    $idCmt = $toatlls['id_comment'];
-                                                    $reply = "select * from comment where id_tour= $id  or (id_parent = $idParent or id_comment= $idCmt)";
-                                                    $totalrep = $local->query($reply)->fetchAll();
-                                                    $category = array();
-                                                    $categories[] = $row;
-                                                    function showCategories($categories, $parent_id = 0, $char = '')
-                                                    {
-                                                        foreach ($categories as $key => $item) {
-                                                            // Nếu là chuyên mục con thì hiển thị
-                                                            if ($item['id_parent'] == $parent_id) {
-                                                                echo '<tr>';
-                                                                echo '<td>' . $item['username'] . '</td>';
-                                                                echo '<td>';
-                                                                echo $char . $item['content_comment'] . "<br>";
-                                                                echo '</td>';
-                                                                echo '<td  class="inline-block w-20 ml-2">';
-                                                                echo '<button  class="bg-gradient-to-r from-purple-200 via-pink-500 to-red-500 text-white rounded-lg  transition duration-300 ease-in-out transform hover:scale-105">
-                                                                <a  href="../../examples/delete/delete.php"
-                                                                class="inline-block px-3 py-2 "
-                                                                style="margin: 2px 0px;">Xóa</a>
-                                                                </button>';
-                                                                echo '</td>';
-                                                                echo '</tr>';
-                                                                // Xóa chuyên mục đã lặp
-                                                                unset($categories[$key]);
-                                                                // Tiếp tục đệ quy để tìm chuyên mục con của chuyên mục đang lặp
-                                                                showCategories($categories, $item['id_comment'],   $char . 'tra loi ' .  $item['username'] . ' : ');
-                                                            }
-                                                        }
+                                                    $toatlls = $local->query($sqll);
+                                                    foreach ($toatlls as $cmt) {
+                                                ?>
+                                                <tr>
+                                                    <td><?php echo $cmt['username'] ?></td>
+                                                    <td><?php echo $cmt['content_comment'] ?></td>
+                                                    <td class="text-yellow-400"><?php
+                                                                                        for ($i = 0; $i < $cmt['evaluate']; $i++) {
+                                                                                            echo '<i class="far fa-star"></i>';
+                                                                                        }
+                                                                                        ?></td>
+                                                    <td class="w-20"><button
+                                                            onclick="return confirm('you want to delete!')" ;
+                                                            class="bg-gradient-to-r from-purple-200 via-pink-500 to-red-500 text-white rounded-lg  transition duration-300 ease-in-out transform hover:scale-105"><a
+                                                                href="../../DA1/examples/delete/delete.php?id_comment=<?php echo $cmt['id_comment'] ?>"
+                                                                class="inline-block px-3 py-2 ">Xóa</a></button>
+                                                    </td>
+                                                </tr>
+                                                <?php
                                                     }
                                                 }
                                                 ?>
-                                                <?php showCategories($totalrep); ?>
                                             </tbody>
                                         </table>
                                     </div>

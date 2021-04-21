@@ -42,7 +42,7 @@ The above copyright notice and this permission notice shall be included in all c
 
         Tip 2: you can also add an image using data-image tag
     -->
-            <div class="logo"><a href="../../DA1//DA" class="simple-text logo-normal">
+            <div class="logo"><a href="../index.php" class="simple-text logo-normal">
                     <img src="../assets/img/logo.png" alt="">
                 </a></div>
             <div class="sidebar-wrapper">
@@ -204,7 +204,7 @@ The above copyright notice and this permission notice shall be included in all c
                                             <tbody>
                                                 <?php
                                                 include "../../DA1/examples/local.php";
-                                                $sqll = "select  tour.id_image, image_main, COUNT(DISTINCT username) as sumName, tour.id_tour, evaluate, content_comment,comment.id_comment, id_parent, tour.name_tour, count(comment.id_comment), sum(evaluate) as sumStar from tour 
+                                                $sqll = "select  tour.id_image, image_main, COUNT(DISTINCT username) as sumName, tour.id_tour, evaluate, content_comment,comment.id_comment,  tour.name_tour, count(comment.id_comment), sum(evaluate) as sumStar from tour 
                                                 join comment on comment.id_tour=tour.id_tour 
                                                 join images on tour.id_image=images.id_image group by tour.id_tour";
                                                 $toatll = $local->query($sqll);

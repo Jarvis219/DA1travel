@@ -60,3 +60,9 @@ if (isset($_GET['id_cartfont'])) {
     $total = $local->exec($sql);
     header('location:../../../../../DA1/DA/success.php');
 }
+if (isset($_GET['id_comment'])) {
+    $id = $_GET['id_comment'];
+    $sql = "delete from comment where id_comment = '$id'";
+    $total = $local->exec($sql);
+    header('location:../../examples/comment.php');
+}

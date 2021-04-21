@@ -502,12 +502,8 @@ if (isset($_GET['id_tour'])) {
                         </button>
                         <!-- 1 sao -->
                     </div>
-
                 </div>
-                <!-- <div class="col-span-4 px-10">
-                    <h3 class="my-4 text-xl font-bold">Nhận xét</h3>
-                    
-                </div> -->
+                <?php require "binhluan.php"; ?>
             </div>
             </div>
             </div>
@@ -530,7 +526,8 @@ if (isset($_GET['id_tour'])) {
 
                 <form class="mx-10 mb-5 bg-white py-2" method="POST" enctype="multipart/form-data">
                     <div class="flex items-center px-10 w-40 ">
-                        <img class="rounded-lg" src="../../DA1/assets/img/<?php echo $showuser['user_image'] ?>" alt="">
+                        <img class="rounded-full" style="width: 80px;height: 80px;"
+                            src="../../DA1/assets/img/<?php echo $showuser['user_image'] ?>" alt="">
                         <span class="px-3 font-bold"><?php echo $showuser['fullname'] ?></span>
                     </div>
                     <div class="mr-180 mx-10" id="rating">
@@ -563,12 +560,10 @@ if (isset($_GET['id_tour'])) {
 
             <?php
             if (isset($_POST['btn_sent'])) {
-
                 $id_toursen = $totall1['id_tour'];
                 $usernamesen = $showuser['username'];
                 $star = $_POST['rating'];
                 $comment = $_POST['comment'];
-
                 function checknames($user, $id)
                 {
                     include "../../DA1/examples/local.php";
@@ -578,51 +573,62 @@ if (isset($_GET['id_tour'])) {
                     return $data->fetchColumn();
                 }
                 $names = checknames($usernamesen, $id);
-                if ($names == 0) {
-                    if (!empty($star)) {
-                        $sqlsen = "insert into comment values(null, '$usernamesen', '$id_toursen', '$star', '$comment', '0',null)";
-                        $resultsen = $local->exec($sqlsen);
-                    } else {
-                        $sqlsen = "insert into comment values(null, '$usernamesen', '$id_toursen',null , '$comment', '0',null)";
-                        $resultsen = $local->exec($sqlsen);
-                    }
-                } else {
-                    function checkstar($user, $id)
-                    {
-                        include "../../DA1/examples/local.php";
-                        $sql = "select count(evaluate) from comment where username like '$user' and id_tour like '$id'";
-                        $data = $local->prepare($sql);
-                        $data->execute();
-                        return $data->fetchColumn();
-                    }
-                    $rowstar = checkstar($usernamesen, $id);
-                    // if ($rowstar == 0) {
-                    //     if (empty($star)) {
-                    //         echo "s";
-                    //         $sqlinsert = "insert into comment values(null, '$usernamesen', '$id_toursen', 'null', '$comment', '0',null)";
-                    //         $resultsen = $local->exec($sqlinsert);
-                    // $sqlsen = "update comment set evaluate = '$star' where username = '$usernamesen' limit 1";
-                    // $upadtecmt = $local->prepare($sqlsen);
-                    // $upadtecmt->execute();
-                    // } 
-                    // else {
-                    //     $showstar = "select * from comment where username = '$usernamesen'";
-                    //     $showstarsen = $local->query($showstar)->fetch();
-                    //     $evaluate = $showstarsen['evaluate'];
-                    //     $sqlinsert = "insert into comment values(null, '$usernamesen', '$id_toursen', null, '$comment', '0',null)";
-                    //     $resultsen = $local->exec($sqlinsert);
-                    //     echo "eb2";
-                    // }
-                    // }
-                    //  else {
-                    //     // $showstar = "select * from comment where username = '$usernamesen'";
-                    //     // $showstarsen = $local->query($showstar)->fetch();
-                    //     // $evaluate = $showstarsen['evaluate'];
-                    //     $sqlinsert = "insert into comment values(null, '$usernamesen', '$id_toursen', '$star', '$comment', '0',null)";
-                    //     $resultsen = $local->exec($sqlinsert);
-                    //     echo "eb3";
-                    // }
+                // if ($names == 0) {
+                //     if (!empty($star)) {
+                //         $sqlsen = "insert into comment values(null, '$usernamesen', '$id_toursen', '$star', '$comment', '0',null)";
+                //         $resultsen = $local->exec($sqlsen);
+                //     } else {
+                //         $sqlsen = "insert into comment values(null, '$usernamesen', '$id_toursen',null , '$comment', '0',null)";
+                //         $resultsen = $local->exec($sqlsen);
+                //     }
+                // } else {
+                function checkstar($user, $id)
+                {
+                    include "../../DA1/examples/local.php";
+                    $sql = "select count(evaluate) from comment where username like '$user' and id_tour like '$id'";
+                    $data = $local->prepare($sql);
+                    $data->execute();
+                    return $data->fetchColumn();
                 }
+                $rowstar = checkstar($usernamesen, $id);
+                if ($rowstar == 0) {
+                    $sqlstar = "insert into comment values(null,'$usernamesen','$id_toursen','$star','$comment',null)";
+                    $totalcmt = $local->exec($sqlstar);
+                } else {
+
+                    $sqlstar = "insert into comment values(null,'$usernamesen','$id_toursen','0','$comment',null)";
+                    $totalcmt = $local->exec($sqlstar);
+                    $sqlupdate = "update comment set evaluate = $star where username like '$usernamesen' and id_tour like '$id_toursen' limit 1";
+                    $totalll = $local->prepare($sqlupdate);
+                    $totalll->execute();
+                }
+                // if ($rowstar == 0) {
+                //     if (empty($star)) {
+                //         echo "s";
+                //         $sqlinsert = "insert into comment values(null, '$usernamesen', '$id_toursen', 'null', '$comment', '0',null)";
+                //         $resultsen = $local->exec($sqlinsert);
+                // $sqlsen = "update comment set evaluate = '$star' where username = '$usernamesen' limit 1";
+                // $upadtecmt = $local->prepare($sqlsen);
+                // $upadtecmt->execute();
+                // } 
+                // else {
+                //     $showstar = "select * from comment where username = '$usernamesen'";
+                //     $showstarsen = $local->query($showstar)->fetch();
+                //     $evaluate = $showstarsen['evaluate'];
+                //     $sqlinsert = "insert into comment values(null, '$usernamesen', '$id_toursen', null, '$comment', '0',null)";
+                //     $resultsen = $local->exec($sqlinsert);
+                //     echo "eb2";
+                // }
+                // }
+                //  else {
+                //     // $showstar = "select * from comment where username = '$usernamesen'";
+                //     // $showstarsen = $local->query($showstar)->fetch();
+                //     // $evaluate = $showstarsen['evaluate'];
+                //     $sqlinsert = "insert into comment values(null, '$usernamesen', '$id_toursen', '$star', '$comment', '0',null)";
+                //     $resultsen = $local->exec($sqlinsert);
+                //     echo "eb3";
+                // }
+                // }
             }
             ?>
         </section>

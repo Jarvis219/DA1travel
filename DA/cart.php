@@ -48,7 +48,7 @@ $category = $showtour['id_category'];
             <div class="absolute bottom-0 left-0 right-0 mx-64 pt-5 bg-white bg-opacity-80 rounded-t-md">
                 <h3 class="font-bold text-2xl uppercase text-center "><a href="">
                         <?php echo $showtour['name_tour'] ?></a></h3>
-                <img class="w-20 mx-auto" src="./content/image/gachvang.png" alt="">
+                <img class="w-20 mx-auto" src="../assets/img/gachvang.png" alt="">
             </div>
         </header>
         <main class="container mx-auto">
@@ -434,11 +434,9 @@ $category = $showtour['id_category'];
     var priceChild = Math.ceil(priceChid.innerText);
     var priceOldd = Math.ceil(priceOld.innerText);
     var allPrices = document.querySelector('#allPrices');
-
     main.addEventListener('mouseover', () => {
         // console.log(showVoucher.value);
         // console.log(sumP.value);
-
         if (showVoucher.value != '') {
             allPrice.value = (Number(sumprice.value)) - (Number(sumprice.value) * Number(sumP.value) / 100);
             allPrice.value = (Number(sumprice.value)) - (Number(sumprice.value) * Number(codeV.innerHTML) /
@@ -458,6 +456,7 @@ $category = $showtour['id_category'];
             showVoucher.style.display = "block";
             showVoucher.style.borderColor = "#e5e7eb";
             showVoucher.style.backgroundColor = "#f9f9fa";
+            allPrices.innerHTML = allPrice.value;
         }
     });
     apply.addEventListener('click', () => {
@@ -470,6 +469,7 @@ $category = $showtour['id_category'];
             showVoucher.style.display = "block";
             showVoucher.style.borderColor = "#e5e7eb";
             showVoucher.style.backgroundColor = "#f9f9fa";
+            allPrices.innerHTML = allPrice.value;
         }
     });
 
@@ -794,6 +794,7 @@ $category = $showtour['id_category'];
         } else if (checkRadio[5].checked) {
             sumP.value = voucher_sale[5].innerHTML;
         }
+        console.log(allPrice.innerHTML);
         selectVoucher.style.display = "none";
         main.style.background = "white";
         main.style.opacity = "1";
@@ -829,7 +830,9 @@ $category = $showtour['id_category'];
     //     showVoucher.style.borderColor = "#e5e7eb";
     //     showVoucher.style.backgroundColor = "#f9f9fa";
     // });
-
+    setInterval(function() {
+        allPrices.innerHTML = allPrice.value;
+    }, 1)
     var error = document.querySelector('#error');
     var checkday = document.querySelector('.checkday');
     // console.log(checkday.innerHTML);

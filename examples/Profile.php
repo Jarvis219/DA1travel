@@ -50,7 +50,7 @@ $showP = $local->query($sqlP)->fetch();
 
         Tip 2: you can also add an image using data-image tag
     -->
-            <div class="logo"><a href="../../DA1/DA/" class="simple-text logo-normal">
+            <div class="logo"><a href="../index.php" class="simple-text logo-normal">
                     <img src="../assets/img/logo.png" alt="">
                 </a></div>
             <div class="sidebar-wrapper">

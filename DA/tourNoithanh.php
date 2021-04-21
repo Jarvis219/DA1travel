@@ -58,7 +58,7 @@ if ($_GET['id_category'] == 0) {
                                                                                         if ($parent == '26' || $category == '26') {
                                                                                             echo "ngoại thành";
                                                                                         } ?></a></h3>
-            <img class="w-20 mx-170" src="./content/image/gachvang.png" alt="">
+            <img class="w-20 mx-170" src="../assets/img/gachvang.png" alt="">
         </div>
     </header>
     <section class="flex container mx-auto my-5">
@@ -229,7 +229,7 @@ if ($_GET['id_category'] == 0) {
                                 src="../../DA1/assets/img/<?php echo $values['image_main'] ?>" alt="">
                         </div>
 
-                        <div class="text-left px-5 py-3 relative" style="height: 250px;">
+                        <div class="text-left px-5 py-3 relative" style="height: 260px;">
                             <h3 class="text-base font-bold uppercase"><?php echo $values['name_tour'] ?></h3>
                             <div class="flex mt-2  items-center">
                                 <i class="fas fa-map-marker-alt py-2 pr-5"></i>

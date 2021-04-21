@@ -43,7 +43,7 @@ include "../../DA1/examples/local.php";
         </div>
         <div class="absolute bottom-0 left-0 right-0 mx-64 pt-5 bg-white bg-opacity-80 rounded-t-md">
             <h3 class="font-bold text-2xl uppercase text-center "><a href="">Ưu đãi khách hàng</a></h3>
-            <img class="w-20 mx-auto" src="./content/image/gachvang.png" alt="">
+            <img class="w-20 mx-auto" src="../assets/img/gachvang.png" alt="">
         </div>
     </header>
     <main class="nunito">

@@ -22,7 +22,7 @@ include "../../DA1/examples/local.php"; ?>
     <link rel="icon" type="image/png" href="../assets/img/favicon.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>
-        Voucher
+        Thống kê
     </title>
     <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
     <!--     Fonts and icons     -->
@@ -46,7 +46,7 @@ include "../../DA1/examples/local.php"; ?>
 
         Tip 2: you can also add an image using data-image tag
     -->
-            <div class="logo"><a href="../../DA1//DA" class="simple-text logo-normal">
+            <div class="logo"><a href="../index.php" class="simple-text logo-normal">
                     <img src="../assets/img/logo.png" alt="">
                 </a></div>
             <div class="sidebar-wrapper">
@@ -131,7 +131,7 @@ include "../../DA1/examples/local.php"; ?>
             <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
                 <div class="container-fluid">
                     <div class="navbar-wrapper">
-                        <a class="navbar-brand uppercase" href="javascript:;">Voucher</a>
+                        <a class="navbar-brand uppercase" href="javascript:;">Thống kê</a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -177,7 +177,7 @@ include "../../DA1/examples/local.php"; ?>
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header card-header-primary">
-                                    <h4 class="card-title ">Voucher</h4>
+                                    <h4 class="card-title ">Thống kê</h4>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
@@ -208,91 +208,86 @@ include "../../DA1/examples/local.php"; ?>
                                                 <th>
                                                     Tổng doanh thu
                                                 </th>
-                                                <th colspan="2"><span class="pl-4">Tùy chỉnh</span></th>
                                             </thead>
                                             <tbody>
                                                 <tr>
                                                     <td>
                                                         <?php
                                                         $sqlcmt = "select count(id_comment) as sumcmt from comment";
-                                                        $showcmt = $local->query($sqlcmt);
-                                                        foreach ($showcmt as $cmt) {
-                                                            echo $cmt['sumcmt'];
-                                                        }
+                                                        $showcmt = $local->query($sqlcmt)->fetch();
+                                                        echo $showcmt['sumcmt'];
+
                                                         ?>
                                                     </td>
                                                     <td>
                                                         <?php
                                                         $sqlcate = "select count(id_category) as sumcate from category";
-                                                        $showcate = $local->query($sqlcate);
-                                                        foreach ($showcate as $cate) {
-                                                            echo $cate['sumcate'];
-                                                        }
+                                                        $showcate = $local->query($sqlcate)->fetch();
+                                                        echo $showcate['sumcate'];
+
                                                         ?>
                                                     </td>
                                                     <td>
                                                         <?php
                                                         $sqltour = "select count(id_tour) as sumtour from tour";
-                                                        $showtour = $local->query($sqltour);
-                                                        foreach ($showtour as $tour) {
-                                                            echo $tour['sumtour'];
-                                                        }
+                                                        $showtour = $local->query($sqltour)->fetch();
+                                                        echo $showtour['sumtour'];
+
                                                         ?>
                                                     </td>
                                                     <td class="w-20 object-cover">
                                                         <?php
                                                         $sqlcart = "select count(id_cart) as sumcart from cart";
-                                                        $showcart = $local->query($sqlcart);
-                                                        foreach ($showcart as $cart) {
-                                                            echo $cart['sumcart'];
-                                                        }
+                                                        $showcart = $local->query($sqlcart)->fetch();
+                                                        echo $showcart['sumcart'];
+
                                                         ?>
                                                     </td>
                                                     <td>
                                                         <?php
-                                                        $sqlcart3 = "select cart_status ,count(id_cart) as sumcart3 from cart where  cart_status like 3";
-                                                        $showcart3 = $local->query($sqlcart3);
-                                                        foreach ($showcart3 as $cart3) {
-                                                            echo $cart3['sumcart3'];
-                                                        }
+                                                        $sqlcart3 = "select count(id_cart) as sumcart3 from cart where  cart_status like 3";
+                                                        $showcart3 = $local->query($sqlcart3)->fetch();
+                                                        echo $showcart3['sumcart3'];
+
                                                         ?>
                                                     </td>
                                                     <td>
                                                         <?php
-                                                        $sqlcart2 = "select cart_status ,count(id_cart) as sumcart2 from cart where  cart_status like 2";
-                                                        $showcart2 = $local->query($sqlcart2);
-                                                        foreach ($showcart2 as $cart2) {
-                                                            echo $cart2['sumcart2'];
-                                                        }
+                                                        $sqlcart2 = "select count(id_cart) as sumcart2 from cart where  cart_status like 2";
+                                                        $showcart2 = $local->query($sqlcart2)->fetch();
+                                                        echo $showcart2['sumcart2'];
+
                                                         ?>
                                                     </td>
                                                     <td>
                                                         <?php
-                                                        $sqlcart0 = "select cart_status ,count(id_cart) as sumcart0 from cart where  cart_status like 0";
-                                                        $showcart0 = $local->query($sqlcart0);
-                                                        foreach ($showcart0 as $cart0) {
-                                                            echo $cart0['sumcart0'];
-                                                        }
+                                                        $sqlcart0 = "select count(id_cart) as sumcart0 from cart where  cart_status like 0";
+                                                        $showcart0 = $local->query($sqlcart0)->fetch();
+                                                        echo $showcart0['sumcart0'];
+
                                                         ?>
                                                     </td>
                                                     <td>
                                                         <?php
-                                                        $sqlcart1 = "select cart_status ,count(id_cart) as sumcart1 from cart where  cart_status like 1";
-                                                        $showcart1 = $local->query($sqlcart1);
-                                                        foreach ($showcart1 as $cart1) {
-                                                            echo $cart1['sumcart1'];
-                                                        }
+                                                        $sqlcart1 = "select count(id_cart) as sumcart1 from cart where  cart_status like 1";
+                                                        $showcart1 = $local->query($sqlcart1)->fetch();
+                                                        echo $showcart1['sumcart1'];
+
+                                                        ?>
+                                                    </td>
+                                                    <td>
+                                                        <?php
+                                                        $sqlprice = "select sum(sumPrice) as sumPrices from cart";
+                                                        $showPrice = $local->query($sqlprice)->fetch();
+
+                                                        echo number_format($showPrice['sumPrices'], 0, '.', ',') . 'VND';
+
                                                         ?>
                                                     </td>
                                                 </tr>
                                             </tbody>
                                         </table>
                                     </div>
-                                </div>
-                                <div>
-                                    <a href="../../DA1/examples/add/addvoucher.php"><button type="submit"
-                                            class="btn btn-primary pull-left ml-4">Thêm
-                                            Voucher</button></a>
                                 </div>
                             </div>
                         </div>

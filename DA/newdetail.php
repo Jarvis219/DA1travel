@@ -16,17 +16,17 @@ include "../../DA1/examples/local.php";
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;400&display=swap" rel="stylesheet">
     <style>
-        /* .bg-noithanh1 {
+    /* .bg-noithanh1 {
             background-image: url('./content/image/background/bg-noithanh1.jpg');
         } */
 
-        .background4 {
-            background-image: url('./content/image/background/background4.jpg');
-        }
+    .background4 {
+        background-image: url('./content/image/background/background4.jpg');
+    }
 
-        .nunito {
-            font-family: 'Nunito', sans-serif;
-        }
+    .nunito {
+        font-family: 'Nunito', sans-serif;
+    }
     </style>
 </head>
 
@@ -41,7 +41,7 @@ include "../../DA1/examples/local.php";
         </div>
         <div class="absolute bottom-0 left-0 right-0 mx-64 pt-5 bg-white bg-opacity-80 rounded-t-md">
             <h3 class="font-bold text-2xl uppercase text-center">Bản tin du lịch</h3>
-            <img class="w-20 mx-auto" src="./content/image/gachvang.png" alt="">
+            <img class="w-20 mx-auto" src="../assets/img/gachvang.png" alt="">
         </div>
     </header>
     <main class="nunito container mx-auto">
@@ -63,12 +63,14 @@ include "../../DA1/examples/local.php";
             <div class="col-span-8 mb-10">
                 <div>
                     <span class="text-2xl text-red-500 font-bold"><?php echo $total['title'] ?></span>
-                    <p class="text-black text-opacity-50 pt-2"><i class="fas fa-calculator pr-4"></i><span><?php echo $total['create_at'] ?></span></p>
+                    <p class="text-black text-opacity-50 pt-2"><i
+                            class="fas fa-calculator pr-4"></i><span><?php echo $total['create_at'] ?></span></p>
                     <p class="text-black text-opacity-50 border-dashed w-full border my-2"></p>
                     <span class="text-lg font-semibold"><?php echo $total['content_short'] ?></span>
                 </div>
                 <div>
-                    <img class="mx-auto pt-5 object-fill" src="../assets/img/<?php echo $total['post_image'] ?>" alt="" style="width: 650px; height: 400px;">
+                    <img class="mx-auto pt-5 object-fill" src="../assets/img/<?php echo $total['post_image'] ?>" alt=""
+                        style="width: 650px; height: 400px;">
                     <!-- <span class="text-center mx-auto block text-gray-400 my-3"></span> -->
                     <p class="py-3 text-justify"><?php echo $total['content'] ?></p>
                     <!-- <p class="py-3 text-justify">Cụ thể, Công ty du lịch VietSense "tung" tour "Khám phá Thủ đô" có mức giảm giá đến 25%. Trong đó, nổi bật là sản phẩm: Tham quan thành phố Hà Nội 1 ngày có giá 490.000 đồng/người; khám phá làng cổ Đường Lâm - chùa Mía - đền Và (khởi hành vào cuối tuần) có giá 580.000 đồng/người; tour Bát Tràng - Vạn Phúc - Hạ Thái có giá 530.000 đồng/người; tour K9 - Đá Chông có giá 620.000 đồng/người; tour Tâm linh Tứ Bất Tử có giá 690.000 đồng/người.</p>
@@ -79,7 +81,8 @@ include "../../DA1/examples/local.php";
                     <p class="py-3 text-justify">Khách sạn Movenpick Hà Nội giới thiệu sản phẩm "Kỳ nghỉ tuyệt vời" với giá 2,5 triệu đồng/đêm (cho 2 người) bao gồm bữa sáng và phiếu mua hàng trị giá 800.000 đồng để trải nghiệm nhiều dịch vụ tại khách sạn.</p> -->
                 </div>
                 <div>
-                    <img class="mx-auto pt-5 object-fill" src="../assets/img/<?php echo $total['post_image2'] ?>" alt="" style="width: 650px; height: 400px;">
+                    <img class="mx-auto pt-5 object-fill" src="../assets/img/<?php echo $total['post_image2'] ?>" alt=""
+                        style="width: 650px; height: 400px;">
                     <!-- <span class="text-center mx-auto block text-gray-400 my-3"> Tour du lịch Làng cổ Đường Lâm cũng sẽ được các đơn vị thúc đẩy giới thiệu tới du khách.</span> -->
                     <p class="py-3 text-justify"><?php echo $total['content2'] ?></p>
                     <!-- <p class="py-3 text-justify">"Chúng tôi đã kết nối với nhiều đơn vị cung cấp dịch vụ như khách sạn, nghỉ dưỡng, vận chuyển, máy bay để có những sản phẩm có mức giá rất ưu đãi để người dân trải nghiệm nhiều hơn nhưng yếu tố chất lượng dịch vụ vẫn được bảo đảm", ông Nguyễn Văn Tài nói.</p>
@@ -102,7 +105,9 @@ include "../../DA1/examples/local.php";
                             $totalt = $local->query($sqlt);
                             foreach ($totalt as $key => $rowt) {
                             ?>
-                                <li class="list-disc list-inside truncate hover:text-blue-500 hover:underline"><a href="newdetail.php?id_post=<?php echo $rowt['id_post'] ?>"><?php echo $rowt['title'] ?></a></li>
+                            <li class="list-disc list-inside truncate hover:text-blue-500 hover:underline"><a
+                                    href="newdetail.php?id_post=<?php echo $rowt['id_post'] ?>"><?php echo $rowt['title'] ?></a>
+                            </li>
                             <?php
                             }
                             ?>
@@ -113,7 +118,8 @@ include "../../DA1/examples/local.php";
                         </ul>
                     </div>
                     <div class="my-10">
-                        <h3 class="my-2 font-bold text-2xl text-black border-l-4 px-5 border-red-500">Tin ngẫu nhiên</h3>
+                        <h3 class="my-2 font-bold text-2xl text-black border-l-4 px-5 border-red-500">Tin ngẫu nhiên
+                        </h3>
                         <div class="border-b bg-gray-500 h-px my-4 relative">
                             <div class="border-b bg-blue-700 h-1 top-0 left-0 w-8 my-4"></div>
                         </div>
@@ -123,7 +129,9 @@ include "../../DA1/examples/local.php";
                             $totalt = $local->query($sqlt);
                             foreach ($totalt as $key => $rowt) {
                             ?>
-                                <li class="list-disc list-inside truncate hover:text-blue-500 hover:underline"><a href="newdetail.php?id_post=<?php echo $rowt['id_post'] ?>"><?php echo $rowt['title'] ?></a></li>
+                            <li class="list-disc list-inside truncate hover:text-blue-500 hover:underline"><a
+                                    href="newdetail.php?id_post=<?php echo $rowt['id_post'] ?>"><?php echo $rowt['title'] ?></a>
+                            </li>
                             <?php
                             }
                             ?>
@@ -139,22 +147,30 @@ include "../../DA1/examples/local.php";
                             <div class="border-b bg-blue-700 h-1 top-0 left-0 w-8 my-4"></div>
                         </div>
                         <ul>
-                            <li class="py-2"><a class="flex justify-between bg-blue-800 py-3 hover:bg-blue-900" href="#">
-                                    <div class="border-r px-4"><i class="fab fa-facebook-f text-white text-2xl px-6"></i>
+                            <li class="py-2"><a class="flex justify-between bg-blue-800 py-3 hover:bg-blue-900"
+                                    href="#">
+                                    <div class="border-r px-4"><i
+                                            class="fab fa-facebook-f text-white text-2xl px-6"></i>
                                     </div>
-                                    <p class="text-white uppercase font-bold flex items-center justify-center">1,113,957 <span class="px-5 text-sm">like</span></p>
+                                    <p class="text-white uppercase font-bold flex items-center justify-center">1,113,957
+                                        <span class="px-5 text-sm">like</span></p>
                                     <i class="fas fa-plus text-white text-2xl px-6"></i>
                                 </a></li>
-                            <li class="py-2"><a class="flex justify-between bg-indigo-400 hover:bg-indigo-500 py-3 " href="#">
-                                    <div class="border-r px-2"><i class="fab fa-twitter text-white text-2xl px-6"></i></div>
-                                    <p class="text-white uppercase font-bold flex items-center justify-center pl-8">441,540
+                            <li class="py-2"><a class="flex justify-between bg-indigo-400 hover:bg-indigo-500 py-3 "
+                                    href="#">
+                                    <div class="border-r px-2"><i class="fab fa-twitter text-white text-2xl px-6"></i>
+                                    </div>
+                                    <p class="text-white uppercase font-bold flex items-center justify-center pl-8">
+                                        441,540
                                         <span class="pl-5 text-sm">followers</span>
                                     </p>
                                     <i class="fas fa-plus text-white text-2xl px-6"></i>
                                 </a></li>
                             <li class="py-2"><a class="flex justify-between bg-red-700 py-3 hover:bg-red-600" href="#">
-                                    <div class="border-r px-2"><i class="fab fa-youtube text-white text-2xl px-6"></i></div>
-                                    <p class="text-white uppercase font-bold flex items-center justify-center pl-8">758,789
+                                    <div class="border-r px-2"><i class="fab fa-youtube text-white text-2xl px-6"></i>
+                                    </div>
+                                    <p class="text-white uppercase font-bold flex items-center justify-center pl-8">
+                                        758,789
                                         <span class="pl-3 text-sm">subscribers</span>
                                     </p>
                                     <i class="fas fa-plus text-white text-2xl px-6"></i>
@@ -166,18 +182,28 @@ include "../../DA1/examples/local.php";
                         <div class="border-b bg-gray-500 h-px my-4 relative">
                             <div class="border-b bg-blue-700 h-1 top-0 left-0 w-8 my-4"></div>
                         </div>
-                        <a href="#"><span class="bg-gray-200 text-xs px-2 py-1 hover:bg-blue-500 capitalize">ẩm thực</span></a>
-                        <a href="#"><span class="bg-gray-200 text-xs px-2 py-1 hover:bg-blue-500 capitalize">vui chơi</span></a>
-                        <a href="#"><span class="bg-gray-200 text-xs px-2 py-1 hover:bg-blue-500 capitalize">giải trí</span></a>
-                        <a href="#"><span class="bg-gray-200 text-xs px-2 py-1 hover:bg-blue-500 capitalize">mua sắm</span></a>
-                        <a href="#"><span class="bg-gray-200 text-xs px-2 py-1 hover:bg-blue-500 capitalize">tham quan</span></a>
+                        <a href="#"><span class="bg-gray-200 text-xs px-2 py-1 hover:bg-blue-500 capitalize">ẩm
+                                thực</span></a>
+                        <a href="#"><span class="bg-gray-200 text-xs px-2 py-1 hover:bg-blue-500 capitalize">vui
+                                chơi</span></a>
+                        <a href="#"><span class="bg-gray-200 text-xs px-2 py-1 hover:bg-blue-500 capitalize">giải
+                                trí</span></a>
+                        <a href="#"><span class="bg-gray-200 text-xs px-2 py-1 hover:bg-blue-500 capitalize">mua
+                                sắm</span></a>
+                        <a href="#"><span class="bg-gray-200 text-xs px-2 py-1 hover:bg-blue-500 capitalize">tham
+                                quan</span></a>
                         <div class="my-1">
-                            <a href="#"><span class="bg-gray-200 text-xs px-2 py-1 hover:bg-blue-500 capitalize">danh lam</span></a>
-                            <a href="#"><span class="bg-gray-200 text-xs px-2 py-1 hover:bg-blue-500 capitalize">di tích</span></a>
-                            <a href="#"><span class="bg-gray-200 text-xs px-2 py-1 hover:bg-blue-500 capitalize">chùa</span></a>
-                            <a href="#"><span class="bg-gray-200 text-xs px-2 py-1 hover:bg-blue-500 capitalize">thắng cảnh</span></a>
+                            <a href="#"><span class="bg-gray-200 text-xs px-2 py-1 hover:bg-blue-500 capitalize">danh
+                                    lam</span></a>
+                            <a href="#"><span class="bg-gray-200 text-xs px-2 py-1 hover:bg-blue-500 capitalize">di
+                                    tích</span></a>
+                            <a href="#"><span
+                                    class="bg-gray-200 text-xs px-2 py-1 hover:bg-blue-500 capitalize">chùa</span></a>
+                            <a href="#"><span class="bg-gray-200 text-xs px-2 py-1 hover:bg-blue-500 capitalize">thắng
+                                    cảnh</span></a>
                         </div>
-                        <a href="#"><span class="bg-gray-200 text-xs px-2 py-1 hover:bg-blue-500 capitalize">watch</span></a>
+                        <a href="#"><span
+                                class="bg-gray-200 text-xs px-2 py-1 hover:bg-blue-500 capitalize">watch</span></a>
                     </div>
                 </div>
             </div>

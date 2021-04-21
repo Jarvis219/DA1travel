@@ -514,7 +514,14 @@ if (isset($_GET['id_tour'])) {
                                                                         echo 'hidden';
                                                                     }
                                                                     ?>">
-                <span>Đăng nhập để bình luận</span>
+                <main class="container mx-auto text-center">
+                    <i class="far fa-sad-tear text-4xl block text"></i>
+                    <span class="block text-lg ">Đăng nhập để có thể bình luận
+                    </span>
+                    <button class="border border-blue-500 py-2 px-4 rounded-md hover:border-yellow-500"><a
+                            href="./login.php">Đăng nhập ngay</a></button>
+
+                </main>
             </div>
             <div class="<?php
                         if (empty($_SESSION['user'])) {

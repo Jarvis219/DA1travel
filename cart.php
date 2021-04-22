@@ -268,7 +268,7 @@ $category = $showtour['id_category'];
                         <input type="text" name="sumV" id="sumV" value="00">
                     </div>
                     <div class="flex justify-end">
-                        <input type="text" name="allPrice" class="hidden" id="allPrice">
+                        <input type="text" name="allPrice" class="" id="allPrice">
                         <p class="mt-5">Tổng tiền: <span class="text-red-500 text-2xl font-bold italic"
                                 id="allPrices">000</span>
                             ₫</p>
@@ -442,6 +442,9 @@ $category = $showtour['id_category'];
     var priceChild = Math.ceil(priceChid.innerText);
     var priceOldd = Math.ceil(priceOld.innerText);
     var allPrices = document.querySelector('#allPrices');
+    setInterval(function() {
+        allPrices.innerHTML = allPrice.value;
+    }, 10);
     main.addEventListener('mouseover', () => {
         // console.log(showVoucher.value);
         // console.log(sumP.value);
@@ -844,9 +847,7 @@ $category = $showtour['id_category'];
     if (slv.innerHTML == 0) {
         errorslv.innerHTML = 'Voucher này đã hết hạn sử dụng hoặc số lượng đã hết vui lòng chọn voucher khác!';
     }
-    setInterval(function() {
-        allPrices.innerHTML = allPrice.value;
-    }, 1)
+
     var error = document.querySelector('#error');
     var checkday = document.querySelector('.checkday');
     // console.log(checkday.innerHTML);

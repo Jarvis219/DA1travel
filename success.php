@@ -62,7 +62,7 @@ if (isset($_GET['id_cart'])) {
             <div id="show" class="relative h-screen overflow-hidden text-center">
                 <img class="opacity-50" src="./assets/img/z2442570690349_c0c3989dee82c622453e8636ffd3924b.jpg" alt="">
                 <div class="grid grid-cols-2 mx-auto container bg-white absolute top-0 bottom-0 left-0 right-0 my-auto"
-                    style="height: 450px;">
+                    style="height: 550px;">
                     <div class="ml-28 my-auto">
                         <span class="block text-4xl font-bold uppercase">đặt tour thành công</span>
                         <span class="block capitalize text-sm text-center my-3">cảm ơn quý khách đã quan tâm đến

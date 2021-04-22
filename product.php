@@ -20,6 +20,7 @@ if (isset($_GET['id_tour'])) {
           where tour.id_tour = $id";
     $totall1 = $local->query($sqll)->fetch();
     $parent = $totall1['id_parent'];
+    $category = $totall1['id_category'];
 }
 ?>
 <!DOCTYPE html>

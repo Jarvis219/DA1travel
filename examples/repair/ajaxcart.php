@@ -6,8 +6,8 @@ $sql = "UPDATE cart SET cart_status = '$status' WHERE id_cart LIKE '$id'";
 // echo $sql;
 $total = $local->prepare($sql);
 if ($total->execute()) {
-    echo "update ok";
+    echo "Thay đổi trạng thái thành công";
 } else {
-    echo "update false";
+    echo "Thay đổi trạng thái thất bại!";
 }
 // echo $_POST['statuss'];

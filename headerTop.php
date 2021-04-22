@@ -5,7 +5,7 @@ include "./examples/local.php";
 $sql = "select * from information";
 $total = $local->query($sql)->fetch();
 ?>
-<div class="container mx-auto flex justify-between">
+<div class="container mx-auto flex justify-between relative">
     <div class="flex justify-items-center">
         <ul>
             <li class="inline-block  pr-5 ml-5">
@@ -25,7 +25,7 @@ $total = $local->query($sql)->fetch();
     </div>
     <div class="z-50">
         <ul>
-            <li class="inline-block pr-5 hover:text-black relative group">
+            <li class="inline-block pr-5 hover:text-black  group">
                 <span href="./login.php" class="group">
 
                     <?php
@@ -48,7 +48,7 @@ $total = $local->query($sql)->fetch();
                                                                                         echo 'user-vector-png.png';
                                                                                     }
                                                                                     ?>" alt="">
-                        <span class="text-yellow-400 font-black text-sm uppercase" id="login">Hi
+                        <span class="text-yellow-400 font-black text-sm uppercase cursor-pointer" id="login">Hi
                             <?php echo $totals['fullname'] ?>
                         </span>
                     </div>
@@ -65,12 +65,12 @@ $total = $local->query($sql)->fetch();
                             nhập</span></a>
 
                 </span>
-                <div class="absolute top-0 mt-5 pl-5 group-hover:block hidden  <?php
-                                                                                if (isset($_SESSION['user'])) {
-                                                                                    echo 'inline';
-                                                                                } else {
-                                                                                    echo 'group-hover:hidden';
-                                                                                } ?>">
+                <div class="absolute top-0  mt-7 -ml-5  group-hover:block hidden  <?php
+                                                                                    if (isset($_SESSION['user'])) {
+                                                                                        echo 'inline';
+                                                                                    } else {
+                                                                                        echo 'group-hover:hidden';
+                                                                                    } ?>">
                     <div class=""
                         style="border-bottom: 15px solid white; border-left: 80px solid transparent; border-right: 80px solid transparent; bottom: 10px;">
                     </div>
@@ -87,7 +87,8 @@ $total = $local->query($sql)->fetch();
                         </li>
                         <form method="POST">
                             <li class="bg-white pl-5 w-40 py-1 font-bold text-black hover:text-blue-500 "><input
-                                    type="submit" name="Logout" value="Đăng xuất" id="" class="bg-white font-bold"></li>
+                                    type="submit" name="Logout" value="Đăng xuất" id=""
+                                    class="bg-white font-bold cursor-pointer"></li>
                         </form>
 
                     </ul>

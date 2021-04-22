@@ -58,7 +58,7 @@ if (isset($_GET['id_cartfont'])) {
     $id = $_GET['id_cartfont'];
     $sql = "delete from cart where id_cart = '$id'";
     $total = $local->exec($sql);
-    header('location:../../../../../DA1/DA/success.php');
+    header('location:../../../../../DA1/success.php');
 }
 if (isset($_GET['id_comment'])) {
     $id = $_GET['id_comment'];

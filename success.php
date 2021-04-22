@@ -86,7 +86,7 @@ if (isset($_GET['id_cart'])) {
                                                                     //  $totall['child_amount'];
                                                                     if ($totall['child_amount'] != 0) {
                                                                         $child_amount =  (($price - $sale) * $totall['child_amount']) - (($price - $sale) * $totall['child_amount'] * 30 / 100) . '<br>';
-                                                                        $person = $adult_amount + $child_amount;
+                                                                        (int)$person = (int)$adult_amount + (int)$child_amount;
                                                                         if ($saleP == 0) {
                                                                             $sum = $person + ($price - $price); //ok
                                                                         } else {
@@ -110,7 +110,7 @@ if (isset($_GET['id_cart'])) {
                                 $adult_amount = (($price - $sale) * $totall['adult_amount']);
                                 if ($totall['child_amount'] != 0) {
                                     $child_amount =  (($price - $sale) * $totall['child_amount']) - (($price - $sale) * $totall['child_amount'] * 0.3) . '<br>';
-                                    $person = $adult_amount + $child_amount;
+                                    (int)$person = (int)$adult_amount + (int)$child_amount;
                                     if ($saleP == 0) {
                                         $sum = $person + ($price - $price); //ok
                                         $allS = $sum - ($sum - ($sum * 0.4));
@@ -270,7 +270,7 @@ if (isset($_GET['id_cart'])) {
                                                         //  $row['child_amount'];
                                                         if ($row['child_amount'] != 0) {
                                                             $child_amount =  (($price - $sale) * $row['child_amount']) - (($price - $sale) * $row['child_amount'] * 30 / 100) . '<br>';
-                                                            $person = $adult_amount + $child_amount;
+                                                            (int)$person = (int)$adult_amount + (int)$child_amount;
                                                             if ($saleP == 0) {
                                                                 $sum = $person + ($price - $price); //ok
                                                             } else {

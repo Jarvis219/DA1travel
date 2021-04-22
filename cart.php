@@ -268,7 +268,7 @@ $category = $showtour['id_category'];
                         <input type="text" name="sumV" id="sumV" value="00">
                     </div>
                     <div class="flex justify-end">
-                        <input type="text" name="allPrice" class="" id="allPrice">
+                        <input type="text" name="allPrice" class="hidden" id="allPrice">
                         <p class="mt-5">Tổng tiền: <span class="text-red-500 text-2xl font-bold italic"
                                 id="allPrices">000</span>
                             ₫</p>

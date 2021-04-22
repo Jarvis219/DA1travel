@@ -241,7 +241,7 @@ The above copyright notice and this permission notice shall be included in all c
                                                         //  $totall['child_amount'];
                                                         if ($totall['child_amount'] != 0) {
                                                             $child_amount =  (($price - $sale) * $totall['child_amount']) - (($price - $sale) * $totall['child_amount'] * 30 / 100) . '<br>';
-                                                            $person = $adult_amount + $child_amount;
+                                                            (int)$person = (int)$adult_amount + (int)$child_amount;
                                                             if ($saleP == 0) {
                                                                 $sum = $person + ($price - $price); //ok
                                                             } else {

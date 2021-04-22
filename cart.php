@@ -384,11 +384,13 @@ $category = $showtour['id_category'];
         $id_voucher = $showcheckvou['id_voucher'];
         $username = $_SESSION['user'];
         $allPrice = $_POST['allPrice'];
-        $sqlcheckslV = "select * from voucher where id_voucher = '$id_voucher'";
-        $totalvher = $local->query($sqlcheckslV)->fetch();
-        $slV = $totalvher['voucher_number'];
-        if (empty($id_voucher)) {
+        if (!empty($id_voucher)) {
+            $sqlcheckslV = "select * from voucher where id_voucher = '$id_voucher'";
+            $totalvher = $local->query($sqlcheckslV)->fetch();
+            $slV = $totalvher['voucher_number'];
+        } else {
             $id_voucher = 28;
+            $slV =  $id_voucher;
         }
         if (empty($child_amount)) {
             $child_amount = 0;

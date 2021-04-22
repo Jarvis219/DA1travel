@@ -115,61 +115,7 @@ $id = $_GET['user'];
             <!-- end form-->
             <?php
 
-            // include "./examples/local.php";
-            // if (isset($_POST['btn_regis'])) {
-            //     $username = $_POST['username2'];
-            //     $password = $_POST['password'];
-            //     $passnew = $_POST['passnew'];
-            //     $pass_confirm = $_POST['pass_confirm'];
-            //     $fullname = $_POST['fullname'];
-            //     $address = $_POST['address'];
-            //     $email = $_POST['email'];
-            //     $phone = $_POST['phone'];
-            //     $image = $_FILES['image']['name'];
-            //     $tmp_image = $_FILES['image']['tmp_name'];
-            //     $type_image = $_FILES['image']['type'];
 
-            //     function checkname($user, $password)
-            //     {
-            //         include "./examples/local.php";
-            //         $sql = "select count(*) from user where username like '$user' and password like '$password'";
-            //         $data = $local->prepare($sql);
-            //         $data->execute();
-            //         return $data->fetchColumn();
-            //     }
-            //     $user =  checkname($username, $password);
-            //     if ($user == 0) {
-            //         echo "<div class='text-red-600 text-center text-sm'>Tài khoản hoặc mật khẩu không chính xác</div>";
-            //     } else {
-            //         if ($passnew != $pass_confirm) {
-            //             echo "<div class='text-red-600 text-center text-sm'>Mật khẩu không trùng khớp nhau!</div>";
-            //         } else {
-            //             if (empty($image)) {
-            //                 $image =  $total['user_image'];
-            //                 $sql = "update user set password = '$passnew', user_image = '$image',email= '$email', fullname = '$fullname', address = '$address', phone_number = '$phone' where username = '$id'";
-            //                 $total = $local->prepare($sql);
-            //                 if ($total->execute()) {
-            //                     echo '<div class="text-green-600 text-center">Cập nhật tài khoản thành công</div>';
-            //                 } else {
-            //                     echo '<div class="text-green-600 text-center">Cập nhật tài khoản thất bại</div>';
-            //                 }
-            //             } else {
-            //                 if ($type_image == "image/png" || $type_image == "image/jpeg") {
-            //                     move_uploaded_file($tmp_image, "../../DA1/assets/img/" . $image);
-            //                     $sql = "update user set password = '$pass_confirm', user_image = '$image', email = '$email', fullname = '$fullname', address = '$address', phone_number ='$phone' where username like '$id'";
-            //                     $total = $local->prepare($sql);
-            //                     if ($total->execute()) {
-            //                         echo '<div class="text-green-600 text-center">Cập nhật tài khoản thành công</div>';
-            //                     } else {
-            //                         echo '<div class="text-red-600 text-center">Cập nhật tài khoản thất bại</div>';
-            //                     }
-            //                 } else {
-            //                     echo '<div class="text-red-600 text-center">Ảnh sai định dạng!</div>';
-            //                 }
-            //             }
-            //         }
-            //     }
-            // }
             include "./examples/local.php";
             if (isset($_POST['btn_regis'])) {
                 $username = $_POST['username2'];

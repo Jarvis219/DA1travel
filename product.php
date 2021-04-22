@@ -89,30 +89,36 @@ if (isset($_GET['id_tour'])) {
             <div class="container mx-auto grid grid-cols-12 gap-10 justify-center">
                 <div class="col-span-6 my-5 bg-white m-2">
                     <div class="slider-for object-cover bg-gray-100">
-                        <div class="focus:outline-none"><img class="w-full object-cover"
-                                src="./assets/img/<?php echo $totall1['image_main'] ?>" alt=""></div>
-                        <div class="focus:outline-none"><img class="w-full object-cover"
-                                src="./assets/img/<?php echo $totall1['image_detail'] ?>" alt=""></div>
-                        <div class="focus:outline-none"><img class="w-full object-cover"
-                                src="./assets/img/<?php echo $totall1['image_plan1'] ?>" alt=""></div>
-                        <div class="focus:outline-none"><img class="w-full object-cover"
-                                src="./assets/img/<?php echo $totall1['image_plan2'] ?>" alt=""></div>
-                        <div class="focus:outline-none"><img class="w-full object-cover"
-                                src="./assets/img/<?php echo $totall1['image_plan3'] ?>" alt=""></div>
+                        <div class="focus:outline-none"><img style="width: 732px;height: 488px;"
+                                class="w-full object-cover" src="./assets/img/<?php echo $totall1['image_main'] ?>"
+                                alt=""></div>
+                        <div class="focus:outline-none"><img style="width: 732px;height: 488px;"
+                                class="w-full object-cover" src="./assets/img/<?php echo $totall1['image_detail'] ?>"
+                                alt=""></div>
+                        <div class="focus:outline-none"><img style="width: 732px;height: 488px;"
+                                class="w-full object-cover" src="./assets/img/<?php echo $totall1['image_plan1'] ?>"
+                                alt=""></div>
+                        <div class="focus:outline-none"><img style="width: 732px;height: 488px;"
+                                class="w-full object-cover" src="./assets/img/<?php echo $totall1['image_plan2'] ?>"
+                                alt=""></div>
+                        <div class="focus:outline-none"><img style="width: 732px;height: 488px;"
+                                class="w-full object-cover" src="./assets/img/<?php echo $totall1['image_plan3'] ?>"
+                                alt=""></div>
                     </div>
                     <div class="slider-nav bg-gray-100 mt-5">
-                        <div class="px-1 focus:outline-none"><img
+                        <div class="px-1 focus:outline-none"><img style="width: 203px;height: 128px;"
                                 src="./assets/img/<?php echo $totall1['image_detail'] ?>" alt="">
                         </div>
-                        <div class="px-1 focus:outline-none"><img src="./content/image/1.jpg" alt="">
+                        <div class="px-1 focus:outline-none"><img style="width: 203px;height: 128px;"
+                                src="./content/image/1.jpg" alt="">
                         </div>
-                        <div class="px-1 focus:outline-none"><img
+                        <div class="px-1 focus:outline-none"><img style="width: 203px;height: 128px;"
                                 src="./assets/img/<?php echo $totall1['image_plan1'] ?>" alt="">
                         </div>
-                        <div class="px-1 focus:outline-none"><img
+                        <div class="px-1 focus:outline-none"><img style="width: 203px;height: 128px;"
                                 src="./assets/img/<?php echo $totall1['image_plan2'] ?>" alt="">
                         </div>
-                        <div class="px-1 focus:outline-none"><img
+                        <div class="px-1 focus:outline-none"><img style="width: 203px;height: 128px;"
                                 src="./assets/img/<?php echo $totall1['image_plan3'] ?>" alt="">
                         </div>
                     </div>
@@ -215,8 +221,8 @@ if (isset($_GET['id_tour'])) {
                             </div>
                             <div class="mt-5">
                                 <p class="text-justify"><?php echo $totall1['content'] ?></p>
-                                <img class="mx-auto my-5" src="./assets/img/<?php echo $totall1['image_detail'] ?>"
-                                    alt="">
+                                <img style="width: 750px;height: 300px;" class="object-cover mx-auto my-5"
+                                    src="./assets/img/<?php echo $totall1['image_detail'] ?>" alt="">
                             </div>
                         </div>
                         <div>
@@ -229,24 +235,24 @@ if (isset($_GET['id_tour'])) {
                                     <?php echo $totall1['plan1'] ?>
                                 </p>
 
-                                <img class="mx-auto my-5" src="./assets/img/<?php echo $totall1['image_plan1'] ?>"
-                                    alt="">
+                                <img style="width: 750px;height: 300px;" class="object-cover mx-auto my-5"
+                                    src="./assets/img/<?php echo $totall1['image_plan1'] ?>" alt="">
                             </div>
                             <div>
                                 <p>
                                     <?php echo $totall1['plan2'] ?>
                                 </p>
 
-                                <img class="mx-auto my-5" src="./assets/img/<?php echo $totall1['image_plan2'] ?>"
-                                    alt="">
+                                <img style="width: 750px;height: 300px;" class="object-cover mx-auto my-5"
+                                    src="./assets/img/<?php echo $totall1['image_plan2'] ?>" alt="">
                             </div>
                             <div>
                                 <p>
                                     <?php echo $totall1['plan3'] ?>
                                 </p>
 
-                                <img class="mx-auto my-5" src="./assets/img/<?php echo $totall1['image_plan3'] ?>"
-                                    alt="">
+                                <img style="width: 750px;height: 300px;" class="object-cover mx-auto my-5"
+                                    src="./assets/img/<?php echo $totall1['image_plan3'] ?>" alt="">
                             </div>
                         </div>
                         <div class="mt-10">
@@ -311,7 +317,8 @@ if (isset($_GET['id_tour'])) {
                                 $resultquery = $local->query($query)->fetch();
                             ?>
                             <article>
-                                <a class="group shadow-lg rounded-md" href="">
+                                <a class="group shadow-lg rounded-md"
+                                    href="product.php?id_tour=<?php echo $row['id_tour'] ?>">
                                     <div class="overflow-hidden rounded-md border border-white">
                                         <img class="transition duration-300 transform group-hover:opacity-80"
                                             src="./assets/img/<?php echo $row['image_main'] ?>" alt="" width="3011"
@@ -504,7 +511,54 @@ if (isset($_GET['id_tour'])) {
                         <!-- 1 sao -->
                     </div>
                 </div>
-                <?php require "binhluan.php"; ?>
+                <div class="overflow-auto col-span-3" style="height: 500px;">
+                    <?php
+                    $sqlCMT = "select * from comment join user on user.username=comment.username where id_tour = $id";
+                    $showCMT = $local->query($sqlCMT);
+                    foreach ($showCMT as $cmt) {
+                    ?>
+                    <div class="grid grid-cols-8 mb-5 ">
+                        <div class="col-span-1 mx-auto text-center">
+                            <img class="rounded-full" width="80" style="height: 80px;" src="./assets/img/<?php if ($cmt['user_image'] == "") {
+                                                                                                                    echo 'user-vector-png.png';
+                                                                                                                } else {
+                                                                                                                    echo $cmt['user_image'];
+                                                                                                                }
+                                                                                                                ?>"
+                                alt="">
+                            <span class=" "><?php echo $cmt['fullname'] ?></span>
+                        </div>
+                        <div class="col-span-7 py-1">
+                            <div class="bg-white py-1 px-5">
+                                <div class="flex">
+                                    <div class="">
+                                        <?php
+                                            $evalua = $cmt['evaluate'];
+                                            for ($i = 0; $i < $evalua; $i++) {
+                                                echo '  <i class="fas fa-star text-yellow-300"></i>';
+                                            }
+                                            ?>
+                                    </div>
+                                </div>
+                                <p class="py-2"><?php echo $cmt['content_comment'] ?></p>
+                                <!-- <a href="" class="text-blue-500">Trả lời</a> -->
+                                <span class="px-2 text-sm "><i
+                                        class="fas fa-user-clock px-1"></i><?php echo $cmt['create_at'] ?></span>
+                            </div>
+                            <!-- <div class="bg-white ml-2 mt-2 px-5 py-2">
+                                <div class="flex items-center">
+                                    <img class="w-10" src="./content/image/user.png" alt="">
+                                    <span class="px-5">Tên admin</span>
+                                    <span class="bg-yellow-400 px-1">Quản trị viên</span>
+                                </div>
+                                <p class="py-2">Cảm ơn bạn đã chọn tour của chúng tôi</p>
+                                <a href="" class="text-blue-500">Trả lời</a>
+                                <span class="px-2 text-sm "><i class="fas fa-user-clock px-1"></i>25/03/2021</span>
+                            </div> -->
+                        </div>
+                    </div>
+                    <?php } ?>
+                </div>
             </div>
             </div>
             </div>
@@ -532,14 +586,14 @@ if (isset($_GET['id_tour'])) {
                         }
                         ?>">
 
-                <form class="mx-10 mb-5 bg-white py-2" method="POST" enctype="multipart/form-data">
-                    <div class="flex items-center px-10 w-40 ">
+                <form action="#" class="mx-10 mb-5 bg-white py-2" method="POST" enctype="multipart/form-data">
+                    <div class=" px-10 w-40 ">
                         <img class="rounded-full" style="width: 80px;height: 80px;" src="./assets/img/<?php if ($showuser['user_image'] == "") {
                                                                                                             echo 'user-vector-png.png';
                                                                                                         } else {
                                                                                                             echo $showuser['user_image'];
                                                                                                         } ?>" alt="">
-                        <span class="px-3 font-bold"><?php echo $showuser['fullname'] ?></span>
+                        <span class="px-3 font-bold  block mt-4"><?php echo $showuser['fullname'] ?></span>
                     </div>
                     <div class="mr-180 mx-10" id="rating">
                         <input class="mx-5" type="radio" id="star5" name="rating" value="5" checked />
@@ -564,35 +618,17 @@ if (isset($_GET['id_tour'])) {
                         </div>
                         <textarea class="border px-5 py-2 focus:outline-none  w-full" name="comment" id="" cols="145"
                             rows="2"></textarea>
-                        <button name="btn_sent" class="mx-3 border px-10 bg-white focus:outline-none">Gửi</button>
+                        <button name="btn_sent" id="btn_sent"
+                            class="mx-3 border px-10 bg-white focus:outline-none">Gửi</button>
                     </div>
                 </form>
             </div>
-
             <?php
             if (isset($_POST['btn_sent'])) {
                 $id_toursen = $totall1['id_tour'];
                 $usernamesen = $showuser['username'];
                 $star = $_POST['rating'];
                 $comment = $_POST['comment'];
-                function checknames($user, $id)
-                {
-                    include "./examples/local.php";
-                    $sql = "select count(username) from comment where username like '$user' and id_tour like '$id'";
-                    $data = $local->prepare($sql);
-                    $data->execute();
-                    return $data->fetchColumn();
-                }
-                $names = checknames($usernamesen, $id);
-                // if ($names == 0) {
-                //     if (!empty($star)) {
-                //         $sqlsen = "insert into comment values(null, '$usernamesen', '$id_toursen', '$star', '$comment', '0',null)";
-                //         $resultsen = $local->exec($sqlsen);
-                //     } else {
-                //         $sqlsen = "insert into comment values(null, '$usernamesen', '$id_toursen',null , '$comment', '0',null)";
-                //         $resultsen = $local->exec($sqlsen);
-                //     }
-                // } else {
                 function checkstar($user, $id)
                 {
                     include "./examples/local.php";
@@ -605,41 +641,15 @@ if (isset($_GET['id_tour'])) {
                 if ($rowstar == 0) {
                     $sqlstar = "insert into comment values(null,'$usernamesen','$id_toursen','$star','$comment',null)";
                     $totalcmt = $local->exec($sqlstar);
+                    header("location:product.php?id_tour=$id");
                 } else {
-
                     $sqlstar = "insert into comment values(null,'$usernamesen','$id_toursen','0','$comment',null)";
                     $totalcmt = $local->exec($sqlstar);
                     $sqlupdate = "update comment set evaluate = $star where username like '$usernamesen' and id_tour like '$id_toursen' limit 1";
                     $totalll = $local->prepare($sqlupdate);
                     $totalll->execute();
+                    header("location:product.php?id_tour=$id");
                 }
-                // if ($rowstar == 0) {
-                //     if (empty($star)) {
-                //         echo "s";
-                //         $sqlinsert = "insert into comment values(null, '$usernamesen', '$id_toursen', 'null', '$comment', '0',null)";
-                //         $resultsen = $local->exec($sqlinsert);
-                // $sqlsen = "update comment set evaluate = '$star' where username = '$usernamesen' limit 1";
-                // $upadtecmt = $local->prepare($sqlsen);
-                // $upadtecmt->execute();
-                // } 
-                // else {
-                //     $showstar = "select * from comment where username = '$usernamesen'";
-                //     $showstarsen = $local->query($showstar)->fetch();
-                //     $evaluate = $showstarsen['evaluate'];
-                //     $sqlinsert = "insert into comment values(null, '$usernamesen', '$id_toursen', null, '$comment', '0',null)";
-                //     $resultsen = $local->exec($sqlinsert);
-                //     echo "eb2";
-                // }
-                // }
-                //  else {
-                //     // $showstar = "select * from comment where username = '$usernamesen'";
-                //     // $showstarsen = $local->query($showstar)->fetch();
-                //     // $evaluate = $showstarsen['evaluate'];
-                //     $sqlinsert = "insert into comment values(null, '$usernamesen', '$id_toursen', '$star', '$comment', '0',null)";
-                //     $resultsen = $local->exec($sqlinsert);
-                //     echo "eb3";
-                // }
-                // }
             }
             ?>
         </section>
@@ -663,6 +673,7 @@ if (isset($_GET['id_tour'])) {
 
     star1.addEventListener("click", function() {
         countstar.value = 1;
+
     })
     star2.addEventListener("click", function() {
         countstar.value = 2;

@@ -115,7 +115,7 @@ The above copyright notice and this permission notice shall be included in all c
                         </a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="../../total.php">
+                        <a class="nav-link" href="../../examples/total.php">
                             <i class="fab fa-wolf-pack-battalion"></i>
                             <p>THỐNG KÊ</p>
                         </a>
@@ -190,14 +190,14 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">User (disabled)</label>
-                                                    <input type="text" class="form-control"
+                                                    <input type="text" class="form-control user"
                                                         value="<?php echo $totall['username'] ?>" disabled>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">password</label>
-                                                    <input type="password" class="form-control" id="password"
+                                                    <input type="password" class="form-control user" id="password"
                                                         name="password" value="<?php echo $totall['password'] ?>"
                                                         required>
                                                 </div>
@@ -208,14 +208,15 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Họ tên</label>
-                                                    <input type="text" class="form-control" id="slogan" name="fullname"
-                                                        value="<?php echo $totall['fullname'] ?>" required>
+                                                    <input type="text" class="form-control user" id="slogan"
+                                                        name="fullname" value="<?php echo $totall['fullname'] ?>"
+                                                        required>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Số điện thoại</label>
-                                                    <input type="tel" class="form-control" name="phone_number"
+                                                    <input type="tel" class="form-control user" name="phone_number"
                                                         value="<?php echo $totall['phone_number'] ?>" required>
                                                 </div>
                                             </div>
@@ -224,8 +225,8 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Email</label>
-                                                    <input type="email" class="form-control" id="email" name="email"
-                                                        value="<?php echo $totall['email'] ?>" required>
+                                                    <input type="email" class="form-control user" id="email"
+                                                        name="email" value="<?php echo $totall['email'] ?>" required>
                                                 </div>
 
                                             </div>
@@ -234,7 +235,7 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Địa chỉ</label>
-                                                    <input type="text" class="form-control" name="address"
+                                                    <input type="text" class="form-control user" name="address"
                                                         value="<?php echo $totall['address'] ?>" required>
                                                 </div>
                                             </div>
@@ -255,14 +256,15 @@ The above copyright notice and this permission notice shall be included in all c
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Quyền hạn</label></br>
                                                     <label for="Admin">Admin</label>
-                                                    <input type="radio" name="permission" id="" value="admin" <?php if ($totall['permission'] == 'admin') {
-                                                                                                                    echo "checked";
-                                                                                                                } ?>>
+                                                    <input type="radio" name="permission" id="permission" value="admin"
+                                                        <?php if ($totall['permission'] == 'admin') {
+                                                                                                                            echo "checked";
+                                                                                                                        } ?>>
                                                     <label for="customer">Khách hàng</label><input type="radio"
-                                                        name="permission" id="" value="customer"
+                                                        name="permission" id="permission2" value="customer"
                                                         <?php if ($totall['permission'] == 'customer') {
-                                                                                                                                                                echo "checked";
-                                                                                                                                                            } ?>>
+                                                                                                                                                                        echo "checked";
+                                                                                                                                                                    } ?>>
                                                 </div>
                                             </div>
                                         </div>
@@ -331,14 +333,16 @@ The above copyright notice and this permission notice shall be included in all c
     </div>
     <!--   Core JS Files   -->
     <script>
-    var address = document.querySelector('#address');
-    var slogan = document.querySelector('#slogan');
-    var email = document.querySelector('#email');
+    var user = document.getElementsByClassName('user');
+    // console.log(user);
+
     var reseting = document.querySelector('#reseting');
     reseting.addEventListener('click', () => {
-        address.value = '';
-        slogan.value = "";
-        email.value = "";
+        for (var i = 0; i < user.length; i++) {
+            user[i].value = '';
+        }
+        document.querySelector('#permission').checked = false;
+        document.querySelector('#permission2').checked = false;
     });
     </script>
     <script src="/assets/js/core/jquery.min.js"></script>

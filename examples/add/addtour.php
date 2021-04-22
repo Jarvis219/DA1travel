@@ -115,7 +115,7 @@ The above copyright notice and this permission notice shall be included in all c
                         </a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="../../total.php">
+                        <a class="nav-link" href="../../examples/total.php">
                             <i class="fab fa-wolf-pack-battalion"></i>
                             <p>THỐNG KÊ</p>
                         </a>
@@ -264,7 +264,7 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-6">
                                                 <div class="">
                                                     <label class="bmd-label-floating">Ảnh lịch trình 1</label>
-                                                    <input type="file" class="form-control" id="address"
+                                                    <input type="file" class="form-control  " id="address"
                                                         name="image_plan1">
                                                 </div>
                                             </div>
@@ -273,14 +273,14 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-6">
                                                 <div class="">
                                                     <label class="bmd-label-floating">Ảnh lịch trình 2</label>
-                                                    <input type="file" class="form-control" id="address"
+                                                    <input type="file" class="form-control  " id="address"
                                                         name="image_plan2">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="">
                                                     <label class="bmd-label-floating">Ảnh lịch trình 3</label>
-                                                    <input type="file" class="form-control" id="address"
+                                                    <input type="file" class="form-control  " id="address"
                                                         name="image_plan3">
                                                 </div>
                                             </div>
@@ -290,7 +290,7 @@ The above copyright notice and this permission notice shall be included in all c
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Mô tả ngắn</label>
                                                     <textarea name="introduction" cols="30" id="introduction" rows="10"
-                                                        class="form-control border" required></textarea>
+                                                        class="form-control border  tour" required></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -299,7 +299,7 @@ The above copyright notice and this permission notice shall be included in all c
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Mô tả chi tiết</label>
                                                     <textarea name="content" cols="30" rows="10" id="content"
-                                                        class="form-control border" required></textarea>
+                                                        class="form-control border  tour" required></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -308,7 +308,7 @@ The above copyright notice and this permission notice shall be included in all c
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Lịch trình 1</label>
                                                     <textarea name="plan1" cols="30" rows="10" id="plan1"
-                                                        class="form-control border" required></textarea>
+                                                        class="form-control border tour" required></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -317,7 +317,7 @@ The above copyright notice and this permission notice shall be included in all c
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Lịch trình 2</label>
                                                     <textarea name="plan2" cols="30" rows="10" id="plan2"
-                                                        class="form-control border"></textarea>
+                                                        class="form-control border tour"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -326,7 +326,7 @@ The above copyright notice and this permission notice shall be included in all c
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Lịch trình 3</label>
                                                     <textarea name="plan3" cols="30" rows="10" id="plan3"
-                                                        class="form-control border"></textarea>
+                                                        class="form-control tour border"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -467,12 +467,9 @@ The above copyright notice and this permission notice shall be included in all c
     var placeEnd = document.querySelector('#place_end');
     var price = document.querySelector('#price');
     var promotional = document.querySelector('#promotional');
-    var introduction = document.querySelector('#introduction');
-    var content = document.querySelector('#content');
-    var planone = document.querySelector('#plan1');
-    var plantwo = document.querySelector('#plan2');
-    var planthree = document.querySelector('#plan3');
     var permission = document.getElementsByName('permission');
+    var tour = document.getElementsByClassName('tour');
+    console.log(tour);
     reseting.addEventListener('click', () => {
         name1.value = '';
         category.value = '';
@@ -482,11 +479,9 @@ The above copyright notice and this permission notice shall be included in all c
         placeEnd.value = '';
         price.value = '';
         promotional.value = '';
-        introduction.innerHTML = '';
-        content.innerHTML = '';
-        planone.innerHTML = '';
-        plantwo.innerHTML = '';
-        planthree.innerHTML = '';
+        for (var i = 0; i < tour.length; i++) {
+            tour[i].value = '';
+        }
         document.getElementById('radio1').checked = false;
         document.getElementById('radio2').checked = false;
     });

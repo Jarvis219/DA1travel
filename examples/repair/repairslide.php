@@ -115,7 +115,7 @@ The above copyright notice and this permission notice shall be included in all c
                         </a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="../../total.php">
+                        <a class="nav-link" href="../../examples/total.php">
                             <i class="fab fa-wolf-pack-battalion"></i>
                             <p>THỐNG KÊ</p>
                         </a>
@@ -191,7 +191,7 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Mã slide (disabled)</label>
-                                                    <input type="text" class="form-control"
+                                                    <input type="text" class="form-control "
                                                         value="<?php echo $totall['id_slide'] ?>" disabled>
                                                 </div>
                                             </div>
@@ -201,7 +201,7 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Link liên kết</label>
-                                                    <input type="text" class="form-control" name="link"
+                                                    <input type="text" class="form-control slide" name="link"
                                                         value="<?php echo $totall['id_slide'] ?>" id="link">
                                                 </div>
                                             </div>
@@ -210,7 +210,7 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Tên slide</label>
-                                                    <input type="text" class="form-control" id="name_slide"
+                                                    <input type="text" class="form-control slide" id="name_slide"
                                                         name="name_slide" value="<?php echo $totall['name_slide'] ?>"
                                                         required>
                                                 </div>
@@ -287,14 +287,10 @@ The above copyright notice and this permission notice shall be included in all c
     </div>
     <!--   Core JS Files   -->
     <script>
-    var address = document.querySelector('#address');
-    var slogan = document.querySelector('#slogan');
-    var email = document.querySelector('#email');
-    var reseting = document.querySelector('#reseting');
+    var slide = document.getElementsByClassName('slide');
     reseting.addEventListener('click', () => {
-        address.value = '';
-        slogan.value = "";
-        email.value = "";
+        slide[0].value = '';
+        slide[1].value = '';
     });
     </script>
     <script src="/assets/js/core/jquery.min.js"></script>

@@ -115,7 +115,7 @@ The above copyright notice and this permission notice shall be included in all c
                         </a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="../../total.php">
+                        <a class="nav-link" href="../../examples/total.php">
                             <i class="fab fa-wolf-pack-battalion"></i>
                             <p>THỐNG KÊ</p>
                         </a>
@@ -367,7 +367,7 @@ The above copyright notice and this permission notice shall be included in all c
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Tour đặc biệt</label></br>
                                                     <label for="Yes">Yes</label>
-                                                    <input type="radio" name="holiday" id="radio1" value="yes" <?php
+                                                    <input type="radio" name="holiday" id="radio" value="yes" <?php
                                                                                                                 if ($totall['holiday'] == 'yes') {
                                                                                                                     echo "checked";
                                                                                                                 }
@@ -650,7 +650,7 @@ The above copyright notice and this permission notice shall be included in all c
         price.value = '';
         promotional.value = '';
         document.getElementById('radio1').checked = false;
-        document.getElementById('radio2').checked = false;
+        document.getElementById('radio').checked = false;
     });
     </script>
     <script src="/assets/js/core/jquery.min.js"></script>

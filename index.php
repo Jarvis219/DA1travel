@@ -391,7 +391,11 @@ include "./examples/local.php";
                 foreach ($showcmt as $cmt) {
                 ?>
                 <div class="my-12 focus:outline-none text-center">
-                    <img class="mx-auto w-24 h-24 rounded-full" src="./assets/img/<?php echo $cmt['user_image'] ?>">
+                    <img class="mx-auto w-24 h-24 rounded-full" src="./assets/img/<?php if ($cmt['user_image'] == '') {
+                                                                                            echo 'user-vector-png.png';
+                                                                                        } else {
+                                                                                            echo  $cmt['user_image'];
+                                                                                        } ?>">
                     <p class="my-3 text-center">
                         <?php
                             $evaluate = $cmt['evaluate'];
@@ -420,8 +424,9 @@ include "./examples/local.php";
                 <article>
                     <a class="group" href="newdetail.php?id_post=<?php echo $post['id_post'] ?>">
                         <div class="overflow-hidden rounded-md border border-white">
-                            <img class="transition duration-300 transform group-hover:opacity-80"
-                                src="./assets/img/<?php echo $post['post_image'] ?>" alt="">
+                            <img class="transition duration-300 transform object-cover group-hover:opacity-80"
+                                style="width: 351px;height: 221px;" src="./assets/img/<?php echo $post['post_image'] ?>"
+                                alt="">
                         </div>
                         <div class="text-left">
                             <h3 class="text-xl font-bold pt-2"><?php echo $post['title'] ?>

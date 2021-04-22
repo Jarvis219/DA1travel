@@ -115,7 +115,7 @@ The above copyright notice and this permission notice shall be included in all c
                         </a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="../../total.php">
+                        <a class="nav-link" href="../../examples/total.php">
                             <i class="fab fa-wolf-pack-battalion"></i>
                             <p>THỐNG KÊ</p>
                         </a>
@@ -190,14 +190,14 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Mã thông tin (disabled)</label>
-                                                    <input type="text" class="form-control"
+                                                    <input type="text" class="form-control infor"
                                                         value="<?php echo $totall['id_information'] ?>" disabled>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Số điện thoại</label>
-                                                    <input type="tel" class="form-control" id="number_phone"
+                                                    <input type="tel" class="form-control infor" id="number_phone"
                                                         value="<?php echo $totall['information_phone'] ?>"
                                                         name="information_phone" required>
                                                 </div>
@@ -207,7 +207,7 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Địa chỉ</label>
-                                                    <input type="text" class="form-control" id="address"
+                                                    <input type="text" class="form-control infor" id="address"
                                                         value="<?php echo $totall['information_address'] ?>"
                                                         name="information_address" required>
                                                 </div>
@@ -215,43 +215,42 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Link google map</label>
-                                                    <input type="text" class="form-control" id="maps" name="link_map"
-                                                        value="<?php echo $totall['link_map'] ?>">
-
+                                                    <input type="text" class="form-control infor" id="maps"
+                                                        name="link_map" value="<?php echo $totall['link_map'] ?>" </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="bmd-label-floating">Khẩu hiệu</label>
-                                                    <input type="text" class="form-control" id="slogan"
-                                                        value="<?php echo $totall['information_slogan'] ?>"
-                                                        name="information_slogan" required>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="bmd-label-floating">Khẩu hiệu</label>
+                                                        <input type="text" class="form-control infor" id="slogan"
+                                                            value="<?php echo $totall['information_slogan'] ?>"
+                                                            name="information_slogan" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="bmd-label-floating">Email</label>
+                                                        <input type="email" class="form-control infor" id="email"
+                                                            value="<?php echo $totall['information_email'] ?>"
+                                                            name="information_email" required>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="bmd-label-floating">Email</label>
-                                                    <input type="email" class="form-control" id="email"
-                                                        value="<?php echo $totall['information_email'] ?>"
-                                                        name="information_email" required>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="">
+                                                        <label class="bmd-label-floating">Logo</label>
+                                                        <img class="w-20 object-cover"
+                                                            src="../../assets/img/<?php echo $totall['logo'] ?>" alt="">
+                                                        <input type="file" class="form-control" name="logo">
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="">
-                                                    <label class="bmd-label-floating">Logo</label>
-                                                    <img class="w-20 object-cover"
-                                                        src="../../assets/img/<?php echo $totall['logo'] ?>" alt="">
-                                                    <input type="file" class="form-control" name="logo">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary pull-left" name="submit">Cập nhật
-                                            thông
-                                            tin</button>
+                                            <button type="submit" class="btn btn-primary pull-left" name="submit">Cập
+                                                nhật
+                                                thông
+                                                tin</button>
                                     </form>
 
                                     <button type="submit" class="btn btn-primary pull-left" id="reseting">Nhập
@@ -311,14 +310,13 @@ The above copyright notice and this permission notice shall be included in all c
     </div>
     <!--   Core JS Files   -->
     <script>
-    var address = document.querySelector('#address');
-    var slogan = document.querySelector('#slogan');
-    var email = document.querySelector('#email');
     var reseting = document.querySelector('#reseting');
+    var infor = document.getElementsByClassName('infor');
+    console.log(infor);
     reseting.addEventListener('click', () => {
-        address.value = '';
-        slogan.value = "";
-        email.value = "";
+        for (var i = 0; i < infor.length; i++) {
+            infor[i].value = '';
+        }
     });
     </script>
     <script src="/assets/js/core/jquery.min.js"></script>

@@ -115,7 +115,7 @@ The above copyright notice and this permission notice shall be included in all c
                         </a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="../../total.php">
+                        <a class="nav-link" href="../../examples/total.php">
                             <i class="fab fa-wolf-pack-battalion"></i>
                             <p>THỐNG KÊ</p>
                         </a>
@@ -202,7 +202,7 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Tên voucher</label>
-                                                    <input type="text" class="form-control" id="voucher_name"
+                                                    <input type="text" class="form-control voucher" id="voucher_name"
                                                         name="voucher_name"
                                                         value="<?php echo $totall['vourcher_name'] ?>" required>
                                                 </div>
@@ -210,7 +210,7 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Mã vourcher hiển thị</label>
-                                                    <input type="text" class="form-control" id="title"
+                                                    <input type="text" class="form-control voucher" id="title"
                                                         name="voucher_code"
                                                         value="<?php echo $totall['voucher_code'] ?>" required>
                                                 </div>
@@ -223,14 +223,14 @@ The above copyright notice and this permission notice shall be included in all c
                                                     <img class="w-20 object-cover"
                                                         src="../../assets/img/<?php echo $totall['voucher_image'] ?>"
                                                         alt="">
-                                                    <input type="file" class="form-control" id="image2"
+                                                    <input type="file" class="form-control voucher" id="image2"
                                                         name="voucher_image">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="">
                                                     <label class="bmd-label-floating">Giảm giá (%)</label>
-                                                    <input type="number" class="form-control" id="sale"
+                                                    <input type="number" class="form-control voucher" id="sale"
                                                         name="voucher_sale"
                                                         value="<?php echo $totall['voucher_sale'] ?>" required>
                                                 </div>
@@ -251,7 +251,7 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">số lượng </label>
-                                                    <input type="number" class="form-control" id="number"
+                                                    <input type="number" class="form-control voucher" id="number"
                                                         name="voucher_number"
                                                         value="<?php echo $totall['voucher_number'] ?>" required>
                                                 </div>
@@ -260,7 +260,7 @@ The above copyright notice and this permission notice shall be included in all c
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Điều kiện sử dụng (từ ? người)
                                                     </label>
-                                                    <input type="number" class="form-control" id="condition"
+                                                    <input type="number" class="form-control voucher" id="condition"
                                                         name="voucher_people"
                                                         value="<?php echo $totall['voucher_people'] ?>" required>
                                                 </div>
@@ -270,7 +270,7 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-12">
                                                 <div class="">
                                                     <label class="bmd-label-floating">Thời gian hết hạn</label>
-                                                    <input type="date" class="form-control" id="day_end"
+                                                    <input type="date" class="form-control voucher" id="day_end"
                                                         name="voucher_endtime"
                                                         value="<?php echo $t = date('Y-m-d', $ti); ?>" required>
 
@@ -366,20 +366,14 @@ The above copyright notice and this permission notice shall be included in all c
     </div>
     <!--   Core JS Files   -->
     <script>
-    var title = document.querySelector('#title');
-    var author = document.querySelector('#author');
-    var content = document.querySelector('#content');
+    var voucher = document.getElementsByClassName(' voucher');
     var contentvt = document.querySelector('#contentvt');
     var reseting = document.querySelector('#reseting');
     reseting.addEventListener('click', () => {
-        title.value = '';
-        author.value = "";
-        document.querySelector('#number').value = " ";
-        document.querySelector('#condition').value = " ";
-        document.querySelector('#day_end').value = " ";
-        document.querySelector('#sale').value = " ";
-        content.innerHTML = "";
-        contentvt.innerHTML = "";
+        for (var i = 0; i < voucher.length; i++) {
+            voucher[i].value = '';
+        }
+        contentvt.value = "";
     });
     </script>
     <script src="/assets/js/core/jquery.min.js"></script>

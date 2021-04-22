@@ -246,6 +246,9 @@ $category = $showtour['id_category'];
                         <textarea class="border bg-gray-100 px-2 py-1 bg-opacity-50 ocus:outline-none" name="note" id=""
                             cols="73" rows="3"></textarea>
                     </div>
+                    <div class=" text-center">
+                        <span id="errorslv" class="text-lg bg-white text-red-500"></span>
+                    </div>
                     <div class="text-center bg-white">
                         <input type="text" class="text-lg bg-white text-red-500" id="error" value=""
                             style="width: 550px;" disabled>
@@ -323,7 +326,7 @@ $category = $showtour['id_category'];
             ?>
             <form method="POST">
                 <?php
-                $sqlvour = "select * from voucher";
+                $sqlvour = "select * from voucher where id_voucher >28 or id_voucher <=27";
                 $showvour = $local->query($sqlvour);
                 foreach ($showvour as $voucher) {
                 ?>
@@ -381,20 +384,24 @@ $category = $showtour['id_category'];
         $id_voucher = $showcheckvou['id_voucher'];
         $username = $_SESSION['user'];
         $allPrice = $_POST['allPrice'];
+        $sqlcheckslV = "select * from voucher where id_voucher = '$id_voucher'";
+        $totalvher = $local->query($sqlcheckslV)->fetch();
+        $slV = $totalvher['voucher_number'];
         if (empty($id_voucher)) {
             $id_voucher = 28;
-        } else {
-            $sqlcheckV = "update voucher set voucher_number=voucher_number-1 where id_voucher like '$id_voucher'";
-            $setV = $local->prepare($sqlcheckV);
-            $setV->execute();
         }
         if (empty($child_amount)) {
             $child_amount = 0;
         }
         // echo $today + 30;
         // echo $departure_day;
-        if ($departure_day > $today && $departure_day <= $todayl) {
-            echo '<span class="checkday hidden">0</span>';
+        if ($slV <= 0) {
+            echo '<span  class="slv hidden">0</span>';
+        } else if ($departure_day > $today && $departure_day <= $todayl) {
+            $sqlcheckslV = "select * from voucher where id_voucher = '$id_voucher'";
+            $sqlcheckV = "update voucher set voucher_number=voucher_number-1 where id_voucher like '$id_voucher'";
+            $setV = $local->prepare($sqlcheckV);
+            $setV->execute();
             $sqladd = "insert into cart values(null,'$id','$id_voucher','$username','$phone_number','$fullname','$email','$note','$adult_amount','$child_amount','$allPrice','$departure_day','0',null)";
             $addvour = $local->exec($sqladd);
             $sqlshowCart = "select * from cart order by id_cart desc";
@@ -831,6 +838,12 @@ $category = $showtour['id_category'];
     //     showVoucher.style.borderColor = "#e5e7eb";
     //     showVoucher.style.backgroundColor = "#f9f9fa";
     // });
+
+    var errorslv = document.querySelector('#errorslv');
+    var slv = document.querySelector('.slv');
+    if (slv.innerHTML == 0) {
+        errorslv.innerHTML = 'Voucher này đã hết hạn sử dụng hoặc số lượng đã hết vui lòng chọn voucher khác!';
+    }
     setInterval(function() {
         allPrices.innerHTML = allPrice.value;
     }, 1)

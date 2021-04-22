@@ -74,6 +74,14 @@ if ($_GET['id_category'] == 0) {
     </section>
     <section class="container mx-auto grid grid-cols-12">
         <div class="col-span-2">
+            <div>
+                <h2 class="text-xl font-bold uppercase my-3"><a href="#">hà nội của tôi</a></h2>
+                <iframe width="256" height="180"
+                    src="https://www.youtube.com/embed/FClS4ni4zfo?start=16?rel=0&autoplay=1&mute=1"
+                    title="YouTube video player" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+            </div>
             <div class="mt-10">
                 <h2 class="text-xl font-bold uppercase"><a href="#">Ưu đãi Voucher</a></h2>
                 <?php

@@ -1,7 +1,7 @@
 <?php
 ob_start();
 session_start();
-include ".examples/local.php";
+include "./examples/local.php";
 $sql = "select * from information";
 $total = $local->query($sql)->fetch();
 ?>

@@ -66,3 +66,9 @@ if (isset($_GET['id_comment'])) {
     $total = $local->exec($sql);
     header('location:../../examples/comment.php');
 }
+if (isset($_GET['id_cart'])) {
+    $id = $_GET['id_cart'];
+    $sql = "delete from cart where id_cart = '$id'";
+    $total = $local->exec($sql);
+    header('location:../../examples/cart.php');
+}

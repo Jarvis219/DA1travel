@@ -511,54 +511,8 @@ if (isset($_GET['id_tour'])) {
                         <!-- 1 sao -->
                     </div>
                 </div>
-                <div class="overflow-auto col-span-3" style="height: 500px;">
-                    <?php
-                    $sqlCMT = "select * from comment join user on user.username=comment.username where id_tour = $id";
-                    $showCMT = $local->query($sqlCMT);
-                    foreach ($showCMT as $cmt) {
-                    ?>
-                    <div class="grid grid-cols-8 mb-5 ">
-                        <div class="col-span-1 mx-auto text-center">
-                            <img class="rounded-full" width="80" style="height: 80px;" src="./assets/img/<?php if ($cmt['user_image'] == "") {
-                                                                                                                    echo 'user-vector-png.png';
-                                                                                                                } else {
-                                                                                                                    echo $cmt['user_image'];
-                                                                                                                }
-                                                                                                                ?>"
-                                alt="">
-                            <span class=" "><?php echo $cmt['fullname'] ?></span>
-                        </div>
-                        <div class="col-span-7 py-1">
-                            <div class="bg-white py-1 px-5">
-                                <div class="flex">
-                                    <div class="">
-                                        <?php
-                                            $evalua = $cmt['evaluate'];
-                                            for ($i = 0; $i < $evalua; $i++) {
-                                                echo '  <i class="fas fa-star text-yellow-300"></i>';
-                                            }
-                                            ?>
-                                    </div>
-                                </div>
-                                <p class="py-2"><?php echo $cmt['content_comment'] ?></p>
-                                <!-- <a href="" class="text-blue-500">Trả lời</a> -->
-                                <span class="px-2 text-sm "><i
-                                        class="fas fa-user-clock px-1"></i><?php echo $cmt['create_at'] ?></span>
-                            </div>
-                            <!-- <div class="bg-white ml-2 mt-2 px-5 py-2">
-                                <div class="flex items-center">
-                                    <img class="w-10" src="./content/image/user.png" alt="">
-                                    <span class="px-5">Tên admin</span>
-                                    <span class="bg-yellow-400 px-1">Quản trị viên</span>
-                                </div>
-                                <p class="py-2">Cảm ơn bạn đã chọn tour của chúng tôi</p>
-                                <a href="" class="text-blue-500">Trả lời</a>
-                                <span class="px-2 text-sm "><i class="fas fa-user-clock px-1"></i>25/03/2021</span>
-                            </div> -->
-                        </div>
-                    </div>
-                    <?php } ?>
-                </div>
+                <span class="hidden check_btn" id="check_btn"></span>
+                <?php require "binhluan.php" ?>
             </div>
             </div>
             </div>
@@ -596,19 +550,19 @@ if (isset($_GET['id_tour'])) {
                         <span class="px-3 font-bold  block mt-4"><?php echo $showuser['fullname'] ?></span>
                     </div>
                     <div class="mr-180 mx-10" id="rating">
-                        <input class="mx-5" type="radio" id="star5" name="rating" value="5" checked />
+                        <input class="mx-5 rating" type="radio" id="star5" name="rating" value="5" checked />
                         <label class="full px-1 py-5 text-2xl" for="star5" title="Awesome - 5 stars"></label>
 
-                        <input class="mx-5" type="radio" id="star4" name="rating" value="4" />
+                        <input class="mx-5 rating" type="radio" id="star4" name="rating" value="4" />
                         <label class="full px-1 py-5 text-2xl" for="star4" title="Pretty good - 4 stars"></label>
 
-                        <input class="mx-5" type="radio" id="star3" name="rating" value="3" />
+                        <input class="mx-5 rating" type="radio" id="star3" name="rating" value="3" />
                         <label class="full px-1 py-5 text-2xl" for="star3" title="Meh - 3 stars"></label>
 
-                        <input class="mx-5" type="radio" id="star2" name="rating" value="2" />
+                        <input class="mx-5 rating" type="radio" id="star2" name="rating" value="2" />
                         <label class="full px-1 py-5 text-2xl" for="star2" title="Kinda bad - 2 stars"></label>
 
-                        <input class="mx-5" type="radio" id="star1" name="rating" value="1" />
+                        <input class="mx-5 rating" type="radio" id="star1" name="rating" value="1" />
                         <label class="full px-1 py-5 text-2xl" for="star1" title="Sucks big time - 1 star"></label>
 
                     </div>
@@ -616,12 +570,14 @@ if (isset($_GET['id_tour'])) {
                         <div class="hidden">
                             <input type="text" id="countstar" value="">
                         </div>
-                        <textarea class="border px-5 py-2 focus:outline-none  w-full" name="comment" id="" cols="145"
-                            rows="2"></textarea>
+                        <textarea class="border px-5 py-2 focus:outline-none  w-full" name="comment" id="ax_cmt"
+                            cols="145" rows="2"></textarea>
                         <button name="btn_sent" id="btn_sent"
                             class="mx-3 border px-10 bg-white focus:outline-none">Gửi</button>
                     </div>
+
                 </form>
+
             </div>
             <?php
             if (isset($_POST['btn_sent'])) {
@@ -662,7 +618,52 @@ if (isset($_GET['id_tour'])) {
     <script type="text/javascript" src="./content/slick-1.8.1/slick/slick.min.js"></script>
     <script type="text/javascript" src="./content/js/sliderProduct.js"></script>
     <script type="text/javascript" src="./content/js/product.js"></script>
+    <!-- <script>
+    var btn_sent = document.querySelector('#btn_sent');
+    var check_btn = document.querySelector('#check_btn');
+    console.log(check_btn);
+    btn_sent.addEventListener('click', () => {
+        console.log('asdada');
+        check_btn.innerHTML = 1;
+    });
+    console.log(check_btn.innerHTML);
 
+
+    $(document).ready(function() {
+        $('#bt_ajax').click(function() {
+            var ax_user = document.querySelector('#ax_user').innerHTML;
+
+            var star = document.getElementsByClassName('rating');
+            var stars = 0;
+            for (var i = 0; i < star.length; i++) {
+                if (star[i].checked) {
+                    stars = star[i].value;
+                    break;
+                }
+            }
+            var id = document.querySelector('#id_ax').innerHTML;
+            var ax_cmt = document.querySelector('#ax_cmt').value;
+            console.log(stars);
+            console.log(id);
+            console.log(ax_cmt);
+            console.log(ax_user);
+            $.ajax({
+                type: 'POST',
+                url: './ajaxCMT.php',
+                data: {
+                    "id": id,
+                    "user": ax_user,
+                    "stars": stars,
+                    "content": ax_cmt,
+                },
+                success: function(data) {
+                    alert(data);
+                    // location.reload();
+                }
+            });
+        });
+    });
+    </script> -->
     <script>
     var star1 = document.getElementById("star1");
     var star2 = document.getElementById("star2");

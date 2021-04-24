@@ -9,10 +9,6 @@ Coded by Creative Tim
 
 =========================================================
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
-<?php
-ob_start();
-session_start();
-include "../../DA1/examples/local.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,7 +18,7 @@ include "../../DA1/examples/local.php"; ?>
     <link rel="icon" type="image/png" href="../assets/img/favicon.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>
-        Thống kê
+        contact
     </title>
     <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
     <!--     Fonts and icons     -->
@@ -36,9 +32,9 @@ include "../../DA1/examples/local.php"; ?>
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 
     <script src="https://kit.fontawesome.com/5cd69ad435.js" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.1.1/chart.min.js"
-        integrity="sha512-BqNYFBAzGfZDnIWSAEGZSD/QFKeVxms2dIBPfw11gZubWwKUjEgmFUtUls8vZ6xTRZN/jaXGHD/ZaxD9+fDo0A=="
-        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
 </head>
 
 <body class="">
@@ -102,7 +98,7 @@ include "../../DA1/examples/local.php"; ?>
                             <p>QUẢN LÝ ẢNH</p>
                         </a>
                     </li>
-                    <li class="nav-item ">
+                    <li class="nav-item active">
                         <a class="nav-link" href="./contact.php">
                             <i class="fas fa-id-card-alt"></i>
                             <p>QUẢN LÝ LIÊN HỆ</p>
@@ -120,7 +116,7 @@ include "../../DA1/examples/local.php"; ?>
                             <p>QUẢN LÝ VOUCHER</p>
                         </a>
                     </li>
-                    <li class="nav-item active">
+                    <li class="nav-item ">
                         <a class="nav-link" href="./total.php">
                             <i class="fab fa-wolf-pack-battalion"></i>
                             <p>THỐNG KÊ</p>
@@ -134,7 +130,7 @@ include "../../DA1/examples/local.php"; ?>
             <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
                 <div class="container-fluid">
                     <div class="navbar-wrapper">
-                        <a class="navbar-brand uppercase" href="javascript:;">Thống kê</a>
+                        <a class="navbar-brand uppercase" href="javascript:;">Contact</a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -179,164 +175,89 @@ include "../../DA1/examples/local.php"; ?>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
-                                <div class="card-header card-header-primary">
-                                    <h4 class="card-title ">Thống kê</h4>
+                                <div class="card-header card-header-primary flex justify-between">
+                                    <h4 class="card-title ">Contact</h4>
                                 </div>
-                                <div class="card-body " style="
-    height: 700px !important;
-">
+                                <div class="card-body">
                                     <div class="table-responsive">
-                                        <div>
-                                            <h2 class="mt-4 text-xl text-blue-500">Lựa chọn mục cần thống kê</h2>
-                                            <div class="">
-                                                <form method="POST">
-                                                    <div class="flex text-lg items-center">
-                                                        <div
-                                                            class="border-2 border-green-400 border-opacity-100 text-green-700">
-                                                            <select name="search" id="search" class="m-2" required>
-                                                                <option value="4">
-                                                                    Tổng số đơn tour
-                                                                </option>
-                                                                <option value="3">
-                                                                    Tổng số đơn tour đã hoàn thành
-                                                                </option>
-                                                                <option value="2">Tổng số đơn tour đã hủy</option>
-                                                                <option value="0">Tổng số đơn tour chưa duyệt</option>
-                                                                <option value="1">Tổng số đơn tour đã duyệt</option>
+                                        <table class="table text-center">
+                                            <thead class=" text-primary  ">
+                                                <th>
+                                                    Mã liên hệ
+                                                </th>
+                                                <th>
+                                                    Họ tên
+                                                </th>
+                                                <th>
+                                                    Email
+                                                </th>
+                                                <th>
+                                                    Số điện thoại
+                                                </th>
+                                                <th>
+                                                    Địa chỉ
+                                                </th>
+
+                                                <th>Nội dung</th>
+                                                <th>Thời gian tạo</th>
+                                                <th>Trạng thái</th>
+                                                <th colspan="2"><span class="pl-4">Tùy chỉnh</span></th>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+                                                include "../../DA1/examples/local.php";
+                                                $sqll = " select * from contact";
+                                                $totall = $local->query($sqll);
+                                                foreach ($totall as $values) {
+                                                ?>
+                                                <tr data-id="<?php echo $values['id_contact'] ?>">
+                                                    <td>
+                                                        <?php echo $values['id_contact'] ?>
+                                                    </td>
+                                                    <td>
+                                                        <?php echo $values['contact_name'] ?>
+                                                    </td>
+
+                                                    <td>
+                                                        <?php echo $values['contact_email'] ?>
+                                                    </td>
+
+                                                    <td> <?php echo $values['contact_phone'] ?></td>
+                                                    <td>
+                                                        <?php echo $values['contact_address'] ?>
+                                                    </td>
+                                                    <td> <?php echo $values['contact_content'] ?></td>
+
+                                                    <td> <?php echo $values['create_at'] ?></td>
+                                                    <td>
+                                                        <form method="POST">
+                                                            <select name="status"
+                                                                class="status border-2 border-green-400 border-opacity-100 rounded-lg text-green-700">
+                                                                <option value="0">
+                                                                    <?php
+                                                                        if ($values['contact_status'] == 0) {
+                                                                            echo "Chưa duyệt";
+                                                                        } else {
+                                                                            echo "Đã duyệt";
+                                                                        } ?></option>
+                                                                <option value="1" class="<?php if ($values['contact_status'] == 1) {
+                                                                                                    echo "hidden";
+                                                                                                } ?>">Đã
+                                                                    duyệt</option>
                                                             </select>
-                                                        </div>
-                                                        <div class="flex">
-                                                            <div
-                                                                class=" mx-20 border-2 border-green-400 border-opacity-100 text-green-700 flex  items-center p-2">
-                                                                <label for="#">Từ ngày: <input type="date" name="date1"
-                                                                        required></label>
-                                                            </div>
-                                                            <div class="border-2 border-green-400 border-opacity-100 flex items-center
-                                                                text-green-700 px-1">
-                                                                <label for="#">Đến ngày: <input type="date" name="date2"
-                                                                        required></label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="mx-64">
-                                                            <input class="btn btn-primary pull-left" type="submit"
-                                                                name="submit" value="Duyệt" id="submit">
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                        <?php
-                                        if (isset($_POST['submit'])) {
-                                            $search = $_POST['search'];
-                                            $date1 = $_POST['date1'];
-                                            $date2 = $_POST['date2'];
-                                            $today = date('Y-m-d');
-                                            if ($date2 < $today) {
-                                                echo '<script>
-                                                alert("Ngày tháng kết thúc phải bằng hoặc lớn hơn ngày hiện tại");
-                                                </script>';
-                                            } else {
-                                                if ($search == 1) {
-                                                    $sql = "select sum(adult_amount)+SUM(child_amount) AS total , count(id_cart) as finish from cart where departure_day>='$date1' and departure_day<='$date2' and cart_status='1'";
-                                                } else if ($search == 2) {
-                                                    $sql = "select sum(adult_amount)+SUM(child_amount) AS total , count(id_cart) as finish from cart where departure_day>='$date1' and departure_day<='$date2' and cart_status='2'";
-                                                } else if ($search == 3) {
-                                                    $sql = "select sum(adult_amount)+SUM(child_amount) AS total, count(id_cart) as finish from cart where departure_day>='$date1' and departure_day<='$date2' and cart_status='3'";
-                                                } else if ($search == 0) {
-                                                    $sql = "select sum(adult_amount)+SUM(child_amount) AS total, count(id_cart) as finish  from cart where departure_day>='$date1' and departure_day<='$date2' and cart_status='0'";
-                                                } else {
-                                                    $sql = "select sum(adult_amount)+SUM(child_amount) AS total, count(id_cart) as finish from cart where departure_day>='$date1' and departure_day<='$date2'";
-                                                }
-                                                $sqll = "select sum(sumPrice), cart_status from cart where departure_day>='$date1' and departure_day<='$date2' and cart_status='3'";
-                                                $total = $local->query($sql)->fetch();
-                                                $totall = $local->query($sqll)->fetch();
-                                            }
-                                        }
-                                        $today = date('Y-m-d');
-                                        $todays = mktime(0, 0, 0, date('m'), date('d') - 7, date('Y'));
-                                        $todayl7 = date('Y-m-d', $todays);
-                                        $todays = mktime(0, 0, 0, date('m'), date('d') - 6, date('Y'));
-                                        $todayl6 = date('Y-m-d', $todays);
-                                        $todays = mktime(0, 0, 0, date('m'), date('d') - 5, date('Y'));
-                                        $todayl5 = date('Y-m-d', $todays);
-                                        $todays = mktime(0, 0, 0, date('m'), date('d') - 4, date('Y'));
-                                        $todayl4 = date('Y-m-d', $todays);
-                                        $todays = mktime(0, 0, 0, date('m'), date('d') - 3, date('Y'));
-                                        $todayl3 = date('Y-m-d', $todays);
-                                        $todays = mktime(0, 0, 0, date('m'), date('d') - 2, date('Y'));
-                                        $todayl2 = date('Y-m-d', $todays);
-                                        $todays = mktime(0, 0, 0, date('m'), date('d') - 1, date('Y'));
-                                        $todayl1 = date('Y-m-d', $todays);
-                                        $showPrice1 = "select cart_status,departure_day, sum(sumPrice) as sumH from cart where departure_day='$todayl1' and cart_status = '3'";
-                                        $showP1 = $local->query($showPrice1)->fetch();
-                                        $showPrice2 = "select cart_status,departure_day, sum(sumPrice) as sumH from cart where departure_day='$todayl2' and cart_status = '3'";
-                                        $showP2 = $local->query($showPrice2)->fetch();
-                                        $showPrice3 = "select cart_status,departure_day, sum(sumPrice) as sumH from cart where departure_day='$todayl3' and cart_status = '3'";
-                                        $showP3 = $local->query($showPrice3)->fetch();
-                                        $showPrice4 = "select cart_status,departure_day, sum(sumPrice) as sumH from cart where departure_day='$todayl4' and cart_status = '3'";
-                                        $showP4 = $local->query($showPrice4)->fetch();
-                                        $showPrice5 = "select cart_status,departure_day, sum(sumPrice) as sumH from cart where departure_day='$todayl5' and cart_status = '3'";
-                                        $showP5 = $local->query($showPrice5)->fetch();
-                                        $showPrice6 = "select cart_status,departure_day, sum(sumPrice) as sumH from cart where departure_day='$todayl6' and cart_status = '3'";
-                                        $showP6 = $local->query($showPrice6)->fetch();
-                                        $showPrice7 = "select cart_status,departure_day, sum(sumPrice) as sumH from cart where departure_day='$todayl7' and cart_status = '3'";
-                                        $showP7 = $local->query($showPrice7)->fetch();
-                                        ?>
-                                        <div class=" <?php if (!empty($date2)) {
-                                                            echo "block";
-                                                        } else {
-                                                            echo 'hidden';
-                                                        } ?>">
-                                            <table class="table text-center mt-20 text-xl ">
-
-                                                <thead class=" text-primary">
-                                                    <tr>
-                                                        <th><?php
-                                                            if ($search == 0) {
-                                                                echo 'Tổng số đơn chưa duyệt';
-                                                            } else if ($search == 1) {
-                                                                echo 'Tổng số đơn đã duyệt';
-                                                            } else if ($search == 2) {
-                                                                echo 'Tổng số đơn đã hủy';
-                                                            } else if ($search == 3) {
-                                                                echo 'Tổng số đơn đã hoàn thành';
-                                                            } else {
-                                                                echo 'Tổng số đơn tour';
-                                                            }
-                                                            ?></th>
-                                                        <th>Tổng số lượt khách</th>
-                                                        <th>Từ ngày</th>
-                                                        <th>Đến ngày</th>
-                                                        <th>Tổng doanh thu(đã hoàn thành) </th>
-                                                    </tr>
-                                                </thead>
-
-                                                <tbody>
-                                                    <tr>
-                                                        <td class="text-primary">
-                                                            <?php echo $total['finish']; ?></td>
-                                                        <td class="text-primary">
-                                                            <?php echo $total['total']; ?>
-                                                        </td class="text-primary">
-                                                        <td class="text-primary">
-                                                            <?php echo $date1 ?>
-                                                        </td class="text-primary">
-                                                        <td class="text-primary">
-                                                            <?php echo $date2 ?>
-                                                        </td class="text-primary">
-                                                        <td class="text-primary">
-                                                            <?php echo number_format($totall['sum(sumPrice)'], 0, '.', ',') . 'vnd';  ?>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <div style="width: 1000px;height: 400px;" class="mx-auto mt-4">
-                                        <canvas id="myChart" width="1000"></canvas>
+                                                        </form>
+                                                    </td>
+                                                    <td class="w-20"><button
+                                                            onclick="return confirm('you want to delete!')" ;
+                                                            class="bg-gradient-to-r from-purple-200 via-pink-500 to-red-500 text-white rounded-lg  transition duration-300 ease-in-out transform hover:scale-105"><a
+                                                                href="../../DA1/examples/delete/delete.php?id_contact=<?php echo $values['id_contact'] ?>"
+                                                                class="inline-block px-3 py-2 ">Xóa</a></button></td>
+                                                </tr>
+                                                <?php }  ?>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -355,51 +276,31 @@ include "../../DA1/examples/local.php"; ?>
             </footer>
         </div>
     </div>
-
+    <!--   Core JS Files   -->
     <script>
-    var bienx = ['<?php echo $todayl7 ?>', '<?php echo $todayl6 ?>', '<?php echo $todayl5 ?>', '<?php echo $todayl4 ?>',
-        '<?php echo $todayl3 ?>', '<?php echo $todayl2 ?>', '<?php echo $todayl1 ?>'
-    ];
-    var bieny = [<?php if (!empty($showP7['sumH'])) {
-                            echo $showP7['sumH'];
-                        } else {
-                            echo '0';
-                        }   ?>, <?php if (!empty($showP6['sumH'])) {
-                                    echo $showP6['sumH'];
-                                } else {
-                                    echo '0';
-                                } ?>, <?php if (!empty($showP5['sumH'])) {
-                                            echo $showP5['sumH'];
-                                        } else {
-                                            echo '0';
-                                        } ?>, <?php if (!empty($showP4['sumH'])) {
-                                                    echo $showP4['sumH'];
-                                                } else {
-                                                    echo '0';
-                                                } ?>, <?php if (!empty($showP3['sumH'])) {
-                                                            echo $showP3['sumH'];
-                                                        } else {
-                                                            echo '0';
-                                                        } ?>, <?php if (!empty($showP2['sumH'])) {
-                                                                    echo $showP2['sumH'];
-                                                                } else {
-                                                                    echo '0';
-                                                                } ?>, <?php if (!empty($showP1['sumH'])) {
-                                                                            echo $showP1['sumH'];
-                                                                        } else {
-                                                                            echo '0';
-                                                                        } ?>];
-    var ctx = document.getElementById('myChart').getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: bienx,
-            datasets: [{
-                label: 'Biểu đồ doanh thu trong 7 ngày gần nhất(VND)',
-                data: bieny
-
-            }]
-        },
+    $(document).ready(function() {
+        $('.status').change(function() {
+            // console.log('sss');
+            // var id = $('.status').val();
+            // var status = $('.status :selected').text();
+            // console.log(id);
+            // console.log(status);
+            var dataId = $(this).parent().parent().parent().data('id');
+            $.ajax({
+                type: 'POST',
+                url: '../../DA1/examples/repair/ajaxdata.php',
+                data: {
+                    "id": dataId,
+                    "statuss": $(this).find('option:selected').val(),
+                    // "statuss": $("select[name=status]:selected").text()
+                    // "id": id[i].innerHTML.val()
+                },
+                success: function(data) {
+                    alert(data);
+                    location.reload();
+                }
+            });
+        });
     });
     </script>
     <script src="../assets/js/core/jquery.min.js"></script>

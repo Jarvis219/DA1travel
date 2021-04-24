@@ -78,55 +78,14 @@ if (isset($_GET['id_cart'])) {
                         </div>
                         <div>
                             <span>Tổng số tiền của quý khách là: <?php
-                                                                    $price = $totall['price'];
-                                                                    $saleP = $totall['voucher_sale'];
-                                                                    $sale = $totall['promotional'];
-                                                                    //  ($price - $sale) * $totall['child_amount'];
-                                                                    $adult_amount = (($price - $sale) * $totall['adult_amount']);
-                                                                    //  $totall['child_amount'];
-                                                                    if ($totall['child_amount'] != 0) {
-                                                                        $child_amount =  (($price - $sale) * $totall['child_amount']) - (($price - $sale) * $totall['child_amount'] * 30 / 100) . '<br>';
-                                                                        (int)$person = (int)$adult_amount + (int)$child_amount;
-                                                                        if ($saleP == 0) {
-                                                                            $sum = $person + ($price - $price); //ok
-                                                                        } else {
-                                                                            $sum = $person - ($person * $saleP / 100); //ok
-                                                                        }
-                                                                    } else {
-                                                                        if ($saleP == 0) {
-                                                                            $sum = $adult_amount;
-                                                                        } else {
-                                                                            $sum = $adult_amount - ($adult_amount * $saleP / 100);
-                                                                        }
-                                                                    }
+                                                                    $sum = $totall['sumPrice'];
                                                                     echo number_format($sum, 0, '.', ',') . 'vnd';
                                                                     ?></span>
                         </div>
                         <p>Quý khách vui lòng đặt cọc trước tối thiểu 40% là: <span class="text-red-600 text-xl">
                                 <?php
-                                $price = $totall['price'];
-                                $saleP = $totall['voucher_sale'];
-                                $sale = $totall['promotional'];
-                                $adult_amount = (($price - $sale) * $totall['adult_amount']);
-                                if ($totall['child_amount'] != 0) {
-                                    $child_amount =  (($price - $sale) * $totall['child_amount']) - (($price - $sale) * $totall['child_amount'] * 0.3) . '<br>';
-                                    (int)$person = (int)$adult_amount + (int)$child_amount;
-                                    if ($saleP == 0) {
-                                        $sum = $person + ($price - $price); //ok
-                                        $allS = $sum - ($sum - ($sum * 0.4));
-                                    } else {
-                                        $sum = $person - ($person * $saleP / 100); //ok
-                                        $allS = $sum - ($sum - ($sum * 0.4));
-                                    }
-                                } else {
-                                    if ($saleP == 0) {
-                                        $sum = $adult_amount;
-                                        $allS = $sum - ($sum -  ($sum * 40 / 100));
-                                    } else {
-                                        $sum = $adult_amount - ($adult_amount * $saleP / 100);
-                                        $allS = $sum - ($sum - ($sum * 40 / 100));
-                                    }
-                                }
+                                $sum = $totall['sumPrice'];
+                                $allS = ($sum * 0.4);
                                 echo number_format($allS, 0, '.', ',') . 'vnd';
 
 
@@ -263,27 +222,8 @@ if (isset($_GET['id_cart'])) {
                                 </td>
                                 <td class="border"><?php echo $row['child_amount'] ?></td>
                                 <td class="border"><?php
-                                                        $price = $row['price'];
-                                                        $saleP = $row['voucher_sale'];
-                                                        $sale = $row['promotional'];
-                                                        $adult_amount = (($price - $sale) * $row['adult_amount']);
-                                                        //  $row['child_amount'];
-                                                        if ($row['child_amount'] != 0) {
-                                                            $child_amount =  (($price - $sale) * $row['child_amount']) - (($price - $sale) * $row['child_amount'] * 30 / 100) . '<br>';
-                                                            (int)$person = (int)$adult_amount + (int)$child_amount;
-                                                            if ($saleP == 0) {
-                                                                $sum = $person + ($price - $price); //ok
-                                                            } else {
-                                                                $sum = $person - ($person * $saleP / 100); //ok
-                                                            }
-                                                        } else {
-                                                            if ($saleP == 0) {
-                                                                $sum = $adult_amount;
-                                                            } else {
-                                                                $sum = $adult_amount - ($adult_amount * $saleP / 100);
-                                                            }
-                                                        }
-                                                        echo number_format($sum, 0, '.', ',') . 'vnd';
+                                                        $sumcart = $row['sumPrice'];
+                                                        echo number_format($sumcart, 0, '.', ',') . 'vnd';
                                                         ?></td>
                                 <td class="border"><?php echo $row['departure_day'] ?></td>
                                 <td class="border"><?php if ($row['cart_status'] == 0) {

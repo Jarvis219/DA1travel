@@ -263,12 +263,12 @@ The above copyright notice and this permission notice shall be included in all c
                                                     <td><?php echo $totall['place_start'] ?></td>
                                                     <td><button
                                                             class=" bg-gradient-to-r from-green-400 to-blue-500  text-white rounded-lg transition duration-300 ease-in-out transform hover:scale-105 flex items-center"><a
-                                                                href="../../examples/repair/repaircart.php"
+                                                                href="../../examples/repair/repaircart.php?id_cart=<?php echo $id  ?>"
                                                                 class="inline-block py-2 px-3">Sửa</a></button>
                                                     </td>
                                                     <td><button onclick="return confirm('you want to delete!')" ;
                                                             class="bg-gradient-to-r from-purple-200 via-pink-500 to-red-500 text-white rounded-lg  transition duration-300 ease-in-out transform hover:scale-105"><a
-                                                                href="../../examples/delete/delete.php"
+                                                                href="../../examples/delete/delete.php?id_cart=<?php echo $id ?>"
                                                                 class="inline-block px-3 py-2 ">Xóa</a></button>
                                                     </td>
                                                 </tr>

@@ -52,7 +52,7 @@ ob_start();
                         id="pass" name="pass" required>
                 </div>
                 <div class="flex items-center pt-2">
-                    <input type="checkbox">
+                    <input type="checkbox" name="setuser">
                     <span class="px-2">Ghi nhớ mật khẩu</span>
                 </div>
                 <!-- end password -->
@@ -65,7 +65,13 @@ ob_start();
             include "./examples/local.php";
             if (isset($_POST['btn_login'])) {
                 $username = $_POST['users_name'];
-                $password = $_POST['pass'];
+                $password = md5($_POST['pass']);
+                $setuer = $_POST['setuser'];
+                if (!empty($setuer)) {
+                    setcookie('users_name', $username, time() + 900);
+                    setcookie('pass', $password, time() + 900);
+                }
+
                 function checkname($user, $password)
                 {
                     include "./examples/local.php";

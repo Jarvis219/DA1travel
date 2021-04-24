@@ -1,3 +1,8 @@
+<?php
+ob_start();
+session_start();
+include "../../examples/local.php";
+?>
 <!--
 =========================================================
 Material Dashboard - v2.1.2
@@ -168,6 +173,7 @@ The above copyright notice and this permission notice shall be included in all c
                 </div>
             </nav>
             <!-- End Navbar -->
+
             <div class="content">
                 <div class="container-fluid">
                     <div class="row">
@@ -177,34 +183,30 @@ The above copyright notice and this permission notice shall be included in all c
                                     <h4 class="card-title">Cập nhật đơn tour</h4>
                                 </div>
                                 <div class="card-body">
-                                    <form>
+                                    <?php
+                                    if (isset($_GET['id_cart'])) {
+                                        $id = $_GET['id_cart'];
+                                        $sqll = "select * from cart where id_cart = $id";
+                                        $totall = $local->query($sqll)->fetch();
+                                        // var_dump($totall);
+                                    }
+                                    ?>
+                                    <form method="POST">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Mã đơn tour (disabled)</label>
-                                                    <input type="text" class="form-control" disabled>
+                                                    <input type="text" class="form-control cart"
+                                                        value="<?php echo $totall['id_cart'] ?>" disabled>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="bmd-label-floating">Mã tour</label>
-                                                    <input type="text" class="form-control" id="id_tour" required>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="bmd-label-floating">Tên tour</label>
-                                                    <input type="text" class="form-control" id="name_tour" required>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="bmd-label-floating">Thể loại</label>
-                                                    <input type="text" class="form-control" id="category" required>
+                                                    <label class="bmd-label-floating">Tên người đặt</label>
+                                                    <input type="text" class="form-control  cart"
+                                                        value="<?php echo $totall['name_person'] ?>" name="name_person">
                                                 </div>
                                             </div>
                                         </div>
@@ -212,84 +214,79 @@ The above copyright notice and this permission notice shall be included in all c
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Số lượng người lớn</label>
-                                                    <input type="number" class="form-control" id="peopleold" required>
+                                                    <input type="number" value="<?php echo $totall['adult_amount'] ?>"
+                                                        class="form-control  cart" id="peopleold" name="adult_amount"
+                                                        required>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Số lượng trẻ em</label>
-                                                    <input type="number" class="form-control" id="childen" required>
+                                                    <input type="number" value="<?php echo $totall['child_amount'] ?>"
+                                                        class="form-control  cart" id="childen">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="bmd-label-floating">Số điện thoại</label>
+                                                    <input type="tel" value="<?php echo $totall['phone_cart'] ?>"
+                                                        class="form-control  cart" id="peopleold" name="phone_cart"
+                                                        required>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="bmd-label-floating">Email</label>
+                                                    <input type="email" value="<?php echo $totall['email_cart'] ?>"
+                                                        class="form-control  cart" id="childen" name="email_cart"
+                                                        required>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="bmd-label-floating">Địa chỉ</label>
-                                                    <input type="text" class="form-control" id="address" required>
+                                                <div class="">
+                                                    <label class="bmd-label-floating">Ghi chú</label>
+                                                    <textarea name="note" cols="" rows="10"
+                                                        class="form-control  cart border border-gray-400"
+                                                        id="place_end"><?php echo $totall['note'] ?></textarea>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="">
-                                                    <label class="bmd-label-floating">Giá </label>
-                                                    <input type="number" class="form-control" id="price">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="">
-                                                    <label class="bmd-label-floating">Giá khuyến mãi</label>
-                                                    <input type="number" class="form-control" id="sale">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="">
-                                                    <label class="bmd-label-floating">Thời gian bắt đầu </label>
-                                                    <input type="time" class="form-control" id="time_start">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="">
-                                                    <label class="bmd-label-floating">Thời gian kết thúc</label>
-                                                    <input type="time" class="form-control" id="time_end">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="">
-                                                    <label class="bmd-label-floating">Địa điểm bắt đầu </label>
-                                                    <input type="text" class="form-control" id="place_start">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="">
-                                                    <label class="bmd-label-floating">Địa điểm kết thúc</label>
-                                                    <input type="text" class="form-control" id="place_end">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label class="bmd-label-floating">Quyền hạn</label></br>
-                                                    <label for="Admin">Admin</label>
-                                                    <input type="radio" name="permission" id="permission1" value="">
-                                                    <label for="customer">Khách hàng</label><input type="radio"
-                                                        name="permission" id="permission2" value="customer">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary pull-left">Cập nhật</button>
+                                        <button type="submit" class="btn btn-primary pull-left" name="btn_cart">Cập
+                                            nhật</button>
                                     </form>
                                     <button type="submit" class="btn btn-primary pull-left" id="reseting">Nhập
                                         lại</button>
                                     <a href="../../examples/cart.php"> <button type="submit"
                                             class="btn btn-primary pull-left">Danh sách</button></a>
                                 </div>
+                                <?php
+                                if (isset($_POST['btn_cart'])) {
+                                    $name_person = $_POST['name_person'];
+                                    $adult_amount = $_POST['adult_amount'];
+                                    echo  $child_amount = $_POST['child_amount'];
+                                    $phone_cart = $_POST['phone_cart'];
+                                    $email_cart = $_POST['email_cart'];
+                                    $note = $_POST['note'];
+                                    if (empty($note)) {
+                                        $note = 'không';
+                                    }
+                                    if (empty($child_amount)) {
+                                        $child_amount = 0;
+                                    }
+                                    $sql = "UPDATE cart SET note = '$note', name_person = '$name_person',adult_amount = '$adult_amount',child_amount = '$child_amount', phone_cart ='$phone_cart', email_cart='$email_cart' WHERE id_cart = $id ";
+                                    $total = $local->prepare($sql);
+                                    if ($total->execute()) {
+                                        echo '<div class="text-center font-bold text-green-600" >Cập nhật thành công</div>';
+                                    } else {
+                                        echo '<div class="text-center font-bold text-red-600" >Cập nhật thất bại</div>';
+                                    }
+                                }
+
+                                ?>
                             </div>
                         </div>
                     </div>
@@ -311,22 +308,11 @@ The above copyright notice and this permission notice shall be included in all c
     <!--   Core JS Files   -->
     <script>
     var reseting = document.querySelector('#reseting');
+    var cart = document.getElementsByClassName(' cart');
     reseting.addEventListener('click', () => {
-        document.querySelector('#id_tour').value = "";
-        document.querySelector("#name_tour").value = "";
-        document.querySelector('#category').value = "";
-        document.querySelector('#peopleold').value = "";
-        document.querySelector('#childen').value = "";
-        document.querySelector('#address').value = "";
-        document.querySelector('#price').value = "";
-        document.querySelector('#sale').value = "";
-        document.querySelector('#time_start').value = "";
-        document.querySelector('#time_end').value = "";
-        document.querySelector('#childen').value = "";
-        document.querySelector('#place_start').value = "";
-        document.querySelector('#place_end').value = "";
-        document.querySelector('#permission1').checked = false;
-        document.querySelector('#permission2').checked = false;
+        for (var i = 0; i < cart.length; i++) {
+            cart[i].value = '';
+        }
     });
     </script>
     <script src="/assets/js/core/jquery.min.js"></script>

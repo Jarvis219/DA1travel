@@ -103,8 +103,8 @@
             include "./examples/local.php";
             if (isset($_POST['btn_regis'])) {
                 $username = $_POST['username'];
-                $password = $_POST['password'];
-                $pass_confirm = $_POST['pass_confirm'];
+                $password = md5($_POST['password']);
+                $pass_confirm = md5($_POST['pass_confirm']);
                 $fullname = $_POST['fullname'];
                 $address = $_POST['address'];
                 $email = $_POST['email'];

@@ -4,7 +4,9 @@ session_start();
 include "./examples/local.php";
 if (isset($_GET['is_tour']));
 $id = $_GET['id_tour'];
-$sqlShow = "select * from tour join category on tour.id_category=category.id_category where id_tour = $id";
+$sqlShow = "select * from tour join category on tour.id_category=category.id_category 
+join images on images.id_image=tour.id_image
+where id_tour = $id";
 $showtour = $local->query($sqlShow)->fetch();
 $parent = $showtour['id_parent'];
 $category = $showtour['id_category'];
@@ -24,6 +26,7 @@ $category = $showtour['id_category'];
     <link rel="stylesheet" href="./content/css/product.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <style>
     .background4 {
         background-image: url('./content/image/background/background4.jpg');
@@ -75,7 +78,7 @@ $category = $showtour['id_category'];
             <section class="grid grid-cols-7 gap-5">
                 <div class="col-span-4">
                     <div class="grid grid-cols-7 gap-5">
-                        <img class="col-span-3" src="./content/image/1.jpg" alt="">
+                        <img class="col-span-3" src="./assets/img/<?php echo $showtour['image_main'] ?>" alt="">
                         <table class="shadow-md col-span-4">
                             <thead>
                                 <tr class="py-5">
@@ -295,35 +298,10 @@ $category = $showtour['id_category'];
                     <input id="codeVoucher" value="" class="border px-3 focus:outline-none mx-5 py-2 w-80" type="text"
                         placeholder="Mã giảm giá" name="code_voucher">
                 </div>
-                <button id="apply" name="check_code" class="py-2 px-8 absolute border bg-yellow-500  "
-                    style="right:20px; top:69px;">Áp
-                    dụng</button>
             </form>
-            <?php
-            if (isset($_POST['check_code'])) {
-                $code_voucher = $_POST['code_voucher'];
-                function checkCode($code)
-                {
-                    include "../../DA1/examples/local.php";
-                    $sql = "select count(voucher_code) from voucher where voucher_code like '$code'";
-                    $data = $local->prepare($sql);
-                    $data->execute();
-                    return $data->fetchColumn();
-                }
-                $sqlsale = "select * from voucher where voucher_code like '$code_voucher'";
-                $showsale = $local->query($sqlsale)->fetch();
-                $saleV = $showsale['voucher_sale'];
-
-                $code =  checkCode($code_voucher);
-                if ($code != 0) {
-                    //co tim thay
-                    echo '<span id="code" class="hidden">' . $code_voucher . '</span>';
-                    echo '<span id="codeV" class="hidden">' . $saleV . '</span>';
-                } else {
-                    echo '<span id="code" class="hidden">0</span>';
-                }
-            }
-            ?>
+            <button id="apply" name="check_code" class="py-2 px-8 absolute border bg-yellow-500  "
+                style="right:20px; top:69px;">Áp
+                dụng</button>
             <form method="POST">
                 <?php
                 $sqlvour = "select * from voucher where id_voucher >28 or id_voucher <=27";
@@ -362,6 +340,10 @@ $category = $showtour['id_category'];
             <button id="clickOk" class="border bg-yellow-500 border-yellow-500 px-14 py-1">OK</button>
         </div>
     </div>
+    <div>
+        <span id="tt"></span>
+    </div>
+
     <?php
 
     if (isset($_POST['btn_regis'])) {
@@ -395,10 +377,11 @@ $category = $showtour['id_category'];
         if (empty($child_amount)) {
             $child_amount = 0;
         }
-        // echo $today + 30;
-        // echo $departure_day;
+
         if ($slV <= 0) {
-            echo '<span  class="slv hidden">0</span>';
+            echo "<script>
+            document.querySelector('#errorslv').innerHTML = 'Voucher này đã hết hạn sử dụng hoặc số lượng đã hết vui lòng chọn voucher khác!';
+            </script>";
         } else if ($departure_day > $today && $departure_day <= $todayl) {
             $sqlcheckslV = "select * from voucher where id_voucher = '$id_voucher'";
             $sqlcheckV = "update voucher set voucher_number=voucher_number-1 where id_voucher like '$id_voucher'";
@@ -411,10 +394,37 @@ $category = $showtour['id_category'];
             $id_Cart = $showCart['id_cart'];
             header("location:./success.php?id_cart=$id_Cart");
         } else {
-            echo '<span  class="checkday hidden">1</span>';
+            echo "  <script>
+            document.querySelector('#error').value = 'Ngày đi phải lớn hơn ngày hiện tại và đặt lịch trước tối đa 30 ngày!';
+        </script> ";
         }
     }
     ?>
+
+    <script>
+    // var apply = document.querySelector('#apply');
+    $(document).ready(function() {
+        $('#apply').click(function() {
+            var dataId = document.getElementById('codeVoucher').value;
+            var elderly = document.querySelector('#elderly').value;
+            var young = document.querySelector('#young').value;
+            $.ajax({
+                type: 'POST',
+                url: './ajaxvoucher.php',
+                data: {
+                    "id": dataId,
+                    "young": young,
+                    "elderly": elderly,
+                },
+                success: function(data) {
+                    $('#tt').html(data);
+                }
+            });
+        });
+    });
+    </script>
+
+
     <script>
     var voucher = document.getElementById("voucher");
     var selectVoucher = document.getElementById("selectVoucher");
@@ -446,10 +456,20 @@ $category = $showtour['id_category'];
     var allPrices = document.querySelector('#allPrices');
     setInterval(function() {
         allPrices.innerHTML = allPrice.value;
-    }, 10);
+    }, 1);
+
+    function gotos() {
+        if (showVoucher.value != '') {
+            allPrice.value = (Number(sumprice.value)) - (Number(sumprice.value) * Number(sumP.value) / 100);
+            allPrice.value = (Number(sumprice.value)) - (Number(sumprice.value) * Number(codeV.innerHTML) /
+                100);
+            allPrices.innerHTML = allPrice.value;
+        } else {
+            allPrice.value = (Number(sumprice.value));
+            allPrices.innerHTML = allPrice.value;
+        }
+    }
     main.addEventListener('mouseover', () => {
-        // console.log(showVoucher.value);
-        // console.log(sumP.value);
         if (showVoucher.value != '') {
             allPrice.value = (Number(sumprice.value)) - (Number(sumprice.value) * Number(sumP.value) / 100);
             allPrice.value = (Number(sumprice.value)) - (Number(sumprice.value) * Number(codeV.innerHTML) /
@@ -460,41 +480,52 @@ $category = $showtour['id_category'];
             allPrices.innerHTML = allPrice.value;
         }
     });
-    main.addEventListener('mousewheel', () => {
-        if (code.innerHTML != 0) {
-            selectVoucher.style.display = "none";
-            main.style.background = "white";
-            main.style.opacity = "1";
-            showVoucher.value = code.innerHTML;
-            showVoucher.style.display = "block";
-            showVoucher.style.borderColor = "#e5e7eb";
-            showVoucher.style.backgroundColor = "#f9f9fa";
-            allPrices.innerHTML = allPrice.value;
-        }
-    });
-    apply.addEventListener('click', () => {
-        if (code.innerHTML != 0) {
-            selectVoucher.style.display = "none";
-            main.style.background = "white";
-            main.style.opacity = "1";
 
-            showVoucher.value = code.innerHTML;
-            showVoucher.style.display = "block";
-            showVoucher.style.borderColor = "#e5e7eb";
-            showVoucher.style.backgroundColor = "#f9f9fa";
-            allPrices.innerHTML = allPrice.value;
-        }
+    apply.addEventListener('click', function() {
+        selectVoucher.style.display = "none";
+        main.style.background = "white";
+        main.style.opacity = "1";
+        // console.log(codeV.innerHTML);
+        // showVoucher.value = code.innerHTML;
     });
+    // main.addEventListener('mousewheel', () => {
+    //     if (code.innerHTML != 0) {
+    //         selectVoucher.style.display = "none";
+    //         main.style.background = "white";
+    //         main.style.opacity = "1";
+    //         showVoucher.value = code.innerHTML;
+    //         showVoucher.style.display = "block";
+    //         showVoucher.style.borderColor = "#e5e7eb";
+    //         showVoucher.style.backgroundColor = "#f9f9fa";
+    //         allPrices.innerHTML = allPrice.value;
+    //         if (Number(elderly) + Number(young) > 5) {
+    //             console.log('ok');
+    //         }
+    //     }
+    // });
+    // apply.addEventListener('click', () => {
+    //     if (code.innerHTML != 0) {
+    //         console.log(Number(young.innerHTML));
+
+    //         selectVoucher.style.display = "none";
+    //         main.style.background = "white";
+    //         main.style.opacity = "1";
+    //         showVoucher.value = code.innerHTML;
+    //         showVoucher.style.display = "block";
+    //         showVoucher.style.borderColor = "#e5e7eb";
+    //         showVoucher.style.backgroundColor = "#f9f9fa";
+    //         allPrices.innerHTML = allPrice.value;
+    //     }
+    // });
 
     elderly.addEventListener('keyup', () => {
         sll = Number(elderly.value) + Number(young.value);
-
-
         // console.log(elderly.value);
         if (Number(people[0].innerHTML) > sll) {
             voucherLL[0].style.filter = "grayscale(100%)";
             checkRadio[0].disabled = true;
             checkRadio[0].checked = false;
+            showVoucher.value = code.innerHTML;
             if (sll <= 5) {
                 showVoucher.value = '';
             }
@@ -792,6 +823,7 @@ $category = $showtour['id_category'];
     });
 
     clickok.addEventListener("click", function() {
+
         // console.log(code.innerHTML);
         // console.log(voucher_sale.innerHTML);
         if (checkRadio[0].checked) {
@@ -807,7 +839,7 @@ $category = $showtour['id_category'];
         } else if (checkRadio[5].checked) {
             sumP.value = voucher_sale[5].innerHTML;
         }
-        console.log(allPrice.innerHTML);
+        // console.log(allPrice.innerHTML);
         selectVoucher.style.display = "none";
         main.style.background = "white";
         main.style.opacity = "1";
@@ -819,6 +851,7 @@ $category = $showtour['id_category'];
                 showVoucher.style.backgroundColor = "#f9f9fa";
             }
         }
+        gotos();
     });
     voucher.addEventListener("click", function() {
         selectVoucher.style.display = 'block';
@@ -843,19 +876,6 @@ $category = $showtour['id_category'];
     //     showVoucher.style.borderColor = "#e5e7eb";
     //     showVoucher.style.backgroundColor = "#f9f9fa";
     // });
-
-    var errorslv = document.querySelector('#errorslv');
-    var slv = document.querySelector('.slv');
-    if (slv.innerHTML == 0) {
-        errorslv.innerHTML = 'Voucher này đã hết hạn sử dụng hoặc số lượng đã hết vui lòng chọn voucher khác!';
-    }
-
-    var error = document.querySelector('#error');
-    var checkday = document.querySelector('.checkday');
-    // console.log(checkday.innerHTML);
-    if (checkday.innerHTML == 1) {
-        error.value = 'Ngày đi phải lớn hơn ngày hiện tại và đặt lịch trước tối đa 30 ngày!';
-    }
     </script>
 
 </body>
